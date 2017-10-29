@@ -7,10 +7,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
 		<img src="<?php the_post_thumbnail_url('page-header'); ?>" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/>
 		<div id="page-header" style="position: absolute; padding-left: 70%;  top:8%;width: 90%">
-    		<section id="search" style="position: relative;">
-                <label for="search-input"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></label>
-                <input id="search-input" class="form-control input-lg"  autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1" style="background-color: <?php echo $page_colour;?>;">
-    		</section>
+			<?php include( locate_template( 'searchform.php', false, false ) );?> 
 		<h1 style="color:white;"><?php the_title()?></h1>
         <?php echo $header_content; ?>
         </div>	
@@ -26,7 +23,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 	    'post_status' => 'publish',
 	    'posts_per_page'=>6,
 	    'order'=>'DESC',
-	    'orderby'=>'ID',
+	    'orderby'=>'date',
 	);
 	
 	$query = new WP_Query( $next_args );
@@ -39,12 +36,14 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 	        			<div class="row">
 	        				<div class="col-md-8">
 	        					<h1><?php the_title()?></h1>
+	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt();?>
 	        					<div style="border-top: 4px solid <?php echo $page_colour;?>; margin-top: 20px;"></div>
 								<?php $query->the_post(); ?>
 								<div class="left">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
 	        					<h2><?php the_title() ?></h2>
+	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
 
@@ -52,6 +51,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 								<div class="right">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
 	        					<h2><?php the_title() ?></h2>
+	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
 
@@ -59,28 +59,36 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 								<div class="left">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
 	        					<h2><?php the_title() ?></h2>
+	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
 	        				</div>
 	        				<div class="col-md-4" style="border-left: 1px solid #cfcfcf">
-	        					<div style="border-top: 4px solid <?php echo $page_colour;?>; "></div>
+	        					<div style="border-top: 4px solid <?php echo $page_colour;?>; padding-bottom: 20px;"></div>
 	        					<?php $query->the_post(); ?>
 								<div class="center">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
 	        					<h2><?php the_title() ?></h2>
+	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
 	        					<?php $query->the_post(); ?>
 								<div class="center">
-	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
+	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>" style="padding-top: 20px"/>
 	        					<h2><?php the_title() ?></h2>
+	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
 	        				</div>
 	        			</div>
 	        		</article>
 	        	</div>
-	        	<div class="col-sm-4">
+	        	<div class="col-sm-4" style="padding: 40px;margin-top: 50px;">
+	        		<div style="border-top: 4px solid black; padding-bottom: 20px;"></div>
+	        		<h2>ARCHIVE:</h2>
+		<ul>
+			<?php wp_get_archives('type=monthly'); ?>
+		</ul>
 	        	<?php get_sidebar(); ?>
 	        	</div>
 	        </div>

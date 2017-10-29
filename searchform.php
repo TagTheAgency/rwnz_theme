@@ -1,6 +1,8 @@
 <!-- search -->
 <form class="search" method="get" action="<?php echo home_url(); ?>" role="search">
-	<input class="search-input" type="search" name="s" placeholder="<?php _e( 'To search, type and hit enter.', 'html5blank' ); ?>">
-	<button class="search-submit" type="submit" role="button"><?php _e( 'Search', 'html5blank' ); ?></button>
+	    		<section id="search" style="position: relative;">
+                <label for="search-input"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></label>
+                <input name="s" id="search-input" class="form-control input-lg"  autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1" style="background-color: <?php echo $page_colour;?>;">
+    		</section>
 </form>
 <!-- /search -->

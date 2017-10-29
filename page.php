@@ -8,10 +8,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
 		<img src="<?php the_post_thumbnail_url('page-header'); ?>" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/>
 		<div id="page-header" style="position: absolute; padding-left: 70%;  top:8%;width: 90%">
-    		<section id="search" style="position: relative;">
-                <label for="search-input"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></label>
-                <input id="search-input" class="form-control input-lg"  autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1" style="background-color: <?php echo $page_colour;?>;">
-    		</section>
+			<?php include( locate_template( 'searchform.php', false, false ) );?> 
 		<h1 style="color:white;"><?php the_title()?></h1>
         <?php echo $header_content; ?>
         </div>	

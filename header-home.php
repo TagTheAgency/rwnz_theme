@@ -41,35 +41,55 @@
                 		<div id="showmenu">
                 		<i class="fa fa-bars fa-3" style="font-size: 2em;vertical-align: -23%;padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
                 		</div>
-                		<div class="dropdown" style="width: 150px; right: 70%;">
-                			<ul>
-                				<li>Events</li>
+                		<div class="dropdown" style="width: 150px; right: 70%;" id="menu_dropdown">
+                                <?php wp_nav_menu( array(
+                                    'theme_location'    => 'header-menu',
+                                    'container'         => false,
+                                    'menu_id'           => '',
+                                    'echo'              => true,
+                                    'depth'             => 0
+                                )); ?>
+<!--                				<li>Events</li>
                 				<li>Shop non members</li>
                 				<li>services</li>
                 				<li>blog posts</li>
                 				<li>social media feed</li>
-                			</ul>
+                			</ul> -->
                 		</div>
             		</div>
             		<script>
             		(function($) {
             		$(document).ready(function() {
-            		    $('#showmenu').click(function(e) {
-            		    	e.stopPropagation();
-            		        $('.dropdown').slideToggle("fast");
-            		    });
-            		    $('.dropdown').click(function(e) {
-            		    	e.stopPropagation();
-            		    });
-            		    $(document).click(function(e) {
-            		    	$('.dropdown').slideUp("fast");
-            		    });
+                        $('#showmenu').click(function(e) {
+                            $('#login_dropdown').slideUp("fast");
+                            e.stopPropagation();
+                            $('#menu_dropdown').slideToggle("fast");
+                        });
+                        $('#login_menu').click(function(e) {
+                            $('#menu_dropdown').slideUp("fast");
+                            e.stopPropagation();
+                            $('#login_dropdown').slideToggle("fast");
+                        });
+                        $('.dropdown').click(function(e) {
+                            e.stopPropagation();
+                        });
+                        $(document).click(function(e) {
+                            if(!$(e.target).hasClass('solid') )
+                            $('.dropdown').slideUp("fast");
+                        });
             		});
             		})(jQuery);
             		</script>
-				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
+				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
 				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
 				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
+                <div class="dropdown" id="login_dropdown">
+                    <ul>
+                        <li><a href="events">Board</a></li>
+                        <li>Committee</li>
+                        <li>Member</li>
+                    </ul>
+                </div>
 				</div>
 			</div>
 		</div>

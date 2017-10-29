@@ -115,30 +115,38 @@ input:focus {
 
 }
 
-#menu {
+#menu, #login_menu {
 	cursor: pointer;
 	
 }
-#menu .dropdown {
+#menu_dropdown, #login_dropdown {
 	position: absolute;
 	background-color: rgba(200,200,200,.8);
 	z-index: 20;
 	display:none;
 }
-
-
-#menu .dropdown ul {
+#login_dropdown {
+	right: 60px;
+	font-size: 0.7em;
+}
+.dropdown a {
+	color: white;
+}
+.dropdown a:hover {
+	color: white;
+}
+.dropdown ul {
 	list-style: none;
 	padding: 0px;
 	margin: 0 15px;
 	font-weight: bold;
 	text-transform: uppercase;
 }
-#menu .dropdown ul li {
+.dropdown ul li {
 	padding: 10px;
 	border-top: 1px grey solid;
 }
-#menu .dropdown ul li:first-child {
+.dropdown ul li:first-child {
 	border-top: none;
 }
 
@@ -239,6 +247,9 @@ dt {
 
 .blog_summary h1, .blog_summary h2, .blog_summary h3 {
 	color: black;
+}
+.blog_summary h3 {
+	font-size: 1.2em;
 }
 
 /* sidebar */
