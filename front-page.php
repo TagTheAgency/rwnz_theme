@@ -1,0 +1,62 @@
+<?php get_header('home'); ?>
+<div class="fullscreen-image" style="background-image: url('<?php the_post_thumbnail_url('full'); ?>'); background-size: cover; height: 500px;margin-bottom: 100px;">
+
+</div>
+
+<?php 
+	$count = 0;
+	
+	$widths = array('col-sm-6','col-sm-3','col-sm-3','col-sm-3','col-sm-3','col-sm-6');
+	$overlays = array('rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)','rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)','rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)');
+	
+	$child_pages = new WP_Query( array(
+	    'orderby'	=> 'menu_order',
+	    'post_type'      => 'page', // set the post type to page
+	    'post_parent'    => get_the_ID(),
+	    //    'no_found_rows'  => true, // no pagination necessary so improve efficiency of loop
+	    'order'	=> 'asc'
+	) );
+	
+	
+	if ( $child_pages->have_posts() ) : while ( $child_pages->have_posts() ) : $child_pages->the_post();
+        if ($count % 3 == 0) {
+            ?><div class="row row-no-padding" style="margin: 0px 100px"><?php 
+        }
+        
+        $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
+        if ($page_colour) {
+            $rgb = hex2RGB($page_colour);
+            $rgba = 'rgba('.$rgb['r'].','.$rgb['g'].','.$rgb['b'].',0.7)';
+        } else {
+            $rgba = 'rgba(116, 182, 74, 0.85)';
+        }
+	?>	
+		
+		<div class="<?php echo $widths[$count]?>" style="position:relative;">
+			<div class="homepage_nav" style="width: 100%; background:linear-gradient(<?php echo $rgba?>,<?php echo $rgba?>),url('<?php the_post_thumbnail_url('large'); ?>');background-size:cover;position:relative">
+			<a href="<?php echo get_page_link(get_the_ID()); ?>"><span class="link" style="display: block; width: 100%; height: 100%; z-index: 10"></span></a>
+				<div class="subHeading" style="position:absolute; bottom:10px;left: 10px; color:white; font-size: 2em;"><a href="<?php echo get_page_link(get_the_ID()); ?>" style="color: white; text-decoration: none;"><?php the_title()?></a></div>
+			</div>
+		</div>
+		
+		<?php if ($count % 3 == 2) { ?></div><?php } 
+		$count++;
+		
+		?>
+
+<?php
+endwhile; endif;  
+
+wp_reset_postdata();
+?>
+
+
+	
+</div></div>
+<div class="container" style="margin-top: 100px;">
+
+</div>
+
+<!--  php get_sidebar(); -->
+
+<?php get_footer(); ?>
