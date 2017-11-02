@@ -9,6 +9,7 @@
 	External Modules/Files
 \*------------------------------------*/
 
+include_once 'advanced-custom-fields/acf.php';
 // Load any external files you have here
 
 /*------------------------------------*\
@@ -357,6 +358,7 @@ add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comment
 add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
 add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
 add_action('init', 'create_post_type_html5'); // Add our HTML5 Blank Custom Post Type
+add_action('init', 'create_post_type_bursary'); // Add our HTML5 Blank Custom Post Type
 add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline Recent Comment Styles from wp_head()
 add_action('init', 'html5wp_pagination'); // Add our HTML5 Pagination
 
@@ -444,6 +446,72 @@ function create_post_type_html5()
     ));
 }
 
+function create_post_type_bursary() {
+    register_post_type('bursary', // Register Custom Post Type
+        array(
+            'labels' => array(
+                'name' => __('Bursary', 'bursary'), // Rename these to suit
+                'singular_name' => __('Bursary', 'bursary'),
+                'add_new' => __('Add New', 'bursary'),
+                'add_new_item' => __('Add New Bursary', 'bursary'),
+                'edit' => __('Edit', 'bursary'),
+                'edit_item' => __('Edit Bursary', 'bursary'),
+                'new_item' => __('New Bursary', 'bursary'),
+                'view' => __('View Bursary', 'bursary'),
+                'view_item' => __('View Bursary', 'bursary'),
+                'search_items' => __('Search Bursaries', 'bursary'),
+                'not_found' => __('No Bursaries  found', 'bursary'),
+                'not_found_in_trash' => __('No Bursaries found in Trash', 'bursary')
+            ),
+            'public' => true,
+            'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+            'has_archive' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'thumbnail'
+            ), // Go to Dashboard Custom HTML5 Blank post for supports
+            'can_export' => true, // Allows export in Tools > Export
+            'menu_icon' => get_template_directory_uri() . '/img/icons/icon-bursary2.png'
+            ));
+}
+if(function_exists("register_field_group"))
+{
+    register_field_group(array (
+        'id' => 'acf_bursary',
+        'title' => 'Bursary',
+        'fields' => array (
+            array (
+                'key' => 'field_59fa3a22c69e2',
+                'label' => 'Application Form',
+                'name' => 'application_form',
+                'type' => 'file',
+                'instructions' => 'Please upload the application form here',
+                'save_format' => 'id',
+                'library' => 'all',
+            ),
+        ),
+        'location' => array (
+            array (
+                array (
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'bursary',
+                    'order_no' => 0,
+                    'group_no' => 0,
+                ),
+            ),
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'default',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+}
+
 /*------------------------------------*\
 	ShortCode Functions
 \*------------------------------------*/
@@ -459,6 +527,33 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
 {
     return '<h2>' . $content . '</h2>';
 }
+
+function bursary_shortcode($atts, $content = null) {
+   $bursaries = new WP_Query( array(
+        'orderby'	=> 'menu_order',
+        'post_type'      => 'bursary', // set the post type to page
+        'order'	=> 'asc'
+    ));
+    $compiled_content = '<div class="bursaries">';
+    
+    if ( $bursaries->have_posts() ) : while ( $bursaries->have_posts() ) : $bursaries->the_post();
+
+    $compiled_content .= '<div class="bursary"><h3> ' . the_title('','',false) . '</h3>';
+    $bursary_content = apply_filters('the_content',get_the_content());
+    
+    $compiled_content .= '<div class="content">' . $bursary_content . '</div>';
+    $compiled_content .= '<div class="attachment"><a href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
+    
+
+    endwhile; endif;  
+    
+    $compiled_content .= "</div>";
+    wp_reset_postdata();
+    return $compiled_content; 
+
+}
+add_shortcode('bursaries', 'bursary_shortcode'); // You can place [html5_shortcode_demo] in Pages, Posts now.
+
 
 /*------------------------------------*\
 	Meta boxes

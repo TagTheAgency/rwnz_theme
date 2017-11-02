@@ -185,6 +185,21 @@ article.two-column {
 article h1, article h2, article h3, article dt {
 	color: #20c4f4;
 }
+
+.bursary {
+	position: relative;
+}
+div.bursary:before {
+  content : "";
+  position: absolute;
+  right    : 0;
+  top  : 0;
+  height  : 1px;
+  width   : 50%;  /* or 100px */
+  border-top:1px solid magenta;
+}
+
+
 dt {
 	float: left;
 	padding-right: 3px;
