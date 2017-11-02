@@ -51,8 +51,6 @@ wp_reset_postdata();
 ?>
 
 
-	
-</div></div>
 <div class="container" style="margin-top: 100px;">
 
 </div>

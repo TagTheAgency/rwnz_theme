@@ -28,72 +28,75 @@
 
 		<!-- wrapper -->
 		<div class="wrapper">
-		<div style="position: absolute; top: 20px;width: 100%; padding-right:20px;">
-			<div class="row" style="padding-top: 60px;padding-bottom: 40px;">
-				<div class="col-sm-6">
+		<div style="position: absolute; top: 0px;width: 100%;"> 
+			<div class="row home-nav-row" >
+				<div class="col-md-6 order-1 order-md-2" style="text-align: right; color: white;">
+                    <div class="home-page-header-menu">
+    					<div id="menu" style=" position:relative; display: inline-block;padding-right: 5px;">
+                    		<div id="showmenu">
+                    		<i class="fa fa-bars" style="padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
+                    		</div>
+                    		<div class="dropdown" style="width: 150px; right: 65%;" id="menu_dropdown">
+                                    <?php wp_nav_menu( array(
+                                        'theme_location'    => 'header-menu',
+                                        'container'         => false,
+                                        'menu_id'           => '',
+                                        'echo'              => true,
+                                        'depth'             => 0
+                                    )); ?>
+    <!--                				<li>Events</li>
+                    				<li>Shop non members</li>
+                    				<li>services</li>
+                    				<li>blog posts</li>
+                    				<li>social media feed</li>
+                    			</ul> -->
+                    		</div>
+                		</div>
 
-				<a href="<?php echo get_site_url()?>">
-				<img src="<?php echo get_theme_file_uri('/img/rural-women-logo-white.png')?>" style="width:200px; margin-top: -40px"/>
-				</a>
-				</div>
-				<div class="col-sm-6" style="text-align: right; color: white;">
-					<div id="menu" style=" position:relative; display: inline-block;padding-right: 5px;">
-                		<div id="showmenu">
-                		<i class="fa fa-bars fa-3" style="font-size: 2em;vertical-align: -23%;padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
-                		</div>
-                		<div class="dropdown" style="width: 150px; right: 70%;" id="menu_dropdown">
-                                <?php wp_nav_menu( array(
-                                    'theme_location'    => 'header-menu',
-                                    'container'         => false,
-                                    'menu_id'           => '',
-                                    'echo'              => true,
-                                    'depth'             => 0
-                                )); ?>
-<!--                				<li>Events</li>
-                				<li>Shop non members</li>
-                				<li>services</li>
-                				<li>blog posts</li>
-                				<li>social media feed</li>
-                			</ul> -->
-                		</div>
-            		</div>
-            		<script>
-            		(function($) {
-            		$(document).ready(function() {
-                        $('#showmenu').click(function(e) {
-                            $('#login_dropdown').slideUp("fast");
-                            e.stopPropagation();
-                            $('#menu_dropdown').slideToggle("fast");
-                        });
-                        $('#login_menu').click(function(e) {
-                            $('#menu_dropdown').slideUp("fast");
-                            e.stopPropagation();
-                            $('#login_dropdown').slideToggle("fast");
-                        });
-                        $('.dropdown').click(function(e) {
-                            e.stopPropagation();
-                        });
-                        $(document).click(function(e) {
-                            if(!$(e.target).hasClass('solid') )
-                            $('.dropdown').slideUp("fast");
-                        });
-            		});
-            		})(jQuery);
-            		</script>
-				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
-				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
-				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
-                <div class="dropdown" id="login_dropdown">
-                    <ul>
-                        <li><a href="events">Board</a></li>
-                        <li>Committee</li>
-                        <li>Member</li>
-                    </ul>
+
+        				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
+        				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
+        				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
+                        <div class="dropdown" id="login_dropdown">
+                            <ul>
+                                <li><a href="events">Board</a></li>
+                                <li>Committee</li>
+                                <li>Member</li>
+                            </ul>
+                        </div>
+				    </div>
                 </div>
-				</div>
+                <div class="col-md-6 order-2 order-md-1 home-logo-col">
+                    <a href="<?php echo get_site_url()?>">
+                    <img src="<?php echo get_theme_file_uri('/img/rural-women-logo-white.png')?>" style="width:300px; margin-top: -40px"/>
+                    </a>
+                </div>
+
 			</div>
 		</div>
-		
+        <script>
+            (function($) {
+            $(document).ready(function() {
+                $('#showmenu').click(function(e) {
+                    $('#login_dropdown').slideUp("fast");
+                    e.stopPropagation();
+                    $('#menu_dropdown').slideToggle("fast");
+                });
+                $('#login_menu').click(function(e) {
+                    $('#menu_dropdown').slideUp("fast");
+                    e.stopPropagation();
+                    $('#login_dropdown').slideToggle("fast");
+                });
+                $('.dropdown').click(function(e) {
+                    e.stopPropagation();
+                });
+                $(document).click(function(e) {
+                    if(!$(e.target).hasClass('solid') )
+                    $('.dropdown').slideUp("fast");
+                });
+            });
+            })(jQuery);
+        </script>
 		
 		
 
