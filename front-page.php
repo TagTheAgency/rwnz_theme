@@ -3,10 +3,21 @@
 
 </div>
 
+<!--  div class="homepage_grid_row clearfix">
+	<div class="homepage_grid rectangle"></div>
+	<div class="homepage_grid square"></div>
+	<div class="homepage_grid square"></div>
+</div>
+<div class="homepage_grid_row clearfix">
+	<div class="homepage_grid square"></div>
+	<div class="homepage_grid square"></div>
+	<div class="homepage_grid rectangle"></div>
+</div -->
+
 <?php 
 	$count = 0;
 	
-	$widths = array('col-sm-6','col-sm-3','col-sm-3','col-sm-3','col-sm-3','col-sm-6');
+	$widths = array('rectangle', 'square', 'square', 'square', 'square', 'rectangle');
 	$overlays = array('rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)','rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)','rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)');
 	
 	$child_pages = new WP_Query( array(
@@ -20,7 +31,7 @@
 	
 	if ( $child_pages->have_posts() ) : while ( $child_pages->have_posts() ) : $child_pages->the_post();
         if ($count % 3 == 0) {
-            ?><div class="row row-no-padding" style="margin: 0px 100px"><?php 
+            ?><div class="homepage_grid_row clearfix"><?php 
         }
         
         $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
@@ -32,10 +43,10 @@
         }
 	?>	
 		
-		<div class="<?php echo $widths[$count]?>" style="position:relative;">
-			<div class="homepage_nav" style="width: 100%; background:linear-gradient(<?php echo $rgba?>,<?php echo $rgba?>),url('<?php the_post_thumbnail_url('large'); ?>');background-size:cover;position:relative">
-			<a href="<?php echo get_page_link(get_the_ID()); ?>"><span class="link" style="display: block; width: 100%; height: 100%; z-index: 10"></span></a>
-				<div class="subHeading" style="position:absolute; bottom:10px;left: 10px; color:white; font-size: 2em;"><a href="<?php echo get_page_link(get_the_ID()); ?>" style="color: white; text-decoration: none;"><?php the_title()?></a></div>
+		<div class="homepage_grid bg <?php echo $widths[$count]?>" style="background-image:linear-gradient(<?php echo $rgba?>,<?php echo $rgba?>),url('<?php the_post_thumbnail_url('large'); ?>');">
+			<a href="<?php echo get_page_link(get_the_ID()); ?>"><span class="link" style="display: block; width: 100%; height: 100%; z-index: 10; position: absolute; top: 0; left: 0;"></span></a>
+			<div class="content">
+				<a href="<?php echo get_page_link(get_the_ID()); ?>" style="color: white; text-decoration: none;"><?php the_title()?></a>
 			</div>
 		</div>
 		

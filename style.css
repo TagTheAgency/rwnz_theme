@@ -168,6 +168,9 @@ body.home div.wrapper {
 .home-page-header-menu i {
 	padding-left: 20px;
 }
+
+
+
 article {
 	border: 1px solid #cfcfcf;
 	border-top-style:  none;
@@ -283,8 +286,6 @@ dt {
 /* footer */
 .footer {
 	background-color: #414141;
-	height: 200px;
-	margin-top: 150px;
 	color: white;
 	padding-top: 20px;
 }
@@ -352,13 +353,50 @@ dt {
 	padding-top: 100px;
 }
 
+.homepage_grid {
+	width: 90%;
+	margin: auto;
+	height: 100px;
+	position: relative;
+}
+.homepage_grid.bg{
+    background-repeat:no-repeat;
+    background-size:cover; 
+    color:#fff;
+}
+.homepage_grid .content {
+	position: absolute;
+	bottom: 10%;
+	left: 10%;
+	font-size: 1.6em;
+}
+
 @media only screen and (min-width:320px) {
 
 }
 @media only screen and (min-width:480px) {
 
+	.homepage_grid_row {
+		width: 85%;
+		margin: auto;
+	}
+	.homepage_grid {
+		float: left;
+		position: relative;
+	}
+	.homepage_grid.square {
+	    width: 25%;
+	    padding-bottom: 25%; /* = width for a square aspect ratio */
+	}
+	.homepage_grid.rectangle {
+	    width: 50%;
+	    padding-bottom: 25%; /* = width for a square aspect ratio */
+	}
+
+
 }
 @media only screen and (min-width:768px) {
+	
 	.homepage_nav {
 		height: 200px;
 	}
@@ -374,6 +412,21 @@ dt {
 		text-align: left;
 		padding-top: 0px;
 	}
+	.homepage_grid_row {
+		width: 75%;
+	}
+	.homepage_grid .content {
+		position: absolute;
+		bottom: 10%;
+		left: 10%;
+		font-size: 2em;
+	}
+	.footer {
+		height: 200px;
+		margin-top: 150px;
+	}
+	
+	
 	
 }
 @media only screen and (min-width:1024px) {
