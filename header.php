@@ -74,7 +74,8 @@
 				<img src="<?php echo get_theme_file_uri('/img/rural-women-logo.png')?>" style="width:200px; margin-top: -40px"/>
 				</a>
 				</div>
-				<div class="col-sm-4" style="text-align: right;font-size: 1.5em;">
+				<div class="col-sm-4 " style="text-align: right;">
+				<div class="home-page-header-menu">
 				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
 				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
 				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
@@ -85,6 +86,7 @@
 	    				<li>Member</li>
 	    			</ul>
 	    		</div>
+				</div>
 				</div>
 				
 			</div>

@@ -538,11 +538,14 @@ function bursary_shortcode($atts, $content = null) {
     
     if ( $bursaries->have_posts() ) : while ( $bursaries->have_posts() ) : $bursaries->the_post();
 
-    $compiled_content .= '<div class="bursary"><h3> ' . the_title('','',false) . '</h3>';
+    $compiled_content .= '<div class="bursary row">';
+    $compiled_content .= '<div class="col-md-6"><h3> ' . the_title('','',false) . '</h3>';
     $bursary_content = apply_filters('the_content',get_the_content());
     
     $compiled_content .= '<div class="content">' . $bursary_content . '</div>';
-    $compiled_content .= '<div class="attachment"><a href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
+    $compiled_content .= '</div>';
+    
+    $compiled_content .= '<div class="col-md-6 attachment"><a href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
     
 
     endwhile; endif;  

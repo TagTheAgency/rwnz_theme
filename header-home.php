@@ -42,7 +42,7 @@
                                         'container'         => false,
                                         'menu_id'           => '',
                                         'echo'              => true,
-                                        'depth'             => 0
+                                        'depth'             => 1
                                     )); ?>
     <!--                				<li>Events</li>
                     				<li>Shop non members</li>

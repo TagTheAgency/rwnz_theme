@@ -176,6 +176,7 @@ article {
 	border-top-style:  none;
 	padding: 40px;
 	margin: 50px 5%;
+	font-size: 1.4em;
 }
 
 article.two-column {
@@ -198,8 +199,11 @@ article h1, article h2, article h3, article dt {
 	color: #20c4f4;
 }
 
+
 .bursary {
 	position: relative;
+	padding-top:25px;
+	margin-bottom: 40px;
 }
 div.bursary:before {
   content : "";
@@ -208,7 +212,18 @@ div.bursary:before {
   top  : 0;
   height  : 1px;
   width   : 50%;  /* or 100px */
-  border-top:1px solid magenta;
+  border-top:8px solid #00ABA0;
+}
+.bursary h3 {
+	color: black;
+}
+.bursary .attachment a {
+	display: block;
+	width: 30%;
+	padding-bottom: 30%;
+	height: 30%;
+	background-color: #efefef;
+	margin-left: 70%;
 }
 
 
