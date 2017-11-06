@@ -385,8 +385,25 @@ dt {
 	left: 10%;
 	font-size: 1.6em;
 }
+.homepage_grid_row {
+	width: 80%;
+	margin: auto;
+}
+.homepage_grid.square {
+    width: 50%;
+    padding-bottom: 50%; /* = width for a square aspect ratio */
+}
+.homepage_grid.rectangle {
+    width: 100%;
+    padding-bottom: 50%; /* = width for a square aspect ratio */
+}
+.homepage_grid {
+	float: left;
+	position: relative;
+}
 
 @media only screen and (min-width:320px) {
+
 
 }
 @media only screen and (min-width:480px) {
