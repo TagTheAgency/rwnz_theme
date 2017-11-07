@@ -124,8 +124,9 @@ input:focus {
 	background-color: rgba(200,200,200,.8);
 	z-index: 20;
 	display:none;
-	font-size: 0.7em;
+/*	font-size: 0.7em;*/
 }
+
 #login_dropdown {
 	right: 150px;
 }
@@ -163,7 +164,13 @@ body.home div.wrapper {
 	width: 100%;
 }
 .home-page-header-menu {
-	font-size: 1.8em;
+	font-size: 18px;
+}
+.home-page-header-menu .dropdown ul{
+	font-size: 12.6px;
+}
+li.menu-item {
+	font-size: 12.6px;
 }
 .home-page-header-menu i {
 	padding-left: 20px;

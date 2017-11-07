@@ -35,7 +35,7 @@
                 		<div id="showmenu">
                 		<i class="fa fa-bars fa-3" style="font-size: 3em;vertical-align: -23%;padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
                 		</div>
-                		<div class="dropdown" id="menu_dropdown">
+                		<div class="dropdown header-menu" id="menu_dropdown">
                 			    <?php wp_nav_menu( array(
                                     'theme_location'    => 'header-menu',
                                     'container'         => false,
