@@ -657,4 +657,182 @@ function hex2RGB($hex) {
     return $color;
 }
 
+/* Drop box integration */
+
+
+function rwnz_settings_init() {
+    // register a new setting for "reading" page
+    register_setting('general', 'rwnz_dropbox_api_token');
+    register_setting('general', 'rwnz_dropbox_board_papers_location');
+ 
+    // register a new section in the "reading" page
+    add_settings_section(
+        'rwnz_settings_section',
+        'RWNZ Settings Section',
+        'rwnz_settings_section_cb',
+        'general'
+    );
+ 
+    // register a new field in the "rwnz_settings_section" section, inside the "reading" page
+    add_settings_field(
+        'rwnz_dropbox_api_setting',
+        'Dropbox API token',
+        'rwnz_dropbox_api_token_cb',
+        'general',
+        'rwnz_settings_section'
+    );
+
+        add_settings_field(
+        'rwnz_dropbox_boardpapers_location',
+        'Path to board papers',
+        'rwnz_dropbox_boardpapers_cb',
+        'general',
+        'rwnz_settings_section'
+    );
+}
+ 
+/**
+ * register wporg_settings_init to the admin_init action hook
+ */
+add_action('admin_init', 'rwnz_settings_init');
+ 
+/**
+ * callback functions
+ */
+ 
+// section content cb
+function rwnz_settings_section_cb()
+{
+    echo '<p>RWNZ specific settings.</p>';
+}
+ 
+// field content cb
+function rwnz_dropbox_api_token_cb()
+{
+    // get the value of the setting we've registered with register_setting()
+    $setting = get_option('rwnz_dropbox_api_token');
+    // output the field
+    ?>
+    <input type="text" class="regular-text code" name="rwnz_dropbox_api_token" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
+    <?php
+}
+
+function rwnz_dropbox_boardpapers_cb()
+{
+    // get the value of the setting we've registered with register_setting()
+    $setting = get_option('rwnz_dropbox_board_papers_location');
+    // output the field
+    ?>
+    <input type="text" class="regular-text" name="rwnz_dropbox_board_papers_location" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
+    <?php
+}
+
+add_action( 'http_api_debug', 'viper_http_api_debug', 10, 5 );
+ 
+function viper_http_api_debug( $response, $type, $class, $args, $url ) {
+    // You can change this from error_log() to var_dump() but it can break AJAX requests
+    error_log( 'Request URL: ' . var_export( $url, true ) );
+    error_log( 'Request Args: ' . var_export( $args, true ) );
+    error_log( 'Request Response : ' . var_export( $response, true ) );
+}
+
+function getBoardPapers() {
+    $api_key = get_option('rwnz_dropbox_api_token');
+    $url = 'https://api.dropboxapi.com/2/files/list_folder';
+    $path = get_option('rwnz_dropbox_board_papers_location');
+
+
+
+    $response = wp_remote_post( $url, array(
+        'body'  => json_encode(array('path' => $path)),
+        'headers' => array(
+            'Authorization' => 'Bearer ' . $api_key,
+            'Content-Type' => 'application/json'
+        )
+    ));
+
+    if ( is_wp_error( $response ) ) {
+     
+        $html = '<div id="post-error">';
+            $html .= __( 'There was a problem retrieving the response from the server.', 'wprp-example' );
+        $html .= '</div><!-- /#post-error -->';
+     
+    }
+    else {
+        
+        $body = $response['body'];
+        $decoded = json_decode($body);
+        $entries = $decoded -> entries;
+
+        foreach ($entries as $entry) {
+            $cast = (array)$entry;
+            if ($entry->{'.tag'} == 'file') {
+                echo '<p><a href="index.php?pagename=board-papers&boardpaper=' . $entry->name . '">' . $entry -> name . '</p>';
+            }
+        }
+
+//        print_r($entries);
+     
+    }
+
+
+}
+function add_boardpaper_query_vars_filter( $vars ){
+    $vars[] = "boardpaper";
+    return $vars;
+}
+add_filter( 'query_vars', 'add_boardpaper_query_vars_filter' );
+
+function download_board_paper() {
+    $api_key = get_option('rwnz_dropbox_api_token');
+    $url = 'https://api.dropboxapi.com/2/files/get_temporary_link';
+    $path = get_option('rwnz_dropbox_board_papers_location');
+    $file = get_query_var('boardpaper');
+
+    $file_path = $path . '/' . $file;
+
+    echo $file_path;
+
+    $response = wp_remote_post( $url, array(
+        'body'  => json_encode(array('path' => $file_path)),
+        'headers' => array(
+            'Authorization' => 'Bearer ' . $api_key,
+            'Content-Type' => 'application/json'
+        )
+    ));
+
+    $body = $response['body'];
+    $decoded = json_decode($body);
+    echo $decoded -> link;
+
+}
+
+function rwnz_rewrite_rule() {
+    add_rewrite_rule('^board/paper/(.*)?','index.php?pagename=board-papers&boardpaper=$matches[1]','top');
+    add_rewrite_endpoint( 'board-papers', EP_PERMALINK | EP_PAGES );
+}
+add_action('init', 'rwnz_rewrite_rule', 10, 0);
+
+function rwnz_custom_display() {
+    $dials_page = get_query_var('pagename');
+    if ('board-papers' == $dials_page) {
+        header("HTTP/1.1 200 OK");
+        download_board_paper();
+        exit;
+    } /*else if ('public-dial' == $dials_page) {
+        header("HTTP/1.1 200 OK");
+        include( get_template_directory().'/public-dial-page.php');
+        exit;
+    } else if ('pdf-dial' == $dials_page) {
+        header("HTTP/1.1 200 OK");
+        include( get_template_directory().'/pdfgen.php');
+        exit;
+    }*/
+}
+
+//register plugin custom pages display
+add_filter('template_redirect', 'rwnz_custom_display');
+
+
+
 ?>
