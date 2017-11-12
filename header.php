@@ -28,9 +28,9 @@
 
 		<!-- wrapper -->
 		<div class="wrapper">
-		<div class="container">
-			<div class="row" style="padding-top: 60px;padding-bottom: 40px;">
-				<div class="col-sm-4">
+		<div class="container" style="max-width: 100% !important">
+			<div class="row header-row" >
+				<div class="col-sm-4 order-2 order-sm-1">
 					<div id="menu" style=" position:relative">
                 		<div id="showmenu">
                 		<i class="fa fa-bars fa-3" style="font-size: 3em;vertical-align: -23%;padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
@@ -69,13 +69,13 @@
             		})(jQuery);
             		</script>
 				</div>
-				<div class="col-sm-4" style="text-align:center">
+				<div class="col-sm-4 order-3 order-sm-2" style="text-align:center">
 				<a href="<?php echo get_site_url()?>">
-				<img src="<?php echo get_theme_file_uri('/img/rural-women-logo.png')?>" style="width:200px; margin-top: -40px"/>
+				<img src="<?php echo get_theme_file_uri('/img/rural-women-logo.png')?>" class="page-logo" />
 				</a>
 				</div>
-				<div class="col-sm-4 " style="text-align: right;">
-				<div class="home-page-header-menu">
+				<div class="col-sm-4 order-1 order-sm-3" style="text-align: right;">
+				<div class="main-page-header-menu">
 				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
 				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
 				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>

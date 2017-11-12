@@ -84,9 +84,9 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 	        		</article>
 	        	</div>
 	        	<div class="col-sm-4" style="padding: 40px;margin-top: 50px;">
-	        		<div style="border-top: 4px solid black; padding-bottom: 20px;"></div>
+	        		<div style="border-top: 4px solid <?php echo $page_colour;?>; padding-bottom: 20px;"></div>
 	        		<h2>ARCHIVE:</h2>
-		<ul>
+		<ul class="archive">
 			<?php wp_get_archives('type=monthly'); ?>
 		</ul>
 	        	<?php get_sidebar(); ?>
