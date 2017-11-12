@@ -124,11 +124,19 @@ input:focus {
 	background-color: rgba(200,200,200,.8);
 	z-index: 20;
 	display:none;
+	color: black;
 /*	font-size: 0.7em;*/
 }
 
 #login_dropdown {
-	right: 150px;
+	padding: 20px;
+	background-color: white;
+	border: 1px black solid;
+	text-align: left;
+	margin:auto;
+	left: 0;
+	right: 0;
+	width: 80%;
 }
 .dropdown a {
 	color: white;
@@ -136,6 +144,10 @@ input:focus {
 .dropdown a:hover {
 	color: white;
 }
+#login_dropdown a, #login_dropdown a:hover {
+	color: #30C5F2;
+}
+
 .dropdown ul {
 	list-style: none;
 	padding: 0px;
@@ -437,8 +449,11 @@ dt {
 	    width: 50%;
 	    padding-bottom: 25%; /* = width for a square aspect ratio */
 	}
-
-
+	#login_dropdown {
+		right: 150px;
+		left: inherit;
+		width: 300px;
+	}
 }
 @media only screen and (min-width:768px) {
 	

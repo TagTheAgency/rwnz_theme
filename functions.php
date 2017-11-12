@@ -793,6 +793,13 @@ add_filter( 'query_vars', 'add_boardpaper_query_vars_filter' );
 function download_board_paper() {
 	$api_key = get_option('rwnz_dropbox_api_token');
 	$url = 'https://api.dropboxapi.com/2/files/get_temporary_link';
+
+	$download = get_query_var('download');
+//	if (!$download) {
+//		$url = 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings';
+//	}
+
+	error_log("CSJM url is ".$url);
 	$path = get_option('rwnz_dropbox_board_papers_location');
 	$file = get_query_var('boardpaper');
 
@@ -809,9 +816,28 @@ function download_board_paper() {
 	$body = $response['body'];
 	$decoded = json_decode($body);
 	//echo $decoded -> link;
+//	if (!$download) {
+		wp_redirect( $decoded -> link );
+//	} else {
+//		wp_redirect( $decoded -> url);
+//	}
 
-	wp_redirect( $decoded -> link );
+	
 	exit;
+
+}
+
+function get_share_link($path) {
+	$url = 'https://api.dropboxapi.com/2/sharing/list_shared_links';
+	$body = json_encode(array('path' => $path, 'direct_only' => true));
+	$data = array(
+		'body' => $body,
+		'headers' => array(
+			'Authorization' => 'Bearer ' . $api_key,
+			'Content-Type' => 'application/json'
+		)
+	);
+
 
 }
 

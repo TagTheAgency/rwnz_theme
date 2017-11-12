@@ -80,11 +80,7 @@
 				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
 				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
 				<div class="dropdown" id="login_dropdown">
-                	<ul>
-	    				<li><a href="events">Board</a></li>
-	    				<li>Committee</li>
-	    				<li>Member</li>
-	    			</ul>
+	                <? include( get_template_directory().'/includes/login.php');?>
 	    		</div>
 				</div>
 				</div>
