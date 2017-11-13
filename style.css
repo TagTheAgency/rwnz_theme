@@ -251,6 +251,9 @@ dt {
 	float: left;
 	padding-right: 3px;
 }
+.excerpt_content {
+	font-size: 1.3em;
+}
 #search {
 	position: relative;
 	color: white;

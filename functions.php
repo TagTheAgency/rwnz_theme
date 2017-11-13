@@ -16,6 +16,9 @@ include_once 'advanced-custom-fields/acf.php';
 	Theme Support
 \*------------------------------------*/
 
+add_post_type_support( 'page', 'excerpt' );
+
+
 if (!isset($content_width))
 {
 	$content_width = 900;
