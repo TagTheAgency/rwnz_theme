@@ -69,6 +69,9 @@ input:focus {
 #page-header {
 	color: white;
 	text-align: center;
+	width: 80%;
+	margin: auto;
+	padding-top: 5%;
 }
 #page-header h1 {
 	text-transform: uppercase;
@@ -394,6 +397,11 @@ ul.archive li a:hover, ul.archive li a {
     RESPONSIVE
 \*------------------------------------*/
 
+
+.header-image-wrapper {
+	display: none;
+}
+
 .homepage_nav {
 	height: 150px;
 }
@@ -494,6 +502,41 @@ ul.archive li a:hover, ul.archive li a {
 
 }
 @media only screen and (min-width:576px) {
+	#page-header {
+		position: absolute; 
+		padding-left: 60%;  
+		top:8%;
+		width: 90%;
+		padding-top: 0%;
+	}
+	section.mainStory {
+		overflow: auto;
+	}
+
+	.header-image-wrapper {
+		padding-top:60%;
+		height:0;
+		position:relative;
+		width:45%;
+		overflow: hidden;
+		margin-left: 5%;
+		margin-top: 2%;
+		margin-bottom: 2%;
+		display: block;
+	}
+	
+	.header-image-inner img {
+	    position: absolute;
+	    margin: auto; 
+	    max-height: 100%;
+	    max-width: none;
+	    display:block;
+	
+	    left: -100%;
+	    right: -100%;
+	    top: -100%;
+	    bottom: -100%;
+	}
 	.main-page-header-menu {
 		position: relative;
 		top: inherit;
@@ -540,8 +583,40 @@ ul.archive li a:hover, ul.archive li a {
 		height: 200px;
 		margin-top: 150px;
 	}
-
+	#page-header {
+		padding-left: 70%;
+	}
+	.header-image-wrapper {
+		padding-top:inherit;
+		height:inherit;
+		position:relative;
+		width:60%;
+		overflow: visible;
+		
+	    width: 60%;
+	    margin-left: 0%;
+	}
 	
+	.header-image-inner img {
+	    position: relative;
+	    margin: auto; 
+	    max-height: none;
+	    max-width: 100%;
+	    display:inline;
+	
+	    left: inherit;
+	    right: inherit;
+	    top: inherit;
+	    bottom: inherit;
+	    
+	    margin-left: 5%;
+	    margin-top: 2%;
+	    margin-bottom: -2%;
+	    
+	}
+	section.mainStory {
+		overflow: visible;
+	}
 	
 }
 @media only screen and (min-width:1024px) {
