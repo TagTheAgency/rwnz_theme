@@ -669,7 +669,8 @@ function rwnz_settings_init() {
 	// register a new setting for "reading" page
 	register_setting('general', 'rwnz_dropbox_api_token');
 	register_setting('general', 'rwnz_dropbox_board_papers_location');
- 
+	register_setting('general', 'rwnz_hello_club_api_token');
+	
 	// register a new section in the "reading" page
 	add_settings_section(
 		'rwnz_settings_section',
@@ -687,13 +688,21 @@ function rwnz_settings_init() {
 		'rwnz_settings_section'
 	);
 
-		add_settings_field(
+	add_settings_field(
 		'rwnz_dropbox_boardpapers_location',
 		'Path to board papers',
 		'rwnz_dropbox_boardpapers_cb',
 		'general',
 		'rwnz_settings_section'
 	);
+	
+	add_settings_field(
+	    'rwnz_hello_club_api_setting',
+	    'Hello Club API token',
+	    'rwnz_hello_club_api_cb',
+	    'general',
+	    'rwnz_settings_section'
+	    );
 }
  
 /**
@@ -725,9 +734,18 @@ function rwnz_dropbox_api_token_cb()
 function rwnz_dropbox_boardpapers_cb()
 {
 	// get the value of the setting we've registered with register_setting()
-	$setting = get_option('rwnz_dropbox_board_papers_location');
+	$setting = get_option('rwnz_hello_club_api_setting');
 	// output the field
 	?>
+	<input type="text" class="regular-text" name="rwnz_hello_club_api_setting" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
+	<?php
+}
+
+function rwnz_hello_club_api_cb() {
+    // get the value of the setting we've registered with register_setting()
+    $setting = get_option('rwnz_dropbox_board_papers_location');
+    // output the field
+    ?>
 	<input type="text" class="regular-text" name="rwnz_dropbox_board_papers_location" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
 	<?php
 }

@@ -34,7 +34,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 <?php $side = 'false';?>
 <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 	<div style="border-top: 4px solid <?php echo $page_colour;?>; margin-top: 20px;"></div>
-	<div class="<? $side = !$side; if ($side) echo 'left'; else echo 'right';?>">
+	<div class="<?php $side = !$side; if ($side) echo 'left'; else echo 'right';?>">
 	<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
 	<h2><?php the_title() ?></h2>
 	<h3><?php the_date()?></h3>
