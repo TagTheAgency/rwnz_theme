@@ -3,29 +3,40 @@
 
 <?php 
 $page_colour = '#00aba0';//get_post_meta(get_the_ID(), 'page-colour-theme', true);
-$header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
+$header_content = apply_filters('the_content', get_the_excerpt());
 ?>
 	<section role="header" class="header">
 		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
-		<img src="<?php the_post_thumbnail_url('page-header'); ?>" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/>
-		<div id="page-header" style="position: absolute; padding-left: 70%;  top:8%;width: 90%">
+			<div class="header-image-wrapper">
+    			<div class="header-image-inner"><img class="img" src="<?php the_post_thumbnail_url('page-header'); ?>" /></div>
+			</div>
+
+		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ --> 
+		<div id="page-header">
 			<?php include( locate_template( 'searchform.php', false, false ) );?> 
-		<h1 style="color:white;"><?php the_title()?></h1>
-        <?php echo $header_content; ?>
+        	<div class="excerpt_content">
+				<h1 style="color:white;"><?php the_title()?></h1>
+		        <?php echo $header_content; ?>
+		    </div>
         </div>	
 		
 		</section>
 	</section>
 
+<style>
+article.news_archive a, article.news_archive a:hover {
+	color: <?php echo $page_colour?>;
+}
+</style>
 
 <div class="row blog_summary">
    	<div class="col-sm-8">
-   		<article style="margin-left: 8%; margin-right: 0%;">
+   		<article class="news_archive">
 
 <?php if (have_posts()) {
 	the_post();
 	?>
-	<h1><?php the_title()?></h1>
+	<h1><a href="<?php the_permalink()?>"><?php the_title()?></a></h1>
 	<h3><?php the_date()?></h3>
 	<?php the_excerpt();?>
 	<?php
@@ -36,7 +47,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 	<div style="border-top: 4px solid <?php echo $page_colour;?>; margin-top: 20px;"></div>
 	<div class="<?php $side = !$side; if ($side) echo 'left'; else echo 'right';?>">
 	<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	<h2><?php the_title() ?></h2>
+	<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
 	<h3><?php the_date()?></h3>
 	<?php the_excerpt() ?>
 	</div>

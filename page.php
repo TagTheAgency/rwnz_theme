@@ -1,16 +1,22 @@
 <?php get_header(); ?>
 <?php 
 $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
-$header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
+$header_content = get_the_excerpt();
 ?>
 	<section role="header" class="header">
 		<!-- section -->
 		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
-		<img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/>
-		<div id="page-header" style="position: absolute; padding-left: 70%;  top:8%;width: 90%">
+			<div class="header-image-wrapper">
+    			<div class="header-image-inner"><img class="img" src="<?php the_post_thumbnail_url('page-header'); ?>" /></div>
+			</div>
+
+		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ --> 
+		<div id="page-header">
 			<?php include( locate_template( 'searchform.php', false, false ) );?> 
-		<h1 style="color:white;"><?php the_title()?></h1>
-        <?php echo $header_content; ?>
+        	<div class="excerpt_content">
+				<h1 style="color:white;"><?php the_title()?></h1>
+		        <?php echo $header_content; ?>
+		    </div>
         </div>	
 		
 		</section>
@@ -72,6 +78,18 @@ wp_reset_postdata();
 <div class="container" style="margin-top: 100px;">
 </div>
 
+<script>
+var docWidth = document.documentElement.offsetWidth;
+
+[].forEach.call(
+  document.querySelectorAll('*'),
+  function(el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
+    }
+  }
+);
+</script>
 <!--  php get_sidebar(); -->
 
 <?php get_footer(); ?>
