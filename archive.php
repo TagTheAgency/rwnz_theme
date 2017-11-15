@@ -15,8 +15,8 @@ $header_content = apply_filters('the_content', get_the_excerpt());
 		<div id="page-header">
 			<?php include( locate_template( 'searchform.php', false, false ) );?> 
         	<div class="excerpt_content">
-				<h1 style="color:white;"><?php the_title()?></h1>
-		        <?php echo $header_content; ?>
+        		<?php echo the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
+				<!-- h1 style="color:white;"><?php the_title()?></h1 --> 
 		    </div>
         </div>	
 		
@@ -45,7 +45,7 @@ article.news_archive a, article.news_archive a:hover {
 <?php $side = 'false';?>
 <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 	<div style="border-top: 4px solid <?php echo $page_colour;?>; margin-top: 20px;"></div>
-	<div class="<? $side = !$side; if ($side) echo 'left'; else echo 'right';?>">
+	<div class="<?php $side = !$side; if ($side) echo 'left'; else echo 'right';?>">
 	<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
 	<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
 	<h3><?php the_date()?></h3>
