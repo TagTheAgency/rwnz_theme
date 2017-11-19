@@ -908,6 +908,7 @@ function get_share_link($path) {
 function rwnz_rewrite_rule() {
 	add_rewrite_rule('^board/paper/(.*)?','index.php?pagename=board-papers&boardpaper=$matches[1]','top');
 	add_rewrite_endpoint( 'board-papers', EP_PERMALINK | EP_PAGES );
+
 }
 add_action('init', 'rwnz_rewrite_rule', 10, 0);
 
@@ -931,6 +932,30 @@ function rwnz_custom_display() {
 //register plugin custom pages display
 add_filter('template_redirect', 'rwnz_custom_display');
 
+
+/**************
+ * Login      *
+ **************/
+
+add_action( 'wp_ajax_rwnz_login', rwnz_login );
+add_action( 'wp_ajax_nopriv_rwnz_login', rwnz_login );
+
+function rwnz_login() {
+	$username = $_REQUEST['u'];
+	$password = $_REQUEST['p'];
+	
+	$url = get_option('rwnz_hello_club_base_url') . '/auth/token';
+
+	$response = wp_remote_post( $url, array(
+		'body'  => json_encode(array('grantType' => 'password', 'username' => $username, 'password' => $password)),
+		'headers' => array(
+			'Content-Type' => 'application/json'
+		)
+	));
+
+	echo json_encode($response);
+    wp_die();
+}
 
 
 ?>
