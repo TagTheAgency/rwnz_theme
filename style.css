@@ -192,6 +192,10 @@ li.menu-item {
 	padding-left: 20px;
 }
 
+#loginForm i {
+	padding-left: 0px;
+}
+
 
 
 article {

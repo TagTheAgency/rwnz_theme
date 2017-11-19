@@ -15,8 +15,8 @@ $header_content = apply_filters('the_content', get_the_excerpt());
 		<div id="page-header">
 			<?php include( locate_template( 'searchform.php', false, false ) );?> 
         	<div class="excerpt_content">
-				<h1 style="color:white;"><?php the_title()?></h1>
-		        <?php echo $header_content; ?>
+        		<?php echo the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
+				<!-- h1 style="color:white;"><?php the_title()?></h1 --> 
 		    </div>
         </div>	
 		

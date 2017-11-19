@@ -566,6 +566,8 @@ function board_papers($atts) {
 
 add_shortcode('board-papers', 'board_papers');
 
+add_shortcode('events', 'get_events');
+
 /*------------------------------------*\
 	Meta boxes
 \*------------------------------------*/
@@ -672,8 +674,9 @@ function rwnz_settings_init() {
 	// register a new setting for "reading" page
 	register_setting('general', 'rwnz_dropbox_api_token');
 	register_setting('general', 'rwnz_dropbox_board_papers_location');
-	register_setting('general', 'rwnz_hello_club_api_token');
-	
+
+    register_setting('general', 'rwnz_hello_club_base_url');
+ 
 	// register a new section in the "reading" page
 	add_settings_section(
 		'rwnz_settings_section',
@@ -698,14 +701,14 @@ function rwnz_settings_init() {
 		'general',
 		'rwnz_settings_section'
 	);
-	
+
 	add_settings_field(
-	    'rwnz_hello_club_api_setting',
-	    'Hello Club API token',
-	    'rwnz_hello_club_api_cb',
-	    'general',
-	    'rwnz_settings_section'
-	    );
+		'rwnz_hello_club_base_url',
+		'Hello Club API URL',
+		'rwnz_hello_club_base_url_cb',
+		'general',
+		'rwnz_settings_section'
+	);
 }
  
 /**
@@ -752,6 +755,16 @@ function rwnz_hello_club_api_cb() {
 	<input type="text" class="regular-text" name="rwnz_dropbox_board_papers_location" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
 	<?php
 }
+function rwnz_hello_club_base_url_cb()
+{
+	// get the value of the setting we've registered with register_setting()
+	$setting = get_option('rwnz_hello_club_base_url');
+	// output the field
+	?>
+	<input type="text" class="regular-text" name="rwnz_hello_club_base_url" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
+	<?php
+}
+
 
 add_action( 'http_api_debug', 'viper_http_api_debug', 10, 5 );
  
@@ -760,6 +773,48 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 	error_log( 'Request URL: ' . var_export( $url, true ) );
 	error_log( 'Request Args: ' . var_export( $args, true ) );
 	error_log( 'Request Response : ' . var_export( $response, true ) );
+}
+
+function get_events($attr) {
+	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=2017-01-01&toDate=2017-12-31';
+	
+	$response = wp_remote_get($url);
+
+	if ( is_wp_error( $response ) ) {
+	 
+		$html = '<div id="post-error">';
+			$html .= __( 'There was a problem retrieving the response from the server.', 'wprp-example' );
+		$html .= '</div><!-- /#post-error -->';
+	 	return $html;
+	}
+	
+	$body = $response['body'];
+	$events = json_decode($body, true);
+
+	$internal_events = array();
+
+	foreach ($events as $event ) {
+		$date = new DateTime($event['date']);
+		$date->setTimezone(new DateTimeZone('Pacific/Auckland'));
+
+		$compiled_content = '<div class="bursary row">';
+		$compiled_content .= '<div class="col-md-6"><h3> ' . $event['name'] . '</h3>';
+		$compiled_content .= '<div class="date">' . $date->format('l, F jS, Y') . '</div>';
+		$event_content = apply_filters('the_content', esc_html($event['description']));
+		
+		$compiled_content .= '<div class="content">' . $event_content . '</div>';
+		$compiled_content .= '</div>';
+		
+		$compiled_content .= '<div class="col-md-6 attachment">Some content here?</div></div>';
+
+
+
+		$html .= $compiled_content;
+	}
+
+	return $html;
+
+
 }
 
 function getBoardPapers() {
@@ -796,13 +851,11 @@ function getBoardPapers() {
 				$html .= '<p><a href="index.php?pagename=board-papers&boardpaper=' . $entry->name . '">' . $entry -> name . '</p>';
 			}
 		}
-
 //        print_r($entries);
 	 
 	}
 
 	return $html;
-
 
 }
 function add_boardpaper_query_vars_filter( $vars ){
@@ -865,6 +918,7 @@ function get_share_link($path) {
 function rwnz_rewrite_rule() {
 	add_rewrite_rule('^board/paper/(.*)?','index.php?pagename=board-papers&boardpaper=$matches[1]','top');
 	add_rewrite_endpoint( 'board-papers', EP_PERMALINK | EP_PAGES );
+
 }
 add_action('init', 'rwnz_rewrite_rule', 10, 0);
 
@@ -888,6 +942,30 @@ function rwnz_custom_display() {
 //register plugin custom pages display
 add_filter('template_redirect', 'rwnz_custom_display');
 
+
+/**************
+ * Login      *
+ **************/
+
+add_action( 'wp_ajax_rwnz_login', rwnz_login );
+add_action( 'wp_ajax_nopriv_rwnz_login', rwnz_login );
+
+function rwnz_login() {
+	$username = $_REQUEST['u'];
+	$password = $_REQUEST['p'];
+	
+	$url = get_option('rwnz_hello_club_base_url') . '/auth/token';
+
+	$response = wp_remote_post( $url, array(
+		'body'  => json_encode(array('grantType' => 'password', 'username' => $username, 'password' => $password)),
+		'headers' => array(
+			'Content-Type' => 'application/json'
+		)
+	));
+
+	echo json_encode($response);
+    wp_die();
+}
 
 
 ?>

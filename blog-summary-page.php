@@ -81,7 +81,6 @@ article.news_archive a, article.news_archive a:hover {
 		<ul class="archive">
 			<?php wp_get_archives('type=monthly'); ?>
 		</ul>
-	        	<?php get_sidebar(); ?>
 	        	</div>
 	        </div>
 	<?php 
