@@ -1,3 +1,11 @@
+<?php 	
+
+if ($_SESSION["member_name"] != null) {
+    echo "<p>You are logged in as " . $_SESSION["member_name"] . "</p><button id=\"logoutButton\" onclick=\"logout();\">Logout</button>";
+} else {
+    
+?>
+<span id="loginOverlay"></span>
 <form id="loginForm" action="<?php echo admin_url( "admin-ajax.php" )?>">
   <input type="hidden" name="action" value="rwnz_login"/>
   <div class="form-group">
@@ -15,28 +23,52 @@
 <script>
 jQuery("#loginForm").submit(function(e) {
 
-    var url = jQuery(this).attr('action');
+	var url = jQuery(this).attr('action');
 
-    jQuery('#loginSubmit').prop('disabled', true);
-    jQuery('#loginSubmit').html('Authenticating... <i class="fa fa-circle-o-notch fa-spin "></i>');
+	jQuery('#loginSubmit').prop('disabled', true);
+	jQuery('#loginSubmit').html('Authenticating... <i class="fa fa-circle-o-notch fa-spin "></i>');
 
-    jQuery.ajax({
-           type: "POST",
-           url: url,
-           data: jQuery("#loginForm").serialize(), 
-           success: function(data, status, xhr) {
-              if (xhr.status == 200) {
-                jQuery('#loginSubmit').html('Authenticated. Welcome.');
-              } else {
-                
-              }
-              console.log(data); 
-              jQuery('#loginSubmit').html('Login');
-              jQuery('#loginSubmit').prop('disabled', false);
+	jQuery('#loginOverlay').addClass('overlay');
 
-           }
-         });
+	jQuery.ajax({
+		type: "POST",
+		url: url,
+		data: jQuery("#loginForm").serialize(), 
+		success: function(data, status, xhr) {
+			jQuery('#loginOverlay').removeClass('overlay');
+			var bits = JSON.parse(data);
+			if (xhr.status == 200) {
+				console.log(bits.firstName);
+				jQuery('#loginSubmit').html('Authenticated. Welcome.');
+				jQuery('#login_dropdown').html("<p>You are logged in as " + bits.firstName + " " + bits.lastName + ".</p><button id='logoutButton' onclick='logout();'>Logout</button>");
+			} else {
+
+			}
+
+            console.log(data); 
+            jQuery('#loginSubmit').html('Login');
+            jQuery('#loginSubmit').prop('disabled', false);
+
+		}
+	});
 
     e.preventDefault();
 });
+
+
+</script>
+<?php 
+} //end else
+?>
+<script>
+function logout() {
+	jQuery.ajax({
+		type: "POST",
+		url: '<?php echo admin_url( "admin-ajax.php" )?>',
+		data: {"action":"rwnz_logout"},
+		success: function() {
+			window.location.reload(false); 
+		}
+	});
+}
 </script>

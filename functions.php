@@ -10,6 +10,7 @@
 \*------------------------------------*/
 
 include_once 'advanced-custom-fields/acf.php';
+include_once 'includes/rwnz_settings.php';
 // Load any external files you have here
 
 /*------------------------------------*\
@@ -17,6 +18,30 @@ include_once 'advanced-custom-fields/acf.php';
 \*------------------------------------*/
 
 add_post_type_support( 'page', 'excerpt' );
+
+function register_my_session() {
+    if( !session_id()) {
+        session_start();
+    }
+    
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+        // last request was more than 30 minutes ago
+        session_unset();     // unset $_SESSION variable for the run-time
+        session_destroy();   // destroy session data in storage
+    }
+    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+    
+    if (!isset($_SESSION['CREATED'])) {
+        $_SESSION['CREATED'] = time();
+    } else if (time() - $_SESSION['CREATED'] > 1800) {
+        // session started more than 30 minutes ago
+        session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+        $_SESSION['CREATED'] = time();  // update creation time
+    }
+    
+}
+
+add_action('init', 'register_my_session');
 
 
 if (!isset($content_width))
@@ -670,100 +695,6 @@ function hex2RGB($hex) {
 /* Drop box integration */
 
 
-function rwnz_settings_init() {
-	// register a new setting for "reading" page
-	register_setting('general', 'rwnz_dropbox_api_token');
-	register_setting('general', 'rwnz_dropbox_board_papers_location');
-
-    register_setting('general', 'rwnz_hello_club_base_url');
- 
-	// register a new section in the "reading" page
-	add_settings_section(
-		'rwnz_settings_section',
-		'RWNZ Settings Section',
-		'rwnz_settings_section_cb',
-		'general'
-	);
- 
-	// register a new field in the "rwnz_settings_section" section, inside the "reading" page
-	add_settings_field(
-		'rwnz_dropbox_api_setting',
-		'Dropbox API token',
-		'rwnz_dropbox_api_token_cb',
-		'general',
-		'rwnz_settings_section'
-	);
-
-	add_settings_field(
-		'rwnz_dropbox_boardpapers_location',
-		'Path to board papers',
-		'rwnz_dropbox_boardpapers_cb',
-		'general',
-		'rwnz_settings_section'
-	);
-
-	add_settings_field(
-		'rwnz_hello_club_base_url',
-		'Hello Club API URL',
-		'rwnz_hello_club_base_url_cb',
-		'general',
-		'rwnz_settings_section'
-	);
-}
- 
-/**
- * register wporg_settings_init to the admin_init action hook
- */
-add_action('admin_init', 'rwnz_settings_init');
- 
-/**
- * callback functions
- */
- 
-// section content cb
-function rwnz_settings_section_cb()
-{
-	echo '<p>RWNZ specific settings.</p>';
-}
- 
-// field content cb
-function rwnz_dropbox_api_token_cb()
-{
-	// get the value of the setting we've registered with register_setting()
-	$setting = get_option('rwnz_dropbox_api_token');
-	// output the field
-	?>
-	<input type="text" class="regular-text code" name="rwnz_dropbox_api_token" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
-	<?php
-}
-
-function rwnz_dropbox_boardpapers_cb()
-{
-	// get the value of the setting we've registered with register_setting()
-	$setting = get_option('rwnz_hello_club_api_setting');
-	// output the field
-	?>
-	<input type="text" class="regular-text" name="rwnz_hello_club_api_setting" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
-	<?php
-}
-
-function rwnz_hello_club_api_cb() {
-    // get the value of the setting we've registered with register_setting()
-    $setting = get_option('rwnz_dropbox_board_papers_location');
-    // output the field
-    ?>
-	<input type="text" class="regular-text" name="rwnz_dropbox_board_papers_location" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
-	<?php
-}
-function rwnz_hello_club_base_url_cb()
-{
-	// get the value of the setting we've registered with register_setting()
-	$setting = get_option('rwnz_hello_club_base_url');
-	// output the field
-	?>
-	<input type="text" class="regular-text" name="rwnz_hello_club_base_url" value="<?= isset($setting) ? esc_attr($setting) : ''; ?>">
-	<?php
-}
 
 
 add_action( 'http_api_debug', 'viper_http_api_debug', 10, 5 );
@@ -950,6 +881,9 @@ add_filter('template_redirect', 'rwnz_custom_display');
 add_action( 'wp_ajax_rwnz_login', rwnz_login );
 add_action( 'wp_ajax_nopriv_rwnz_login', rwnz_login );
 
+add_action( 'wp_ajax_rwnz_logout', rwnz_logout );
+add_action( 'wp_ajax_nopriv_rwnz_logout', rwnz_logout );
+
 function rwnz_login() {
 	$username = $_REQUEST['u'];
 	$password = $_REQUEST['p'];
@@ -963,8 +897,38 @@ function rwnz_login() {
 		)
 	));
 
-	echo json_encode($response);
-    wp_die();
+	$body = $response['body'];
+	
+	if ($response['response']['code'] == 401) {
+	    echo json_encode(array('error' => 'invalid'));
+	    wp_die();
+	}
+	
+	$token = json_decode($body) -> accessToken;
+	
+	
+	$url = get_option('rwnz_hello_club_base_url') . '/user/me';
+	$response = wp_remote_get($url, array(
+		'headers' => array (
+            'accept' => 'application/json',
+            'Authorization' => 'Bearer '. $token
+        )
+    ));
+	
+	$body = $response['body'];
+	echo $body;
+	
+	$_SESSION["token"]=$token;
+	$_SESSION["member_name"] = json_decode($body) -> firstName . " " . json_decode($body) -> lastName;
+	
+	    
+	wp_die();
+}
+
+function rwnz_logout() {
+    $_SESSION["token"]=null;
+    $_SESSION["member_name"] = null;
+    
 }
 
 

@@ -90,6 +90,5 @@ var docWidth = document.documentElement.offsetWidth;
   }
 );
 </script>
-<!--  php get_sidebar(); -->
 
 <?php get_footer(); ?>
