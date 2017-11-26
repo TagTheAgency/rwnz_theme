@@ -501,9 +501,7 @@ function create_post_type_directory() {
 		'has_archive' => true,
 		'supports' => array(
 			'title',
-			'editor',
-			'excerpt',
-			'thumbnail'
+			'editor'
 		), // Go to Dashboard Custom HTML5 Blank post for supports
 		'can_export' => true, // Allows export in Tools > Export
 		'taxonomies' => array(
@@ -541,8 +539,7 @@ function create_post_type_bursary() {
 			'menu_icon' => get_template_directory_uri() . '/img/icons/icon-bursary2.png'
 			));
 }
-if(function_exists("register_field_group"))
-{
+if(function_exists("register_field_group")) {
 	register_field_group(array (
 		'id' => 'acf_bursary',
 		'title' => 'Bursary',
@@ -576,6 +573,113 @@ if(function_exists("register_field_group"))
 		),
 		'menu_order' => 0,
 	));
+
+	register_field_group(array (
+		'id' => 'acf_business-directory',
+		'title' => 'Business Directory',
+		'fields' => array (
+			array (
+				'key' => 'field_5a1b443c9b6e8',
+				'label' => 'Contact',
+				'name' => 'contact',
+				'type' => 'text',
+				'instructions' => 'Who to contact at the business',
+				'required' => 1,
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_5a1b447e9b6e9',
+				'label' => 'Mobile',
+				'name' => 'mobile',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_5a1b44a19b6ea',
+				'label' => 'Email',
+				'name' => 'email',
+				'type' => 'email',
+				'required' => 1,
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+			),
+			array (
+				'key' => 'field_5a1b44af9b6eb',
+				'label' => 'Website',
+				'name' => 'website',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_5a1b44db9b6ec',
+				'label' => 'Phone',
+				'name' => 'phone',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_5a1b44ec9b6ed',
+				'label' => 'Address',
+				'name' => 'address',
+				'type' => 'textarea',
+				'default_value' => '',
+				'placeholder' => '',
+				'maxlength' => '',
+				'rows' => 3,
+				'formatting' => 'br',
+			),
+			array (
+				'key' => 'field_5a1b45259b6ee',
+				'label' => 'Logo',
+				'name' => 'logo',
+				'type' => 'image',
+				'save_format' => 'url',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'directory',
+					'order_no' => 0,
+					'group_no' => 0,
+				),
+			),
+		),
+		'options' => array (
+			'position' => 'normal',
+			'layout' => 'default',
+			'hide_on_screen' => array (
+			),
+		),
+		'menu_order' => 0,
+	));
+
 }
 
 /*------------------------------------*\
