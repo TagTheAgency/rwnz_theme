@@ -386,10 +386,12 @@ add_action('wp_print_scripts', 'html5blank_conditional_scripts'); // Add Conditi
 add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comments
 add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
 add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
-add_action('init', 'create_post_type_html5'); // Add our HTML5 Blank Custom Post Type
-add_action('init', 'create_post_type_bursary'); // Add our HTML5 Blank Custom Post Type
+add_action('init', 'create_post_type_submission'); 
+add_action('init', 'create_post_type_bursary'); 
+add_action('init', 'create_post_type_directory'); 
 add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline Recent Comment Styles from wp_head()
 add_action('init', 'html5wp_pagination'); // Add our HTML5 Pagination
+add_action('init', 'build_taxonomies', 0 );
 
 // Remove Actions
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
@@ -437,9 +439,11 @@ add_shortcode('html5_shortcode_demo_2', 'html5_shortcode_demo_2'); // Place [htm
 	Custom Post Types
 \*------------------------------------*/
 
-// Create 1 Custom Post type for a Demo, called HTML5-Blank
-function create_post_type_html5()
-{
+function build_taxonomies() {
+    register_taxonomy( 'business_directory', 'directory', array( 'hierarchical' => true, 'label' => 'Business Directory Categories', 'query_var' => true, 'rewrite' => true ) );
+}
+
+function create_post_type_submission() {
 	register_taxonomy_for_object_type('category', 'submission'); // Register Taxonomies for Category
 	register_taxonomy_for_object_type('post_tag', 'submission');
 	register_post_type('submission', // Register Custom Post Type
@@ -474,12 +478,45 @@ function create_post_type_html5()
 		) // Add Category and Post Tags support
 	));
 }
+function create_post_type_directory() {
+	register_taxonomy_for_object_type('business_directory', 'directory'); // Register Taxonomies for Category
+	register_post_type('directory', // Register Custom Post Type
+		array(
+		'labels' => array(
+			'name' => 'Directory entry', // Rename these to suit
+			'singular_name' => 'Directory entry',
+			'add_new' => 'Add New',
+			'add_new_item' => 'Add New Directory Entry',
+			'edit' => 'Edit',
+			'edit_item' => 'Edit Directory Entry',
+			'new_item' => 'New Directory Entry',
+			'view' => 'View Directory Entry',
+			'view_item' => 'View Directory Entry',
+			'search_items' => 'Search Directory Entries',
+			'not_found' => 'No business found',
+			'not_found_in_trash' => 'No directory entry found in Trash'
+		),
+		'public' => true,
+		'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+		'has_archive' => true,
+		'supports' => array(
+			'title',
+			'editor',
+			'excerpt',
+			'thumbnail'
+		), // Go to Dashboard Custom HTML5 Blank post for supports
+		'can_export' => true, // Allows export in Tools > Export
+		'taxonomies' => array(
+			'business_directory'
+		) // Add Category and Post Tags support
+	));
+}
 
 function create_post_type_bursary() {
 	register_post_type('bursary', // Register Custom Post Type
 		array(
 			'labels' => array(
-				'name' => __('Bursary', 'bursary'), // Rename these to suit
+				'name' => __('Bursary', 'bursary'), 
 				'singular_name' => __('Bursary', 'bursary'),
 				'add_new' => __('Add New', 'bursary'),
 				'add_new_item' => __('Add New Bursary', 'bursary'),
@@ -625,6 +662,7 @@ function colour_theme_meta_box_cb($post) {
   <p>
 	<label for="page-colour-theme"><?php _e( "Select colour theme for page", 'example' ); ?></label>
 	<br />
+
 	<select name="page-colour-theme" id="page-colour-theme" style="background-color: <?php echo $selected?>">
 		<option value="#c0d72f" style="background-color:#c0d72f" <?php selected( $selected, '#c0d72f'); ?>>Theme color</option>
 		<option value="#74b64a" style="background-color:#74b64a" <?php selected( $selected, '#74b64a'); ?>>Theme color</option>
@@ -750,6 +788,10 @@ function get_events($attr) {
 }
 
 function getBoardPapers() {
+	if (!is_board_member()) {
+		return "<p>Sorry, you need to be logged in as a board member to access this area.</p>";
+	}
+
 	$api_key = get_option('rwnz_dropbox_api_token');
 	$url = 'https://api.dropboxapi.com/2/files/list_folder';
 	$path = get_option('rwnz_dropbox_board_papers_location');
@@ -921,7 +963,7 @@ function rwnz_login() {
 	
 	$_SESSION["token"]=$token;
 	$_SESSION["member_name"] = json_decode($body) -> firstName . " " . json_decode($body) -> lastName;
-	
+	$_SESSION["member_roles"] = json_decode($body) -> roles;
 	    
 	wp_die();
 }
@@ -929,8 +971,23 @@ function rwnz_login() {
 function rwnz_logout() {
     $_SESSION["token"]=null;
     $_SESSION["member_name"] = null;
-    
+    $_SESSION["member_roles"] = null;
 }
 
+function is_board_member() {
+	if (is_array($_SESSION["member_roles"])) {
+		return in_array("board", $_SESSION["member_roles"], true);
+	} else {
+		return false;
+	}
+}
+
+function is_committee_member() {
+	if (is_array($_SESSION["member_roles"])) {
+		return in_array("committee", $_SESSION["member_roles"], true);
+	} else {
+		return false;
+	}
+}
 
 ?>

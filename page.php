@@ -2,6 +2,14 @@
 <?php 
 $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
 $header_content = get_the_excerpt();
+
+$thumbnail = get_the_post_thumbnail_url(null, 'page-header'); 
+$fullsize = get_the_post_thumbnail_url(null, 'large');
+if ($thumbnail === $fullsize) {
+	echo '<p>CSJM Doesn\'t have a thumbnail</p>';
+} else {
+	echo '<p>CSJM has a thumbnail';
+}
 ?>
 	<section role="header" class="header">
 		<!-- section -->
@@ -9,8 +17,6 @@ $header_content = get_the_excerpt();
 			<div class="header-image-wrapper">
     			<div class="header-image-inner"><img class="img" src="<?php the_post_thumbnail_url('page-header'); ?>" /></div>
 			</div>
-
-		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ --> 
 		<div id="page-header">
 			<?php include( locate_template( 'searchform.php', false, false ) );?> 
         	<div class="excerpt_content">
@@ -60,7 +66,7 @@ $header_content = get_the_excerpt();
     ?>	
 		<div class="services subbox" style="border-top: 5px solid #00aba1; background-image:url('<?php the_post_thumbnail_url('large'); ?>');background-size:cover;position:relative;">
 			<a href="<?php echo get_page_link(get_the_ID()); ?>"><span class="link" style="display: block; width: 100%; height: 100%; z-index: 10; position: absolute; top: 0; left: 0"></span></a>
-			<div class="subHeading" style="background-color:#e6e6e8;height: 40px;width: 100%; left: 0; right: 0; margin: 0 auto; color:#00aba1; text-align: center; font-size: 1.4em; padding-top: 10px; text-transform: uppercase; font-weight: bold;"><?php the_title()?></div>
+			<div class="subHeading" style="background-color:#e6e6e8;height: 40px;width: 100%; left: 0; right: 0; margin: 0 auto; color:#00aba1; text-align: center; padding-top: 10px; text-transform: uppercase; font-weight: bold;"><?php the_title()?></div>
     	
     	</div>
 
