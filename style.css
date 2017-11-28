@@ -560,7 +560,6 @@ ul.archive li a:hover, ul.archive li a {
 	}
 	.header-row {
 		padding-top: 60px;
-		padding-bottom: 40px;
 	}
 	.feature-image {
 		display: inline;
@@ -605,7 +604,7 @@ ul.archive li a:hover, ul.archive li a {
 		position:relative;
 		width:60%;
 		overflow: visible;
-		
+		margin-top: 0%;
 	    width: 60%;
 	    margin-left: 0%;
 	}

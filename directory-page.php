@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php /* Template Name: Business directory page */ get_header(); ?>
 
 
 <?php 
@@ -21,8 +21,7 @@ $terms = get_terms( 'business_directory', array(
 		<div id="page-header">
 			<?php include( locate_template( 'searchform.php', false, false ) );?> 
         	<div class="excerpt_content">
-        		<?php echo the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
-				<!-- h1 style="color:white;"><?php the_title()?></h1 --> 
+				<h1 style="color:white;"><?php the_title()?></h1> 
 		    </div>
         </div>	
 		

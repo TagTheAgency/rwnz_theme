@@ -168,8 +168,9 @@ function register_html5_menu()
 	register_nav_menus(array( // Using array to specify more menus if needed
 		'header-menu' => __('Header Menu', 'html5blank'), // Main Navigation
 		'sidebar-menu' => __('Sidebar Menu', 'html5blank'), // Sidebar Navigation
-		'extra-menu' => __('Extra Menu', 'html5blank'), // Extra Navigation if needed (duplicate as many as you need!)
-		'frontpage-menu' => __('Home page menu items', 'html5blank')
+		'extra-menu' => __('Extra Menu', 'html5blank'),
+		'frontpage-menu' => 'Home page menu items',
+	    'services-menu' => 'Services menu'
 	));
 }
 
@@ -440,7 +441,7 @@ add_shortcode('html5_shortcode_demo_2', 'html5_shortcode_demo_2'); // Place [htm
 \*------------------------------------*/
 
 function build_taxonomies() {
-    register_taxonomy( 'business_directory', 'directory', array( 'hierarchical' => true, 'label' => 'Business Directory Categories', 'query_var' => true, 'rewrite' => true ) );
+    register_taxonomy( 'business_directory', 'directory', array( 'hierarchical' => true, 'label' => 'Business Directory Categories', 'query_var' => true, 'rewrite' => true, 'show_in_nav_menus' => true ) );
 }
 
 function create_post_type_submission() {
@@ -508,6 +509,107 @@ function create_post_type_directory() {
 			'business_directory'
 		) // Add Category and Post Tags support
 	));
+}
+add_action('admin_menu', 'directory_register_ref_page');
+/**
+ * Adds a submenu page under a custom post type parent.
+ */
+function directory_register_ref_page() {
+    add_submenu_page(
+        'edit.php?post_type=directory',
+        'Settings',
+        'Settings',
+        'manage_options',
+        'directory-settings-ref',
+        'directory_settings_cb'
+        );
+}
+
+/**
+ * Display callback for the submenu page.
+ */
+function directory_settings_cb() {
+    
+    // Save attachment ID
+    if ( isset( $_POST['submit_image_selector'] ) && isset( $_POST['image_attachment_id'] ) ) :
+    update_option( 'business-directory-featured-image', absint( $_POST['image_attachment_id'] ) );
+    endif;
+    
+    wp_enqueue_media();
+    
+   
+    ?>
+    <div class="wrap">
+    <h1>Business directory settings</h1>
+    <h2>Select the featured image for the business directory pages</h2>
+    <form method='post'>
+	<div class='image-preview-wrapper'>
+		<img id='image-preview' src='<?php echo wp_get_attachment_url( get_option( 'business-directory-featured-image' ) ); ?>' height='100'>
+	</div>
+	<input id="upload_image_button" type="button" class="button" value="<?php _e( 'Upload image' ); ?>" />
+	<input type='hidden' name='image_attachment_id' id='image_attachment_id' value='<?php echo get_option( 'business-directory-featured-image' ); ?>'>
+	<input type="submit" name="submit_image_selector" value="Save" class="button-primary">
+	</form>
+    
+    </div>
+
+    <?php
+}
+
+
+add_action( 'admin_footer', 'media_selector_print_scripts' );
+function media_selector_print_scripts() {
+    global $pagenow;
+    if (( $pagenow == 'edit.php' ) && ($_GET['post_type'] == 'directory') && ($_GET['page'] == 'directory-settings-ref')) {
+        
+        $my_saved_attachment_post_id = get_option( 'media_selector_attachment_id', 0 );
+        ?><script type='text/javascript'>
+    		jQuery( document ).ready( function( $ ) {
+    			// Uploading files
+    			var file_frame;
+    			var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
+    			var set_to_post_id = <?php echo $my_saved_attachment_post_id; ?>; // Set this
+    			jQuery('#upload_image_button').on('click', function( event ){
+    				event.preventDefault();
+    				// If the media frame already exists, reopen it.
+    				if ( file_frame ) {
+    					// Set the post ID to what we want
+    					file_frame.uploader.uploader.param( 'post_id', set_to_post_id );
+    					// Open frame
+    					file_frame.open();
+    					return;
+    				} else {
+    					// Set the wp.media post id so the uploader grabs the ID we want when initialised
+    					wp.media.model.settings.post.id = set_to_post_id;
+    				}
+    				// Create the media frame.
+    				file_frame = wp.media.frames.file_frame = wp.media({
+    					title: 'Select a image to upload',
+    					button: {
+    						text: 'Use this image',
+    					},
+    					multiple: false	// Set to true to allow multiple files to be selected
+    				});
+    				// When an image is selected, run a callback.
+    				file_frame.on( 'select', function() {
+    					// We set multiple to false so only get one image from the uploader
+    					attachment = file_frame.state().get('selection').first().toJSON();
+    					// Do something with attachment.id and/or attachment.url here
+    					$( '#image-preview' ).attr( 'src', attachment.url ).css( 'width', 'auto' );
+    					$( '#image_attachment_id' ).val( attachment.id );
+    					// Restore the main post ID
+    					wp.media.model.settings.post.id = wp_media_post_id;
+    				});
+    					// Finally, open the modal
+    					file_frame.open();
+    			});
+    			// Restore the main ID when the add media button is pressed
+    			jQuery( 'a.add_media' ).on( 'click', function() {
+    				wp.media.model.settings.post.id = wp_media_post_id;
+    			});
+    		});
+    	</script><?php
+    }
 }
 
 function create_post_type_bursary() {

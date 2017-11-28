@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php /* Template Name: Summary page for blog posts */ get_header(); ?>
 <?php 
 $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
 $header_content = get_the_excerpt();
@@ -6,9 +6,9 @@ $header_content = get_the_excerpt();
 $thumbnail = get_the_post_thumbnail_url(null, 'page-header'); 
 $fullsize = get_the_post_thumbnail_url(null, 'large');
 if ($thumbnail === $fullsize) {
-//	echo '<p>CSJM Doesn\'t have a thumbnail</p>';
+	echo '<p>CSJM Doesn\'t have a thumbnail</p>';
 } else {
-//	echo '<p>CSJM has a thumbnail';
+	echo '<p>CSJM has a thumbnail';
 }
 ?>
 	<section role="header" class="header">
