@@ -1204,6 +1204,35 @@ function rwnz_logout() {
     $_SESSION["member_roles"] = null;
 }
 
+add_action( 'wp_ajax_rwnz_create_account', rwnz_create_account_ajax );
+add_action( 'wp_ajax_nopriv_rwnz_create_account', rwnz_create_account_ajax );
+
+function rwnz_create_account_ajax() {
+	rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
+}
+
+function rwnz_create_account($email, $firstName, $lastName) {
+
+	$url = get_option('rwnz_hello_club_base_url') . '/member';
+
+	$response = wp_remote_post( $url, array(
+		'body'  => json_encode(array('email' => $email, 'firstName' => $firstName, 'lastName' => $lastName)),
+		'headers' => array(
+			'Content-Type' => 'application/json'
+		)
+	));
+
+	if ( is_wp_error( $response ) ) {
+	    $error_message = $response->get_error_message();
+	    echo json_encode(array('error'=>$error_message));
+	    wp_die();
+	} 
+	
+	$body = $response['body'];
+	echo $body;
+	wp_die();
+}
+
 function is_board_member() {
 	if (is_array($_SESSION["member_roles"])) {
 		return in_array("board", $_SESSION["member_roles"], true);
