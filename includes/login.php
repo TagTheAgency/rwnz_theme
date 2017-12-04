@@ -1,7 +1,15 @@
 <?php 	
 
 if ($_SESSION["member_name"] != null) {
-    echo "<p>You are logged in as " . $_SESSION["member_name"] . "</p><button id=\"logoutButton\" onclick=\"logout();\">Logout</button>";
+    echo "<p>You are logged in as " . $_SESSION["member_name"] . "</p>";
+    echo "<ul>";
+    $links = login_links();
+    foreach ($links as $link) {
+        $href = $link['href'];
+        $title = $link['link'];
+        echo "<li><a href=\"$href\">$title</a></li>";
+    }
+    echo "</ul><button id=\"logoutButton\" onclick=\"logout();\">Logout</button>";
 } else {
     
 ?>
@@ -10,12 +18,12 @@ if ($_SESSION["member_name"] != null) {
   <input type="hidden" name="action" value="rwnz_login"/>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" tabindex="100" name="u">
+    <input type="text" class="form-control" id="loginUsername" aria-describedby="emailHelp" placeholder="Enter email" tabindex="100" name="u">
     <small id="emailHelp" class="form-text text-muted">Not a member? <a href="signup">Join today</a>.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" tabindex="101" name="p">
+    <input type="password" class="form-control" id="loginPassword" placeholder="Password" tabindex="101" name="p">
     <small id="passwordHelp" class="form-text text-muted"><a href="forgotten">Forgotten password?</a>.</small>
   </div>
   <button id="loginSubmit" type="submit" class="btn btn-primary" tabindex="102">Login</button>
@@ -36,25 +44,59 @@ jQuery("#loginForm").submit(function(e) {
 		data: jQuery("#loginForm").serialize(), 
 		success: function(data, status, xhr) {
 			jQuery('#loginOverlay').removeClass('overlay');
-			var bits = JSON.parse(data);
+
+			if (xhr.status != 200) {
+				failedLogin();
+				
+	            return;
+			}
+			
+			var loginData = JSON.parse(data);
+			if (loginData.error) {
+				failedLogin();
+	            return;
+			}
+			var bits = loginData.body;
+			var links = loginData.links;
 			if (xhr.status == 200) {
 				console.log(bits.firstName);
 				jQuery('#loginSubmit').html('Authenticated. Welcome.');
-				jQuery('#login_dropdown').html("<p>You are logged in as " + bits.firstName + " " + bits.lastName + ".</p><button id='logoutButton' onclick='logout();'>Logout</button>");
-			} else {
 
+				var content = "<p>You are logged in as " + bits.firstName + " " + bits.lastName + ".</p>" +
+					"<ul>";
+				links.forEach(function(link) {
+					content += "<li><a href=\"" + link.href + "\">" + link.link + "</a></li>";
+				});
+				content += "</ul><button id='logoutButton' onclick='logout();'>Logout</button>";
+				
+				jQuery('#login_dropdown').html(content);
+						
+			} else {
+				
 			}
 
             console.log(data); 
             jQuery('#loginSubmit').html('Login');
             jQuery('#loginSubmit').prop('disabled', false);
 
+		},
+		error: function() {
+			failedLogin()
 		}
 	});
 
     e.preventDefault();
 });
+function failedLogin() {
+	var failedLogin = '<div id="failedLogin" class="alert alert-danger" role="alert" style="font-size:0.9em">Invalid username or password. <a href="#" class="alert-link">Forgotten your password?</a>.</div>';
 
+	jQuery('#failedLogin').remove();
+	jQuery('#loginForm').prepend(failedLogin);
+	jQuery('#loginPassword').addClass('is-invalid');
+	jQuery('#loginUsername').addClass('is-invalid');
+	jQuery('#loginSubmit').html('Login');
+    jQuery('#loginSubmit').prop('disabled', false);
+}
 
 </script>
 <?php 

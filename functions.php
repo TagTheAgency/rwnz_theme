@@ -1146,6 +1146,12 @@ function rwnz_login() {
 		)
 	));
 
+	if ( is_wp_error( $response ) ) {
+	    $error_message = $response->get_error_message();
+	    echo json_encode(array('error'=>$error_message));
+	    wp_die();
+	} 
+	
 	$body = $response['body'];
 	
 	if ($response['response']['code'] == 401) {
@@ -1165,13 +1171,31 @@ function rwnz_login() {
     ));
 	
 	$body = $response['body'];
-	echo $body;
 	
 	$_SESSION["token"]=$token;
 	$_SESSION["member_name"] = json_decode($body) -> firstName . " " . json_decode($body) -> lastName;
 	$_SESSION["member_roles"] = json_decode($body) -> roles;
-	    
+
+	$body = json_decode($body);
+	
+	echo json_encode(array('body' => $body, 'links' => login_links()));
+	
 	wp_die();
+}
+
+function login_links() {
+    $links = array();
+    if (is_array($_SESSION["member_roles"])) {
+        array_push($links, array('href' => 'test.php', 'link' => 'Testing link'));
+        if (is_board_member()) {
+            array_push($links, array('href' => 'board', 'link' => 'Board members'));
+        }
+        if (is_committee_member()) {
+            array_push($links, array('href' => 'committee', 'link' => 'Committee members'));
+        }
+        
+    }
+    return $links;
 }
 
 function rwnz_logout() {
