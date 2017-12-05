@@ -994,7 +994,7 @@ function get_events($attr) {
 }
 
 function getBoardPapers() {
-	if (!is_board_member()) {
+	if (!is_board_member() && !is_committee_member()) {
 		return "<p>Sorry, you need to be logged in as a board member to access this area.</p>";
 	}
 
@@ -1024,13 +1024,15 @@ function getBoardPapers() {
 		$body = $response['body'];
 		$decoded = json_decode($body);
 		$entries = $decoded -> entries;
-
+        
+		$html .= "<table><tr><th>File</th><th>Download</th><th>Edit</th></tr>";
 		foreach ($entries as $entry) {
 			$cast = (array)$entry;
 			if ($entry->{'.tag'} == 'file') {
-				$html .= '<p><a href="index.php?pagename=board-papers&boardpaper=' . $entry->name . '">' . $entry -> name . '</p>';
+				$html .= '<tr><td>' . $entry->name . '</td><td><a href="index.php?pagename=board-papers&boardpaper=' . $entry->name . '">' . $entry -> name . '</a></td><td> <a href="index.php?pagename=board-papers&action=edit&id=' . $entry->id. '&boardpaper=' . $entry->name . '">edit</a></td></tr>';
 			}
 		}
+		$html .= "</table>";
 //        print_r($entries);
 	 
 	}
@@ -1040,6 +1042,7 @@ function getBoardPapers() {
 }
 function add_boardpaper_query_vars_filter( $vars ){
 	$vars[] = "boardpaper";
+	array_push($vars, "action", "id");
 	return $vars;
 }
 add_filter( 'query_vars', 'add_boardpaper_query_vars_filter' );
@@ -1048,12 +1051,16 @@ function download_board_paper() {
 	$api_key = get_option('rwnz_dropbox_api_token');
 	$url = 'https://api.dropboxapi.com/2/files/get_temporary_link';
 
-	$download = get_query_var('download');
+	$action = get_query_var('action');
+	error_log('csjm action is '. $action);
+	if ($action == 'edit') {
+	    edit_board_paper();
+	    wp_die();
+	}
 //	if (!$download) {
 //		$url = 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings';
 //	}
 
-	error_log("CSJM url is ".$url);
 	$path = get_option('rwnz_dropbox_board_papers_location');
 	$file = get_query_var('boardpaper');
 
@@ -1069,16 +1076,59 @@ function download_board_paper() {
 
 	$body = $response['body'];
 	$decoded = json_decode($body);
-	//echo $decoded -> link;
-//	if (!$download) {
-		wp_redirect( $decoded -> link );
-//	} else {
-//		wp_redirect( $decoded -> url);
-//	}
-
+	wp_redirect( $decoded -> link );
 	
 	exit;
 
+}
+
+function edit_board_paper() {
+    $api_key = get_option('rwnz_dropbox_api_token');
+    $path = get_option('rwnz_dropbox_board_papers_location');
+    $file = get_query_var('boardpaper');
+    
+    $id = get_query_var('id');
+    
+    $url = 'https://api.dropboxapi.com/2/sharing/list_shared_links';
+    $body = json_encode(array('path' => $id, 'direct_only' => true));
+    $data = array(
+        'body' => $body,
+        'headers' => array(
+            'Authorization' => 'Bearer ' . $api_key,
+            'Content-Type' => 'application/json'
+        )
+    );
+    
+    $response = wp_remote_post( $url, $data);
+    $body = $response['body'];
+    
+    $links = json_decode($body)->links;
+    if (!empty($links)) {
+        error_log('CSJM found a link redirecting to ' . $links[0] -> url);
+        wp_redirect( $links[0] -> url);
+        exit;
+    }
+
+    //don't already have a sharing link, generate one.
+    error_log('CSJM creating a shared link');
+    
+    $url = 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings';
+    $body = json_encode(array('path' => $path . '/' . $file));
+    $data = array(
+        'body' => $body,
+        'headers' => array(
+            'Authorization' => 'Bearer ' . $api_key,
+            'Content-Type' => 'application/json'
+        )
+    );
+
+    $response = wp_remote_post( $url, $data);
+    $body = $response['body'];
+
+    error_log('CSJM created the link, redirecting to ' . json_decode($body) -> url);
+//    print_r($body);
+    wp_redirect( json_decode($body) -> url);
+    exit;
 }
 
 function get_share_link($path) {
@@ -1091,6 +1141,13 @@ function get_share_link($path) {
 			'Content-Type' => 'application/json'
 		)
 	);
+	
+/*	curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings \
+	--header "Authorization: Bearer <get access token>" \
+	--header "Content-Type: application/json" \
+	--data "{\"path\": \"/Prime_Numbers.txt\",\"settings\": {\"requested_visibility\": \"public\"}}"
+	
+*/	
 
 
 }
