@@ -32,17 +32,15 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 	        ?>
 	        <div class="row blog_summary">
 	        	<div class="col-sm-8">
-	        		<article style="margin-left: 8%; margin-right: 0%;">
-	        			<div class="row">
-	        				<div class="col-md-8">
-	        					<h1><?php the_title()?></h1>
+	        		<article class="news_archive">
+	        					<h1><a href="<?php the_permalink()?>"><?php the_title()?></a></h1>
 	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt();?>
 	        					<div style="border-top: 4px solid <?php echo $page_colour;?>; margin-top: 20px;"></div>
 								<?php $query->the_post(); ?>
 								<div class="left">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><?php the_title() ?></h2>
+	        					<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
 	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
@@ -50,7 +48,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 								<?php $query->the_post(); ?>
 								<div class="right">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><?php the_title() ?></h2>
+	        					<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
 	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
@@ -58,36 +56,17 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 								<?php $query->the_post(); ?>
 								<div class="left">
 	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><?php the_title() ?></h2>
+	        					<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
 	        					<h3><?php the_date()?></h3>
 	        					<?php the_excerpt() ?>
 	        					</div>
-	        				</div>
-	        				<div class="col-md-4" style="border-left: 1px solid #cfcfcf">
-	        					<div style="border-top: 4px solid <?php echo $page_colour;?>; padding-bottom: 20px;"></div>
-	        					<?php $query->the_post(); ?>
-								<div class="center">
-	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><?php the_title() ?></h2>
-	        					<h3><?php the_date()?></h3>
-	        					<?php the_excerpt() ?>
-	        					</div>
-	        					<?php $query->the_post(); ?>
-								<div class="center">
-	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>" style="padding-top: 20px"/>
-	        					<h2><?php the_title() ?></h2>
-	        					<h3><?php the_date()?></h3>
-	        					<?php the_excerpt() ?>
-	        					</div>
-	        				</div>
-	        			</div>
+
 	        		</article>
 	        	</div>
 	        	<div class="col-sm-4" style="padding: 40px;margin-top: 50px;">
-	        		<div style="border-top: 4px solid black; padding-bottom: 20px;"></div>
+	        		<div style="border-top: 4px solid <?php echo $page_colour;?>; padding-bottom: 20px;"></div>
 	        		<h2>ARCHIVE:</h2>
-		<ul>
-			<?php
+		<ul class="archive"><?php
 			$args = array(
  			   'post_type'    => 'submission',
 			    'type'         => 'monthly',
@@ -96,7 +75,7 @@ $header_content = get_post_meta(get_the_ID(), '_rwnz_extra_content', true);
 			echo wp_get_archives($args);
 			?>
 		</ul>
-	        	<?php get_sidebar(); ?>
+	        	
 	        	</div>
 	        </div>
 	<?php 

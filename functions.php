@@ -952,6 +952,8 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 }
 
 function get_events($attr) {
+	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
+	$random_locations = array('Havelock North', 'Normandale, Lower Hutt', 'Papawai 5794', 'Te Whiti');
 	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=2017-01-01&toDate=2017-12-31';
 	
 	$response = wp_remote_get($url);
@@ -981,7 +983,15 @@ function get_events($attr) {
 		$compiled_content .= '<div class="content">' . $event_content . '</div>';
 		$compiled_content .= '</div>';
 		
-		$compiled_content .= '<div class="col-md-6 attachment">Some content here?</div></div>';
+		$map_location = '<iframe
+  width="400"
+  height="300"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=' . $google_api . '
+    &q=' . array_rand(array_flip($random_locations)) . '" allowfullscreen>
+</iframe>';
+
+		$compiled_content .= '<div class="col-md-6 attachment">' . $map_location . '</div></div>';
 
 
 
@@ -994,7 +1004,7 @@ function get_events($attr) {
 }
 
 function getBoardPapers() {
-	if (!is_board_member()) {
+	if (!is_committee_member()) {
 		return "<p>Sorry, you need to be logged in as a board member to access this area.</p>";
 	}
 
@@ -1213,8 +1223,9 @@ function rwnz_create_account_ajax() {
 
 function rwnz_create_account($email, $firstName, $lastName) {
 
-	$url = get_option('rwnz_hello_club_base_url') . '/member';
+	$url = get_option('rwnz_hello_club_base_url') . '/user';
 
+	echo $url;
 	$response = wp_remote_post( $url, array(
 		'body'  => json_encode(array('email' => $email, 'firstName' => $firstName, 'lastName' => $lastName)),
 		'headers' => array(
