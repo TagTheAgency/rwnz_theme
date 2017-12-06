@@ -817,7 +817,7 @@ function bursary_shortcode($atts, $content = null) {
 	$compiled_content .= '<div class="content">' . $bursary_content . '</div>';
 	$compiled_content .= '</div>';
 	
-	$compiled_content .= '<div class="col-md-6 attachment"><a href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
+	$compiled_content .= '<div class="col-md-6 attachment" style="float:right"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
 	
 
 	endwhile; endif;  
@@ -952,6 +952,8 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 }
 
 function get_events($attr) {
+	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
+	$random_locations = array('Havelock North', 'Normandale, Lower Hutt', 'Papawai 5794', 'Te Whiti');
 	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=2017-01-01&toDate=2017-12-31';
 	
 	$response = wp_remote_get($url);
@@ -981,7 +983,15 @@ function get_events($attr) {
 		$compiled_content .= '<div class="content">' . $event_content . '</div>';
 		$compiled_content .= '</div>';
 		
-		$compiled_content .= '<div class="col-md-6 attachment">Some content here?</div></div>';
+		$map_location = '<iframe
+  width="400"
+  height="300"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=' . $google_api . '
+    &q=' . array_rand(array_flip($random_locations)) . '" allowfullscreen>
+</iframe>';
+
+		$compiled_content .= '<div class="col-md-6 attachment">' . $map_location . '</div></div>';
 
 
 
@@ -1259,6 +1269,36 @@ function rwnz_logout() {
     $_SESSION["token"]=null;
     $_SESSION["member_name"] = null;
     $_SESSION["member_roles"] = null;
+}
+
+add_action( 'wp_ajax_rwnz_create_account', rwnz_create_account_ajax );
+add_action( 'wp_ajax_nopriv_rwnz_create_account', rwnz_create_account_ajax );
+
+function rwnz_create_account_ajax() {
+	rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
+}
+
+function rwnz_create_account($email, $firstName, $lastName) {
+
+	$url = get_option('rwnz_hello_club_base_url') . '/user';
+
+	echo $url;
+	$response = wp_remote_post( $url, array(
+		'body'  => json_encode(array('email' => $email, 'firstName' => $firstName, 'lastName' => $lastName)),
+		'headers' => array(
+			'Content-Type' => 'application/json'
+		)
+	));
+
+	if ( is_wp_error( $response ) ) {
+	    $error_message = $response->get_error_message();
+	    echo json_encode(array('error'=>$error_message));
+	    wp_die();
+	} 
+	
+	$body = $response['body'];
+	echo $body;
+	wp_die();
 }
 
 function is_board_member() {

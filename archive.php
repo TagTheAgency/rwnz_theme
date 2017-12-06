@@ -62,7 +62,13 @@ article.news_archive a, article.news_archive a:hover {
 		<div style="border-top: 4px solid <?php echo $page_colour;?>; padding-bottom: 20px;"></div>
 		<h2>ARCHIVE:</h2>
 		<ul class="archive">
-			<?php wp_get_archives('type=monthly'); ?>
+			<?php 
+				$params = 'type=monthly';
+				if (get_query_var(post_type)) {
+					$params .= '&post_type='.get_query_var(post_type);
+				}
+				wp_get_archives($params); 
+			?>
 		</ul>
 	</div>
 </div>

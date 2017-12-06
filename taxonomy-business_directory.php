@@ -36,18 +36,16 @@ article.news_archive a, article.news_archive a:hover {
 </style>
 
 <?php 
+$term_id = get_queried_object_id();
 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
     $count = count( $terms );
     $i = 0;
-    $term_list = '<p class="my_term-archive">';
+    $term_list = '<ul class="nav nav-tabs">';//<p class="my_term-archive">';
     foreach ( $terms as $term ) {
         $i++;
-        $term_list .= '<a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '">' . $term->name . '</a>';
-        if ( $count != $i ) {
-            $term_list .= ' &middot; ';
-        }
-        else {
-            $term_list .= '</p>';
+        $term_list .= '<li class="nav-item"><a class="nav-link' . ($term->term_id == $term_id ? ' active' : '') . '" href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
+        if ( $count == $i ) {
+            $term_list .= '</ul>';
         }
     }
     echo $term_list;
@@ -56,10 +54,11 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 <main role="main">
 <!-- section -->
 <section>
-	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-		<!-- article -->
+<!-- article -->
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
+	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
+		
 			<div class="bursaries">
 				<div class="bursary row">
 					<div class="col-md-6"><h3><?php the_title();?></h3>
@@ -98,11 +97,12 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 						
 						?>
 					</div>
-
-		</article>
-		<!-- /article -->
+				</div>
+			</div>
+		
 	<?php endwhile; endif; ?>
-	
+	</article>
+		<!-- /article -->
 	</section>
 	<!-- /section -->
 	</main>

@@ -244,14 +244,14 @@ div.bursary:before {
 .bursary h3 {
 	color: black;
 }
-.bursary .attachment a {
+/*.bursary .attachment a {
 	display: block;
 	width: 30%;
 	padding-bottom: 30%;
 	height: 30%;
 	background-color: #efefef;
 	margin-left: 70%;
-}
+}*/
 
 
 dt {
