@@ -31,20 +31,7 @@
 		<div class="container" style="max-width: 100% !important">
 			<div class="row header-row" >
 				<div class="col-sm-4 order-2 order-sm-1">
-					<div id="menu" style=" position:relative">
-                		<div id="showmenu">
-                		<i class="fa fa-bars fa-3" style="font-size: 3em;vertical-align: -23%;padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
-                		</div>
-                		<div class="dropdown header-menu" id="menu_dropdown">
-                			    <?php wp_nav_menu( array(
-                                    'theme_location'    => 'header-menu',
-                                    'container'         => false,
-                                    'menu_id'           => '',
-                                    'echo'              => true,
-                                    'depth'             => 0
-                                )); ?>
-                		</div>
-            		</div>
+
             		<script>
             		(function($) {
             		$(document).ready(function() {
@@ -76,6 +63,18 @@
 				</div>
 				<div class="col-sm-4 order-1 order-sm-3" style="text-align: right;">
 				<div class="main-page-header-menu">
+				<div id="showmenu" style="display:inline-block">
+                		<i class="fa fa-bars fa-3" style="padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
+                		</div>
+                		<div class="dropdown header-menu" id="menu_dropdown" style="font-size: 0.7em">
+                			    <?php wp_nav_menu( array(
+                                    'theme_location'    => 'header-menu',
+                                    'container'         => false,
+                                    'menu_id'           => '',
+                                    'echo'              => true,
+                                    'depth'             => 1
+                                )); ?>
+                		</div>
 				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
 				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
 				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>

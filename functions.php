@@ -1278,7 +1278,7 @@ function rwnz_create_account_ajax() {
 	rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
 }
 
-function rwnz_create_account($email, $firstName, $lastName) {
+function rwnz_create_account($firstName, $lastName, $email) {
 
 	$url = get_option('rwnz_hello_club_base_url') . '/user';
 

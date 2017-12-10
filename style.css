@@ -197,15 +197,6 @@ li.menu-item {
 }
 
 
-
-article {
-	border: 1px solid #cfcfcf;
-	border-top-style:  none;
-	padding: 40px;
-	margin: 50px 5%;
-	font-size: 1.4em;
-}
-
 article.two-column {
     -webkit-column-count: 2; /* Chrome, Safari, Opera */
     -moz-column-count: 2; /* Firefox */
@@ -482,6 +473,25 @@ ul.archive li a:hover, ul.archive li a {
 	min-height: 200px;
 }
 
+/****
+SHOP
+****/
+.woocommerce #content div.product div.summary, .woocommerce div.product div.summary, .woocommerce-page #content div.product div.summary, .woocommerce-page div.product div.summary {
+	width: 68%;
+}
+
+.woocommerce-product-gallery.woocommerce-product-gallery--with-images.woocommerce-product-gallery--columns-4.images {
+	width: 100%;
+}
+
+.woocommerce #content div.product .woocommerce-tabs, .woocommerce div.product .woocommerce-tabs, .woocommerce-page #content div.product .woocommerce-tabs, .woocommerce-page div.product .woocommerce-tabs {
+	clear: none;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+	display: none;
+}
+
+
 @media only screen and (min-width:320px) {
 
 
@@ -515,6 +525,14 @@ ul.archive li a:hover, ul.archive li a {
 
 }
 @media only screen and (min-width:576px) {
+	article {
+		border: 1px solid #cfcfcf;
+		border-top-style:  none;
+		padding: 40px;
+		margin: 50px 5%;
+		font-size: 1.4em;
+	}
+		
 	#page-header {
 		position: absolute; 
 		padding-left: 60%;  
@@ -566,7 +584,13 @@ ul.archive li a:hover, ul.archive li a {
 	}
 }
 @media only screen and (min-width:768px) {
-	
+
+	.woocommerce-product-gallery.woocommerce-product-gallery--with-images.woocommerce-product-gallery--columns-4.images {
+		width: 28%;
+	}
+	.woocommerce-tabs.wc-tabs-wrapper {
+		padding-left: 32%;
+	}
 	.homepage_nav {
 		height: 200px;
 	}
