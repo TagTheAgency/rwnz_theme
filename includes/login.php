@@ -1,3 +1,4 @@
+<div class="dropdown" id="login_dropdown">
 <?php 	
 
 if ($_SESSION["member_name"] != null) {
@@ -24,11 +25,60 @@ if ($_SESSION["member_name"] != null) {
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="loginPassword" placeholder="Password" tabindex="101" name="p">
-    <small id="passwordHelp" class="form-text text-muted"><a href="forgotten">Forgotten password?</a>.</small>
+    <small id="passwordHelp" class="form-text text-muted"><a id="forgottenPasswordLink" href="#forgottenPasswordModal" data-toggle="modal" data-target="#forgottenPasswordModal">Forgotten password?</a>.</small>
   </div>
   <button id="loginSubmit" type="submit" class="btn btn-primary" tabindex="102">Login</button>
 </form>
+
+</div>
+<!-- Forgotten password Modal -->
+<div class="modal fade" id="forgottenPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgottenPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgottenPasswordModalLabel">Forgotten your password?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: left;">
+        <p style="font-size: 0.9em">Enter your username below and we'll send you a reset link<p>
+        <form id="resetPasswordForm">
+        	<p><input id="forgottenPasswordUsername" type="text" style="width: 100%;" name="forgottenPassword"/></p>
+    	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="resetPasswordButton">Send reset link</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
+jQuery().ready(function() {
+	jQuery("#forgottenPasswordLink").click(function(evt) {
+		console.log('clicky');
+		evt.preventDefault();
+		$('#login_dropdown').slideUp("fast");
+		$('#forgottenPasswordModal').modal();
+
+	});
+	jQuery('#resetPasswordForm').on('submit', submitPasswordReset);
+	jQuery('#resetPasswordButton').click(submitPasswordReset);
+
+});
+
+function submitPasswordReset(evt) {
+	evt.preventDefault();
+	jQuery.ajax({
+		type: "POST",
+		url: '<?php echo admin_url( "admin-ajax.php" )?>',
+		data: {"action":"rwnz_forgotten_password", "username" : document.getElementById('forgottenPasswordUsername').value}
+
+	});
+	
+}
+
 jQuery("#loginForm").submit(function(e) {
 
 	var url = jQuery(this).attr('action');

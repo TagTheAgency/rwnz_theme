@@ -57,9 +57,8 @@
         				<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
         				<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
         				<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
-                        <div class="dropdown" id="login_dropdown">
-                            <?php include( get_template_directory().'/includes/login.php');?>
-                        </div>
+                        <?php include( get_template_directory().'/includes/login.php');?>
+                        
 				    </div>
                 </div>
                 <div class="col-md-6 order-2 order-md-1 home-logo-col">

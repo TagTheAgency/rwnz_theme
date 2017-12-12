@@ -36,7 +36,7 @@
 		$page_colour = get_post_meta($post_id, 'page-colour-theme', true);
         if ($page_colour) {
             $rgb = hex2RGB($page_colour);
-            $rgba = 'rgba('.$rgb['r'].','.$rgb['g'].','.$rgb['b'].',0.7)';
+            $rgba = 'rgba('.$rgb['r'].','.$rgb['g'].','.$rgb['b'].',0.4)';
         } else {
             $rgba = 'rgba(116, 182, 74, 0.85)';
         }

@@ -133,6 +133,10 @@ function html5blank_header_scripts()
 		wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
 		wp_enqueue_script('html5blankscripts'); // Enqueue it!
 		
+		wp_register_script('bootstrap', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array('jquery'), '4.0.0'); // Custom scripts
+		wp_enqueue_script('bootstrap'); // Enqueue it!
+		
+		
 		
 	}
 }
@@ -1273,6 +1277,12 @@ function rwnz_logout() {
 
 add_action( 'wp_ajax_rwnz_create_account', rwnz_create_account_ajax );
 add_action( 'wp_ajax_nopriv_rwnz_create_account', rwnz_create_account_ajax );
+
+//function rwnz_forgotten_password() {
+//}
+
+//add_action('wp_ajax_rwnz_forgotten_password')
+
 
 function rwnz_create_account_ajax() {
 	rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
