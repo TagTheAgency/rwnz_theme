@@ -1278,10 +1278,30 @@ function rwnz_logout() {
 add_action( 'wp_ajax_rwnz_create_account', rwnz_create_account_ajax );
 add_action( 'wp_ajax_nopriv_rwnz_create_account', rwnz_create_account_ajax );
 
-//function rwnz_forgotten_password() {
-//}
+function rwnz_forgotten_password() {
+	$username = $_REQUEST['username'];
+	$url = get_option('rwnz_hello_club_base_url') . '/user/forgotPassword';
+	$response = wp_remote_post( $url, array(
+		'body'  => json_encode(array('username' => $username)),
+		'headers' => array(
+			'Content-Type' => 'application/json'
+		)
+	));
 
-//add_action('wp_ajax_rwnz_forgotten_password')
+	if ( is_wp_error( $response ) ) {
+	    $error_message = $response->get_error_message();
+	    echo json_encode(array('error'=>$error_message));
+	    wp_die();
+	} 
+	
+	$body = $response['body'];
+	echo $body;
+	wp_die();
+}
+
+add_action('wp_ajax_rwnz_forgotten_password', rwnz_forgotten_password);
+add_action('wp_ajax_nopriv_rwnz_forgotten_password', rwnz_forgotten_password);
+
 
 
 function rwnz_create_account_ajax() {
