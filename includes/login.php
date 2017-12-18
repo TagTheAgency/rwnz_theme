@@ -54,6 +54,46 @@ if ($_SESSION["member_name"] != null) {
     </div>
   </div>
 </div>
+<!-- Sign up Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgottenPasswordModalLabel">Become a member</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: left;">
+        <p style="font-size: 0.9em">Enter your details below to create an account and become a member<p>
+        <form id="resetPasswordForm">
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Email address</label>
+			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			</div>
+			<div class="form-group">
+			    <label for="signupFirstName">First name</label>
+			    <input type="firstName" class="form-control" id="signupFirstName" aria-describedby="emailHelp" placeholder="Enter first name">
+			</div>
+			<div class="form-group">
+			    <label for="signupLastName">Last name</label>
+			    <input type="email" class="form-control" id="signupLastName" aria-describedby="emailHelp" placeholder="Enter last name">
+			</div>
+			<<select class="form-control" name="subscription">
+  				<option value="personal">RWNZ Membership - $50 Yearly</option>
+  				<option value="corporate">RWNZ Corporate Membership - $100 Yearly</option>
+  				<option value="none">No membership, just create an account</option>
+			</select>
+    	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="resetPasswordButton">Send reset link</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 jQuery().ready(function() {
 	jQuery("#forgottenPasswordLink").click(function(evt) {
