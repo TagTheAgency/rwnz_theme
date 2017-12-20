@@ -957,7 +957,6 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 
 function get_events($attr) {
 	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
-	$random_locations = array('Havelock North', 'Normandale, Lower Hutt', 'Papawai 5794', 'Te Whiti');
 	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=2017-01-01&toDate=2017-12-31';
 	
 	$response = wp_remote_get($url);
@@ -978,6 +977,7 @@ function get_events($attr) {
 	foreach ($events as $event ) {
 		$date = new DateTime($event['date']);
 		$date->setTimezone(new DateTimeZone('Pacific/Auckland'));
+		
 
 		$compiled_content = '<div class="bursary row">';
 		$compiled_content .= '<div class="col-md-6"><h3> ' . $event['name'] . '</h3>';
@@ -987,15 +987,20 @@ function get_events($attr) {
 		$compiled_content .= '<div class="content">' . $event_content . '</div>';
 		$compiled_content .= '</div>';
 		
-		$map_location = '<iframe
+		$address = $event['address'];
+		if ($address != null) {
+		    $map_location = '<iframe
   width="400"
   height="300"
   frameborder="0" style="border:0"
   src="https://www.google.com/maps/embed/v1/place?key=' . $google_api . '
-    &q=' . array_rand(array_flip($random_locations)) . '" allowfullscreen>
+    &q=' . implode(" ", $address['parts']) . '" allowfullscreen>
 </iframe>';
-
-		$compiled_content .= '<div class="col-md-6 attachment">' . $map_location . '</div></div>';
+		    
+		    $compiled_content .= '<div class="col-md-6 attachment">' . $map_location . '</div>';
+		}
+		
+		$compiled_content .= '</div>';
 
 
 
