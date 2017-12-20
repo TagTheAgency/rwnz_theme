@@ -1305,20 +1305,80 @@ add_action('wp_ajax_nopriv_rwnz_forgotten_password', rwnz_forgotten_password);
 
 
 function rwnz_create_account_ajax() {
-	rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
+	$response = rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
+
+	$created = json_decode($response);
+
+	//TODO these are hardcoded from the ids in HelloClub - find some way to enumerate them from there instead.
+	$memberships = array('personal' => array('id' => '555bee3e4527879d33c7b31a', 'amount' => 50), 'corporate' => array('id' => '555bee3e4527879d33c7b31b', 'amount' => 100));
+
+	echo $response;
+
+	if ($created->id) {
+		$subscription  = $_REQUEST['subscription'];
+		if ($subscription == 'none') {
+			//
+		} else {
+			echo 'CSJM got subscription = ' . $subscription;
+			echo $memberships[$subscription];
+			$subscription_response = rwnz_create_account_subscription($created->id, $memberships[$subscription]);
+		}
+	}
+	echo $response;
+	echo $subscription_response;
+	wp_die();
+
+
+}
+
+function rwnz_create_account_subscription($member_id, $membership_id) {
+	error_log($membership_id);
+	echo json_encode($membership_id);
+	echo '<-- CSJM membership';
+	echo $membership_id['id'];
+	echo $membership_id['amount'];
+	
+	$url = get_option('rwnz_hello_club_base_url') . '/subscription';
+	$data = json_encode(array(
+		'member' => $member_id,
+		'membership' => $membership_id['id'],
+		'notifyByEmail' => true,
+		'startDate' => date("c"),
+		'endDate' => date("c", strtotime('+1 years')),
+		'transaction' => array('amount' => $membership_id['amount'], 'create' => true)
+	));
+
+	echo $data;
+
+
+	$response = wp_remote_post($url, array(
+		'body'	=> $data,
+		'headers' => array('Content-Type' => 'application/json')
+	));
+
+	if ( is_wp_error( $response ) ) {
+	    $error_message = $response->get_error_message();
+	    echo json_encode(array('error'=>$error_message));
+	    wp_die();
+	} 
+
+	$body = $response['body'];
+	return $body;
+
 }
 
 function rwnz_create_account($firstName, $lastName, $email) {
 
 	$url = get_option('rwnz_hello_club_base_url') . '/user';
 
-	echo $url;
 	$response = wp_remote_post( $url, array(
 		'body'  => json_encode(array('email' => $email, 'firstName' => $firstName, 'lastName' => $lastName)),
 		'headers' => array(
 			'Content-Type' => 'application/json'
 		)
 	));
+
+//	echo (json_encode($response));
 
 	if ( is_wp_error( $response ) ) {
 	    $error_message = $response->get_error_message();
@@ -1327,8 +1387,8 @@ function rwnz_create_account($firstName, $lastName, $email) {
 	} 
 	
 	$body = $response['body'];
-	echo $body;
-	wp_die();
+	return $body;
+
 }
 
 function is_board_member() {

@@ -20,7 +20,7 @@ if ($_SESSION["member_name"] != null) {
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="text" class="form-control" id="loginUsername" aria-describedby="emailHelp" placeholder="Enter email" tabindex="100" name="u">
-    <small id="emailHelp" class="form-text text-muted">Not a member? <a href="signup">Join today</a>.</small>
+    <small id="emailHelp" class="form-text text-muted">Not a member? <a id="createAccountLink" href="#signupModal" data-toggle="modal">Join today</a>.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
@@ -41,11 +41,14 @@ if ($_SESSION["member_name"] != null) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="text-align: left;">
-        <p style="font-size: 0.9em">Enter your username below and we'll send you a reset link<p>
+      <div class="modal-body" style="text-align: left;" id="forgottenPasswordBody">
         <form id="resetPasswordForm">
-        	<p><input id="forgottenPasswordUsername" type="text" style="width: 100%;" name="forgottenPassword"/></p>
-    	</form>
+	      <label for="forgottenPasswordUsername">Enter your username below and we'll send you a reset link</label>
+	      <input id="forgottenPasswordUsername" type="text" style="width: 100%;" name="forgottenPassword" class="form-control"/>
+	      <div class="invalid-feedback">
+    	    That isn't a valid username.
+	      </div>
+	    </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -59,17 +62,17 @@ if ($_SESSION["member_name"] != null) {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="forgottenPasswordModalLabel">Become a member</h5>
+        <h5 class="modal-title" id="signupModalLabel">Become a member</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="text-align: left;">
         <p style="font-size: 0.9em">Enter your details below to create an account and become a member<p>
-        <form id="resetPasswordForm">
+        <form id="becomeMemberForm">
 			<div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+			    <label for="signupEmail">Email address</label>
+			    <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email">
 			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 			</div>
 			<div class="form-group">
@@ -80,7 +83,7 @@ if ($_SESSION["member_name"] != null) {
 			    <label for="signupLastName">Last name</label>
 			    <input type="email" class="form-control" id="signupLastName" aria-describedby="emailHelp" placeholder="Enter last name">
 			</div>
-			<<select class="form-control" name="subscription">
+			<select class="form-control" name="subscription" id="signupSubscription">
   				<option value="personal">RWNZ Membership - $50 Yearly</option>
   				<option value="corporate">RWNZ Corporate Membership - $100 Yearly</option>
   				<option value="none">No membership, just create an account</option>
@@ -89,13 +92,18 @@ if ($_SESSION["member_name"] != null) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="resetPasswordButton">Send reset link</button>
+        <button type="button" class="btn btn-primary" id="becomeMemberButton">Become a member</button>
       </div>
     </div>
   </div>
 </div>
 <script>
 jQuery().ready(function() {
+	jQuery('#createAccountLink').click(function(evt) {
+		evt.preventDefault();
+		$('#login_dropdown').slideUp("fast");
+		$('#signupModal').modal();
+	});
 	jQuery("#forgottenPasswordLink").click(function(evt) {
 		console.log('clicky');
 		evt.preventDefault();
@@ -106,6 +114,9 @@ jQuery().ready(function() {
 	jQuery('#resetPasswordForm').on('submit', submitPasswordReset);
 	jQuery('#resetPasswordButton').click(submitPasswordReset);
 
+	jQuery('#becomeMemberForm').on('submit', becomeMember);
+	jQuery('#becomeMemberButton').click(becomeMember);
+
 });
 
 function submitPasswordReset(evt) {
@@ -113,10 +124,38 @@ function submitPasswordReset(evt) {
 	jQuery.ajax({
 		type: "POST",
 		url: '<?php echo admin_url( "admin-ajax.php" )?>',
-		data: {"action":"rwnz_forgotten_password", "username" : document.getElementById('forgottenPasswordUsername').value}
-
+		data: {"action":"rwnz_forgotten_password", "username" : document.getElementById('forgottenPasswordUsername').value},
+		success: function(data, status, xhr) {
+			if (data.length > 0) {
+				var response = JSON.parse(data);
+				if (response.code === 'NOT_FOUND') {
+					$('#forgottenPasswordUsername').addClass('is-invalid');
+				}
+			} else {
+				$('#forgottenPasswordBody').html("<p>We've sent you a link to reset your password</p>");
+			}
+		}
 	});
-	
+}
+
+function becomeMember(evt) {
+	evt.preventDefault();
+	jQuery.ajax({
+		type: "POST",
+		url: '<?php echo admin_url( "admin-ajax.php" )?>',
+		data: {
+			"action":"rwnz_create_account", 
+			"email" : document.getElementById('signupEmail').value, 
+			"firstName" : document.getElementById('signupFirstName').value,
+			"lastName" : document.getElementById('signupLastName').value,
+			"subscription" : document.getElementById('signupSubscription').value
+		},
+		success: function(data, status, xhr) {
+			console.log(data);
+			console.log(JSON.parse(data));
+		}
+	});
+
 }
 
 jQuery("#loginForm").submit(function(e) {
