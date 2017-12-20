@@ -1259,6 +1259,29 @@ function rwnz_login() {
 	wp_die();
 }
 
+/**
+ *	TODO once hello club implement API level keys, replace this call with those!
+ */
+
+function hello_club_get_admin_oauth() {
+	$url = get_option('rwnz_hello_club_base_url') . '/auth/token';
+
+	$response = wp_remote_post( $url, array(
+		'body'  => json_encode(array('grantType' => 'password', 'username' => 'colinmatcham', 'password' => 'test123')),
+		'headers' => array(
+			'Content-Type' => 'application/json'
+		)
+	));
+	
+	$body = $response['body'];
+	
+	if ($response['response']['code'] == 401) {
+		return null;
+	}
+	
+	return json_decode($body) -> accessToken;
+}
+
 function login_links() {
     $links = array();
     if (is_array($_SESSION["member_roles"])) {
@@ -1337,12 +1360,11 @@ function rwnz_create_account_ajax() {
 }
 
 function rwnz_create_account_subscription($member_id, $membership_id) {
-	error_log($membership_id);
-	echo json_encode($membership_id);
-	echo '<-- CSJM membership';
-	echo $membership_id['id'];
-	echo $membership_id['amount'];
-	
+
+	//get an admin token... TODO this needs to be replaced by an API level token, once HelloClub implements this.
+	$admin = hello_club_get_admin_oauth();
+
+
 	$url = get_option('rwnz_hello_club_base_url') . '/subscription';
 	$data = json_encode(array(
 		'member' => $member_id,
@@ -1358,7 +1380,9 @@ function rwnz_create_account_subscription($member_id, $membership_id) {
 
 	$response = wp_remote_post($url, array(
 		'body'	=> $data,
-		'headers' => array('Content-Type' => 'application/json')
+		'headers' => array(
+			'Content-Type' => 'application/json',
+			'Authorization' => 'Bearer '. $admin)
 	));
 
 	if ( is_wp_error( $response ) ) {
