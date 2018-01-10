@@ -10,7 +10,7 @@ if ($_SESSION["member_name"] != null) {
         $title = $link['link'];
         echo "<li><a href=\"$href\">$title</a></li>";
     }
-    echo "</ul><button id=\"logoutButton\" onclick=\"logout();\">Logout</button>";
+    echo "</ul><button id=\"logoutButton\" onclick=\"logout();\">Logout</button></div>";
 } else {
     
 ?>
@@ -31,6 +31,7 @@ if ($_SESSION["member_name"] != null) {
 </form>
 
 </div>
+
 <!-- Forgotten password Modal -->
 <div class="modal fade" id="forgottenPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgottenPasswordModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -68,7 +69,7 @@ if ($_SESSION["member_name"] != null) {
         </button>
       </div>
       <div class="modal-body" style="text-align: left;">
-        <p style="font-size: 0.9em">Enter your details below to create an account and become a member<p>
+        <p style="font-size: 0.9em">Enter your details below to create an account and become a member</p>
         <form id="becomeMemberForm">
 			<div class="form-group">
 			    <label for="signupEmail">Email address</label>
