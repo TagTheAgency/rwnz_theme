@@ -27,7 +27,7 @@
 
 
 		<!-- wrapper -->
-		<div class="wrapper">
+		<div class="fluid-wrapper">
 		<div style="position: absolute; top: 0px;width: 100%;"> 
 			<div class="row home-nav-row" >
 				<div class="col-md-6 order-1 order-md-2" style="text-align: right; color: white;">
@@ -97,3 +97,4 @@
 
 			
 			<!-- /header -->
+	</div>

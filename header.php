@@ -27,10 +27,13 @@
 
 
 		<!-- wrapper -->
-		<div class="wrapper">
+		<div class="fluid-wrapper">
 		<div class="container" style="max-width: 100% !important">
 			<div class="row header-row" >
 				<div class="col-sm-4 order-2 order-sm-1">
+				<a href="<?php echo get_site_url()?>">
+				<img src="<?php echo get_theme_file_uri('/img/rural-women-logo.png')?>" class="page-logo" />
+				</a>
 
             		<script>
             		(function($) {
@@ -57,9 +60,6 @@
             		</script>
 				</div>
 				<div class="col-sm-4 order-3 order-sm-2" style="text-align:center">
-				<a href="<?php echo get_site_url()?>">
-				<img src="<?php echo get_theme_file_uri('/img/rural-women-logo.png')?>" class="page-logo" />
-				</a>
 				</div>
 				<div class="col-sm-4 order-1 order-sm-3" style="text-align: right;">
 				<div class="main-page-header-menu">
@@ -90,3 +90,5 @@
 
 			
 			<!-- /header -->
+	</div>
+	<div class="wrapper">
