@@ -957,7 +957,9 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 
 function get_events($attr) {
 	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
-	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=2017-01-01&toDate=2017-12-31';
+	$now = date('Y-m-d');
+	$future = date("Y-m-d", strtotime("+1 month", strtotime("now")));
+	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=' . $now . '&toDate=' . $future;
 	
 	$response = wp_remote_get($url);
 
