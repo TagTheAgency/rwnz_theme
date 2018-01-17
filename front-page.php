@@ -1,7 +1,5 @@
 <?php get_header('home'); ?>
-<div class="fullscreen-image" style="background-image: url('<?php the_post_thumbnail_url('full'); ?>'); background-size: cover; margin-bottom: 100px;">
 
-</div>
 
 <!--  div class="homepage_grid_row clearfix">
 	<div class="homepage_grid rectangle"></div>
