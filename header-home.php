@@ -92,7 +92,7 @@
 			
 			<!-- /header -->
 
-	<div class="fullscreen-image" style="background-image: url('<?php the_post_thumbnail_url('full'); ?>'); background-size: cover; margin-bottom: 100px; background-position: center">
+	<div class="fullscreen-image" style="background-image: url('<?php the_post_thumbnail_url('full'); ?>'); background-size: cover; margin-bottom: 20px; background-position: center">
 
 	</div>
 	</div>

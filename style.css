@@ -418,6 +418,10 @@ ul.archive li a:hover, ul.archive li a {
 	padding-top: 100px;
 }
 
+.row.homepage-row > div {
+	padding:40px;
+}
+
 .homepage_grid {
 	width: 90%;
 	margin: auto;
@@ -498,7 +502,7 @@ SHOP
 }
 @media only screen and (min-width:480px) {
 	.fullscreen-image {
-		height: 500px;
+		height: 600px;
 	}
 	
 	.homepage_grid_row {

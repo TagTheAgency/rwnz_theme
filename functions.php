@@ -955,6 +955,22 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 	error_log( 'Request Response : ' . var_export( $response, true ) );
 }
 
+function get_next_event() {
+	$now = date('Y-m-d');
+	$future = date("Y-m-d", strtotime("+1 month", strtotime("now")));
+	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=' . $now . '&toDate=' . $future;
+
+	$response = wp_remote_get($url);
+
+	if ( is_wp_error( $response ) ) {
+	 	return array();
+	}
+
+	$body = $response['body'];
+	$events = json_decode($body, true);
+	return $events;
+}
+
 function get_events($attr) {
 	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
 	$now = date('Y-m-d');

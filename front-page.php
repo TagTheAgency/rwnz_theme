@@ -1,6 +1,86 @@
 <?php get_header('home'); ?>
 
 
+<div class="row homepage-row">
+	<div class="col-md-8">
+		<h1>Events</h1>
+		<?php 
+		$upcomingEvents = get_next_event();
+		if (empty($upcomingEvents)) {
+			echo '<p>There are no events upcoming.</p>';
+		} else {
+			$event = $upcomingEvents[0];
+			$name = $event['name'];
+			$description = $event['description'];
+			echo "<h3>$name</h3>";
+			echo "<p>$description</p>";
+		}
+
+		echo '<p><a href="events">See all events</a></p>';
+		?>
+	</div>
+	<div class="col-md-4">
+		<h1>Shop</h1>
+	</div>
+</div>
+
+<div class="row homepage-row">
+	<div class="col-md-8">
+		<h1>News</h1>
+		<?php
+	    $args = array( 'numberposts' => '1' );
+    	$recent_posts = wp_get_recent_posts( $args );
+    	foreach( $recent_posts as $recent ){
+	    	setup_postdata($recent['ID']);
+        	printf( 
+        		'<div class="left"><img src="%1$s"/><h2><a href="%2$s">%3$s</a></h2><h3>%4$s</h3>%5$s</div>', 
+        		get_the_post_thumbnail_url($recent['ID'], 'thumbnail'), 
+        		esc_url( get_permalink( $recent['ID'] ) ), 
+        		apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),
+        		get_the_date('', $recent['ID']),
+        		get_the_excerpt($recent['ID'])
+        		);
+//       	printf('', );
+//        	printf('<p>The excerpt %1$s</p>', );
+
+	    }
+	    wp_reset_postdata();
+		?>
+	</div>
+	<div class="col-md-4">
+		<h1>ERWA</h1>
+	</div>
+</div>
+
+<div class="row homepage-row">
+	<div class="col-md-8">
+		<h1>Submissions</h1>
+		
+		<?php
+	    $args = array( 'numberposts' => '1' , 'post_type' => 'submission');
+    	$recent_posts = wp_get_recent_posts( $args );
+    	foreach( $recent_posts as $recent ){
+	    	setup_postdata($recent['ID']);
+        	printf( 
+        		'<div class="left"><img src="%1$s"/><h2><a href="%2$s">%3$s</a></h2><h3>%4$s</h3>%5$s</div>', 
+        		get_the_post_thumbnail_url($recent['ID'], 'thumbnail'), 
+        		esc_url( get_permalink( $recent['ID'] ) ), 
+        		apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),
+        		get_the_date('', $recent['ID']),
+        		get_the_excerpt($recent['ID'])
+        		);
+//       	printf('', );
+//        	printf('<p>The excerpt %1$s</p>', );
+
+	    }
+	    wp_reset_postdata();
+		?>
+	</div>
+	<div class="col-md-4">
+		<h1>Aftersocks</h1>
+	</div>
+</div>
+
 <!--  div class="homepage_grid_row clearfix">
 	<div class="homepage_grid rectangle"></div>
 	<div class="homepage_grid square"></div>
