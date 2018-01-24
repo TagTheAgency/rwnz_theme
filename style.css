@@ -418,8 +418,43 @@ ul.archive li a:hover, ul.archive li a {
 	padding-top: 100px;
 }
 
-.row.homepage-row > div {
+.row.homepage-row > div.dynamic {
 	padding:40px;
+}
+.row.homepage-row  h1 {
+	font-weight: bolder;
+	font-size: 30px;
+}
+.homepage-link h1 {
+	padding: 30px 0 0 30px;
+	color: white;
+}
+
+.row.homepage-row .text {
+	font-size: 20px;
+}
+.homepage-link {
+	height: 300px;	
+	-webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    margin-bottom: 3px;
+}
+.homepage-link:hover {
+	-webkit-filter: grayscale(0%);
+	filter: grayscale(0%);
+}
+
+.homepage-link-shop {
+	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url('http://localhost/rwnz/wp-content/uploads/2017/10/90e0a848-6db0-37a7-9b07-8522149b1e28-700x466.jpg');
+	
+}
+
+.homepage-link-erwa {
+	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url('http://localhost/rwnz/wp-content/uploads/2017/10/160b18b1-ccdb-3927-971e-9eabd9b49e58-700x467.jpg');
 }
 
 .homepage_grid {

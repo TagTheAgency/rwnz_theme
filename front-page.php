@@ -2,7 +2,7 @@
 
 
 <div class="row homepage-row">
-	<div class="col-md-8">
+	<div class="col-md-8 dynamic">
 		<h1>Events</h1>
 		<?php 
 		$upcomingEvents = get_next_event();
@@ -12,48 +12,53 @@
 			$event = $upcomingEvents[0];
 			$name = $event['name'];
 			$description = $event['description'];
-			echo "<h3>$name</h3>";
-			echo "<p>$description</p>";
+			echo "<h2>$name</h2>";
+			echo "<div class=\"text\">$description</div>";
 		}
 
-		echo '<p><a href="events">See all events</a></p>';
+//		echo '<p><a href="events">See all events</a></p>';
 		?>
 	</div>
 	<div class="col-md-4">
-		<h1>Shop</h1>
+		<div class="homepage-link homepage-link-shop">
+			<span class="link"><a href="shop"></a></span>
+			<h1>Shop</h1>
+		</div>
 	</div>
 </div>
 
 <div class="row homepage-row">
-	<div class="col-md-8">
+	<div class="col-md-8 dynamic">
 		<h1>News</h1>
 		<?php
 	    $args = array( 'numberposts' => '1' );
     	$recent_posts = wp_get_recent_posts( $args );
     	foreach( $recent_posts as $recent ){
 	    	setup_postdata($recent['ID']);
-        	printf( 
+        	/*printf( 
         		'<div class="left"><img src="%1$s"/><h2><a href="%2$s">%3$s</a></h2><h3>%4$s</h3>%5$s</div>', 
         		get_the_post_thumbnail_url($recent['ID'], 'thumbnail'), 
         		esc_url( get_permalink( $recent['ID'] ) ), 
         		apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),
         		get_the_date('', $recent['ID']),
         		get_the_excerpt($recent['ID'])
-        		);
-//       	printf('', );
-//        	printf('<p>The excerpt %1$s</p>', );
+        		);*/
+			printf( '<h2>%1$s</h2><div class="text">%2$s</div>', apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),get_the_excerpt($recent['ID']));
 
 	    }
 	    wp_reset_postdata();
 		?>
 	</div>
 	<div class="col-md-4">
-		<h1>ERWA</h1>
+		<div class="homepage-link homepage-link-erwa">
+			<span class="link"><a href="http://erwa.org.nz"></a></span>
+			<h1>ERWA</h1>
+		</div>
 	</div>
 </div>
 
 <div class="row homepage-row">
-	<div class="col-md-8">
+	<div class="col-md-8 dynamic">
 		<h1>Submissions</h1>
 		
 		<?php
@@ -61,23 +66,25 @@
     	$recent_posts = wp_get_recent_posts( $args );
     	foreach( $recent_posts as $recent ){
 	    	setup_postdata($recent['ID']);
-        	printf( 
+        	/*printf( 
         		'<div class="left"><img src="%1$s"/><h2><a href="%2$s">%3$s</a></h2><h3>%4$s</h3>%5$s</div>', 
         		get_the_post_thumbnail_url($recent['ID'], 'thumbnail'), 
         		esc_url( get_permalink( $recent['ID'] ) ), 
         		apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),
         		get_the_date('', $recent['ID']),
         		get_the_excerpt($recent['ID'])
-        		);
-//       	printf('', );
-//        	printf('<p>The excerpt %1$s</p>', );
+        		);*/
+			printf( '<h2>%1$s</h2><div class="text">%2$s</div>', apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),get_the_excerpt($recent['ID']));
 
 	    }
 	    wp_reset_postdata();
 		?>
 	</div>
 	<div class="col-md-4">
-		<h1>Aftersocks</h1>
+		<div class="homepage-link homepage-link-aftersocks">
+			<span class="link"><a href="http://aftersocks.org.nz"></a></span>
+			<h1>Aftersocks</h1>
+		</div>
 	</div>
 </div>
 
