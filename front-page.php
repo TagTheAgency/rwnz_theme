@@ -1,6 +1,6 @@
 <?php get_header('home'); ?>
 
-
+<div class="container">
 <div class="row homepage-row">
 	<div class="col-lg-8 dynamic">
 		<div class="homepage-story">
@@ -33,7 +33,7 @@
 			?>
 		</div>
 		<div class="homepage-story">
-<h1>Submissions</h1>
+		<h1>Submissions</h1>
 		
 		<?php
 	    $args = array( 'numberposts' => '1' , 'post_type' => 'submission');
@@ -48,14 +48,16 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
-		<div class="homepage-link homepage-link-shop">
+		<div class="homepage-links">
+		<div class="homepage-link homepage-link-shop split">
 			<span class="link"><a href="shop"></a></span>
 			<h1>Shop</h1>
 		</div>
-		<div class="homepage-link homepage-link-erwa">
+		<div class="homepage-link homepage-link-erwa split">
 			<span class="link"><a href="http://erwa.org.nz"></a></span>
 			<h1>ERWA</h1>
 		</div>
+	</div>
 		<div class="homepage-link homepage-link-aftersocks">
 			<span class="link"><a href="http://aftersocks.org.nz"></a></span>
 			<h1>Aftersocks</h1>
@@ -63,13 +65,23 @@
 	</div>
 </div>
 
-<div class="row homepage-row">
-	<div class="col-md-8 dynamic">
-		
+<div class="homepage-row homepage-services">
+	<h1>Services</h1>
+	<div class="row">
+	<div class="col-lg-3 col-sm-6">
+Bursaries
+	<div class="homepage-services-bursaries image-box image-box-square"></div>
 	</div>
-	<div class="col-md-4">
-		
+	<div class="col-lg-3 col-sm-6">
+Directory
+<div class="homepage-services-directory image-box image-box-square"></div>
 	</div>
+	<div class="col-lg-6 col-sm-12">
+Women in farming
+<div class="homepage-services-womeninfarming image-box image-box-1-in-2"></div>
+	</div>
+</div>
+
 </div>
 
 <div class="row homepage-row">
@@ -80,65 +92,8 @@
 	
 	</div>
 </div>
-
-<!--  div class="homepage_grid_row clearfix">
-	<div class="homepage_grid rectangle"></div>
-	<div class="homepage_grid square"></div>
-	<div class="homepage_grid square"></div>
 </div>
-<div class="homepage_grid_row clearfix">
-	<div class="homepage_grid square"></div>
-	<div class="homepage_grid square"></div>
-	<div class="homepage_grid rectangle"></div>
-</div -->
 
-<?php 
-	$count = 0;
-	
-	$widths = array('rectangle', 'square', 'square', 'square', 'square', 'rectangle');
-	$overlays = array('rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)','rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)','rgba(116, 182, 74, 0.85)','rgba(32,196,244,0.85)');
-	
-
-	$menuLocations = get_nav_menu_locations(); // Get our nav locations (set in our theme, usually functions.php)
-
-	$menuID = $menuLocations['frontpage-menu']; // Get the  menu ID
-
-	$primaryNav = wp_get_nav_menu_items($menuID);
-
-	foreach ( $primaryNav as $navItem ) {
-		$post_id = get_post_meta( $navItem->ID, '_menu_item_object_id', true );
-
-		if ($count % 3 == 0) {
-            ?><div class="homepage_grid_row clearfix"><?php 
-        }
-		$page_colour = get_post_meta($post_id, 'page-colour-theme', true);
-        if ($page_colour) {
-            $rgb = hex2RGB($page_colour);
-            $rgba = 'rgba('.$rgb['r'].','.$rgb['g'].','.$rgb['b'].',0.4)';
-        } else {
-            $rgba = 'rgba(116, 182, 74, 0.85)';
-        }
-
-        ?>	
-
-		<div class="homepage_grid bg <?php echo $widths[$count]?>" style="background-image:linear-gradient(<?php echo $rgba?>,<?php echo $rgba?>),url('<?php echo get_the_post_thumbnail_url($post_id, 'large'); ?>');">
-			<a href="<?php echo get_page_link($post_id); ?>"><span class="link" style="display: block; width: 100%; height: 100%; z-index: 10; position: absolute; top: 0; left: 0;"></span></a>
-			<div class="content">
-				<a href="<?php echo get_page_link($post_id); ?>" style="color: white; text-decoration: none;"><?php echo get_the_title($post_id);?></a>
-			</div>
-		</div>
-		
-		<?php if ($count % 3 == 2) { ?></div><?php } 
-		$count++;
-		
-		
-
-	}
-?>
-
-<div class="container" style="margin-top: 100px;">
-
-</div>
 
 <!--  php get_sidebar(); -->
 

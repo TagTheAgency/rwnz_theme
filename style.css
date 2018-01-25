@@ -8,6 +8,17 @@
 	
 */
 
+/* Debug page overflow issues - uncomment below!
+
+Add some margin to the body to add space and 
+see where your offending elements cross the line 
+body { margin: 30px; }  
+
+add a border to all other elements on the page
+body * { border: 1px solid red; }
+
+*/
+
 /*------------------------------------*\
     MAIN
 \*------------------------------------*/
@@ -418,6 +429,11 @@ ul.archive li a:hover, ul.archive li a {
 	padding-top: 100px;
 }
 
+.row.homepage-row {
+	border-bottom: 1px grey solid;
+}
+
+ 
 .row.homepage-row > div.dynamic {
 	padding:40px;
 }
@@ -447,9 +463,6 @@ ul.archive li a:hover, ul.archive li a {
 	-webkit-filter: grayscale(0%);
 	filter: grayscale(0%);
 }
-.homepage-story {
-	height: 300px;
-}
 
 .homepage-link-shop {
 	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url('http://localhost/rwnz/wp-content/uploads/2017/10/90e0a848-6db0-37a7-9b07-8522149b1e28-700x466.jpg');
@@ -461,8 +474,65 @@ ul.archive li a:hover, ul.archive li a {
 }
 .homepage-link-aftersocks {
     background-image: linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(http://localhost/rwnz/wp-content/uploads/2017/10/Mountain-and-paddock-700x465.jpg);
-
 }
+
+.homepage-links {
+		display:block;
+	}
+.split {
+	width: 100%;
+	/*flex: 0 0 100%;*/
+	max-width: 100%;
+}
+
+.homepage-story {
+	padding: 20px 0px;
+	
+}
+.image-box {
+	height: 100%;
+	background-size: cover;
+}
+.image-box-square {
+	margin-bottom: 100%;
+}
+.image-box-1-in-2 {
+	margin-bottom: 50%;
+}
+
+
+.homepage-services-bursaries {
+	background-image: url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/bursaries-e1509270635842-700x467.jpeg);
+}
+.homepage-services-directory {
+	background-image: url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/directory-e1510090992991-700x510.jpg);
+}
+.homepage-services-womeninfarming {
+	background-image: url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/11/quad_bike-700x467.jpeg);
+}
+
+@media (min-width: 575px) and (max-width: 991px) {
+.homepage-links {
+	display: flex;
+}
+
+.split {
+	flex: 0 0 50%;
+	max-width: 50%;
+}
+	
+}
+
+@media (min-width: 992px) {
+	.homepage-story {
+		height: 300px;
+		padding: 0px;
+	}
+	.homepage-row.homepage-services {
+		padding: 40px;
+	}
+}
+
 
 .homepage_grid {
 	width: 90%;

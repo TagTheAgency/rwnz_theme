@@ -3,7 +3,7 @@
 			<div class="fluid-wrapper">
 			<footer class="footer" role="contentinfo">
 
-				<div class="fluid-container" style="padding-left:30px;">
+				<div class="container" style="padding-left:30px;">
 					<div class="row">
 						<div class="col-sm">
 							<h3>Blog posts</h3>

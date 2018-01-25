@@ -28,7 +28,7 @@
 
 		<!-- wrapper -->
 		<div class="fluid-wrapper">
-		<div style="position: absolute; top: 0px;width: 100%;"> 
+		<div style="position: absolute; top: 0px;width: 100%;max-width:100%" class="container"> 
 			<div class="row home-nav-row" >
 				<div class="col-md-6 order-1 order-md-2" style="text-align: right; color: white;">
 					<div class="home-page-header-menu">
