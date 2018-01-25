@@ -465,15 +465,14 @@ ul.archive li a:hover, ul.archive li a {
 }
 
 .homepage-link-shop {
-	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url('http://localhost/rwnz/wp-content/uploads/2017/10/90e0a848-6db0-37a7-9b07-8522149b1e28-700x466.jpg');
-	
+	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/AdobeStock_139181938-700x467.jpeg);
 }
 
 .homepage-link-erwa {
-	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url('http://localhost/rwnz/wp-content/uploads/2017/10/160b18b1-ccdb-3927-971e-9eabd9b49e58-700x467.jpg');
+	background-image:linear-gradient(rgba(192,215,47,0.4),rgba(192,215,47,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/chickens-e1509270800613-700x467.jpeg);
 }
 .homepage-link-aftersocks {
-    background-image: linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(http://localhost/rwnz/wp-content/uploads/2017/10/Mountain-and-paddock-700x465.jpg);
+	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/cows-e1509270646469-700x424.jpeg);
 }
 
 .homepage-links {
