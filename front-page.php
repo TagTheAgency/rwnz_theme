@@ -93,20 +93,32 @@
 
 <div class="homepage-row homepage-services">
 	<h1 class="homepage-section">Services</h1>
-	<div class="row">
-	<div class="col-lg-3 col-sm-6"><h1>Bursaries</h1>
-	<div class="homepage-services-bursaries image-box image-box-square"></div>
-	</div>
-	<div class="col-lg-3 col-sm-6">
-	<h1>Directory</h1>
-<div class="homepage-services-directory image-box image-box-square"></div>
-	</div>
-	<div class="col-lg-6 col-sm-12">
-	<h1>Women in farming</h1>
-<div class="homepage-services-womeninfarming image-box image-box-1-in-2"></div>
-	</div>
-</div>
-
+	<?php 
+	$menu_name = 'services-menu';
+    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+        $menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+        $menu_items = wp_get_nav_menu_items($menu->term_id);
+        
+        $services = '<div class="row">';
+        $idx = 0;
+        foreach ( (array) $menu_items as $key => $menu_item ) {
+            $title = $menu_item->title;
+            $url = $menu_item->url;
+            if ($idx < 2) {
+                $services .= '<div class="col-lg-3 col-sm-6"><h1>' . $title . '</h1><div class="image-box image-box-square" style="background-image: url(' . get_the_post_thumbnail_url($menu_item->object_id, 'full') . ')"><a href="' . $url . '"><span class="link"></span></a></div></div>';
+            } else {
+                $services .= '<div class="col-lg-6 col-sm-12"><h1>' . $title . '</h1><div class="image-box image-box-1-in-2" style="background-image: url(' . get_the_post_thumbnail_url($menu_item->object_id, 'full') . ')"> <a href="' . $url . '"><span class="link"></span></a></div></div>';
+            }
+            $idx++;
+        }
+        
+        $services .= '</div>';
+        echo $services;
+    } else {
+        echo '<p>Please populate the services menu to list services here.</p>';
+    }
+    ?>
+	
 </div>
 
 <div class="homepage-row homepage-partners">
