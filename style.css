@@ -460,10 +460,13 @@ ul.archive li a:hover, ul.archive li a {
     margin-bottom: 3px;
     background-size: cover;
     background-position: center;
-}
-.homepage-link:hover {
 	-webkit-filter: grayscale(0%);
 	filter: grayscale(0%);
+	position:relative;
+}
+.homepage-link:hover {
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
 }
 
 .homepage-link-shop {
@@ -475,6 +478,15 @@ ul.archive li a:hover, ul.archive li a {
 }
 .homepage-link-aftersocks {
 	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/cows-e1509270646469-700x424.jpeg);
+}
+.homepage-link-memberzone {
+	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/AdobeStock_139181938-700x467.jpeg);
+}
+a span.link {
+	display:block;
+	width:100%;
+	height: 100%;
+	position:absolute;
 }
 
 .homepage-links {
@@ -523,10 +535,12 @@ h1.homepage-section {
 }
 
 .homepage-partners img {
-	height: 50px;
+	height: 100px;
 	display:block;
 	margin: auto;
+	padding: 15px 0px;
 }
+
 
 @media (min-width: 575px) and (max-width: 991px) {
 .homepage-links {
@@ -548,6 +562,12 @@ h1.homepage-section {
 	}
 	.homepage-row.homepage-services, .homepage-row.homepage-partners, .homepage-row.homepage-social {
 		padding: 22px;
+	}
+
+}
+@media (min-width: 768px) {
+	.homepage-partners img {
+		height: 80px;
 	}
 }
 

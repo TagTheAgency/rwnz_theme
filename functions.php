@@ -162,7 +162,7 @@ function html5blank_styles()
 	wp_register_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.css', array(), '4.0.0', 'all');
 	wp_enqueue_style('bootstrap'); // Enqueue it!
 	
-	wp_register_style('fa', get_template_directory_uri() . '/css/font-awesome.min.css', '4.2.0', all);
+	wp_register_style('fa', get_template_directory_uri() . '/css/font-awesome.min.css', '4.2.0', 'all');
 	wp_enqueue_style('fa'); // Enqueue it!
 }
 
@@ -874,13 +874,13 @@ function colour_theme_meta_box_cb($post) {
 	<br />
 
 	<select name="page-colour-theme" id="page-colour-theme" style="background-color: <?php echo $selected?>">
-		<option value="#c0d72f" style="background-color:#c0d72f" <?php selected( $selected, '#c0d72f'); ?>>Theme color</option>
-		<option value="#74b64a" style="background-color:#74b64a" <?php selected( $selected, '#74b64a'); ?>>Theme color</option>
-		<option value="#00aba0" style="background-color:#00aba0" <?php selected( $selected, '#00aba0'); ?>>Theme color</option>
-		<option value="#5fccf5" style="background-color:#5fccf5" <?php selected( $selected, '#5fccf5'); ?>>Theme color</option>
-		<option value="#e6e6e8" style="background-color:#e6e6e8" <?php selected( $selected, '#e6e6e8'); ?>>Theme color</option>
-		<option value="#414042" style="background-color:#414042; color: white;" <?php selected( $selected, '#414042'); ?>>Theme color</option>
-		<option value="#009fc2" style="background-color:#009fc2" <?php selected( $selected, '#009fc2'); ?>>Theme color</option>
+		<option value="#c0d72f" style="background-color:#c0d72f" <?php selected( $selected, '#c0d72f');ï¿½?>>Theme color</option>
+		<option value="#74b64a" style="background-color:#74b64a" <?php selected( $selected, '#74b64a');ï¿½?>>Theme color</option>
+		<option value="#00aba0" style="background-color:#00aba0" <?php selected( $selected, '#00aba0');ï¿½?>>Theme color</option>
+		<option value="#5fccf5" style="background-color:#5fccf5" <?php selected( $selected, '#5fccf5');ï¿½?>>Theme color</option>
+		<option value="#e6e6e8" style="background-color:#e6e6e8" <?php selected( $selected, '#e6e6e8');ï¿½?>>Theme color</option>
+		<option value="#414042" style="background-color:#414042; color: white;" <?php selected( $selected, '#414042');ï¿½?>>Theme color</option>
+		<option value="#009fc2" style="background-color:#009fc2" <?php selected( $selected, '#009fc2');ï¿½?>>Theme color</option>
 		
 	</select>
   </p>
@@ -1221,11 +1221,11 @@ add_filter('template_redirect', 'rwnz_custom_display');
  * Login      *
  **************/
 
-add_action( 'wp_ajax_rwnz_login', rwnz_login );
-add_action( 'wp_ajax_nopriv_rwnz_login', rwnz_login );
+add_action( 'wp_ajax_rwnz_login', 'rwnz_login' );
+add_action( 'wp_ajax_nopriv_rwnz_login', 'rwnz_login' );
 
-add_action( 'wp_ajax_rwnz_logout', rwnz_logout );
-add_action( 'wp_ajax_nopriv_rwnz_logout', rwnz_logout );
+add_action( 'wp_ajax_rwnz_logout', 'rwnz_logout' );
+add_action( 'wp_ajax_nopriv_rwnz_logout', 'rwnz_logout' );
 
 function rwnz_login() {
 	$username = $_REQUEST['u'];
@@ -1321,8 +1321,8 @@ function rwnz_logout() {
     $_SESSION["member_roles"] = null;
 }
 
-add_action( 'wp_ajax_rwnz_create_account', rwnz_create_account_ajax );
-add_action( 'wp_ajax_nopriv_rwnz_create_account', rwnz_create_account_ajax );
+add_action( 'wp_ajax_rwnz_create_account', 'rwnz_create_account_ajax' );
+add_action( 'wp_ajax_nopriv_rwnz_create_account', 'rwnz_create_account_ajax' );
 
 function rwnz_forgotten_password() {
 	$username = $_REQUEST['username'];
@@ -1345,8 +1345,8 @@ function rwnz_forgotten_password() {
 	wp_die();
 }
 
-add_action('wp_ajax_rwnz_forgotten_password', rwnz_forgotten_password);
-add_action('wp_ajax_nopriv_rwnz_forgotten_password', rwnz_forgotten_password);
+add_action('wp_ajax_rwnz_forgotten_password', 'rwnz_forgotten_password');
+add_action('wp_ajax_nopriv_rwnz_forgotten_password', 'rwnz_forgotten_password');
 
 
 

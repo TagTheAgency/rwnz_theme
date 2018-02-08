@@ -40,47 +40,54 @@
 		</div>
 		<div class="homepage-story">
 		<h1>News</h1>
-			<?php
-		    $args = array( 'numberposts' => '1' );
-	    	$recent_posts = wp_get_recent_posts( $args );
-	    	foreach( $recent_posts as $recent ){
-		    	setup_postdata($recent['ID']);
-				printf( '<h2>%1$s</h2><div class="text">%2$s</div>', apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),get_the_excerpt($recent['ID']));
-
-		    }
-		    wp_reset_postdata();
-			?>
+		<?php
+		$the_query = new WP_Query(array(
+		    'post_type'         => 'post',
+		    'posts_per_page'    => 1
+		));
+		
+		while ( $the_query->have_posts() ) : $the_query->the_post(); 
+		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_the_excerpt());
+        endwhile; wp_reset_postdata(); ?>
+		
 		</div>
 		<div class="homepage-story">
 		<h1>Submissions</h1>
-		
 		<?php
-	    $args = array( 'numberposts' => '1' , 'post_type' => 'submission');
-    	$recent_posts = wp_get_recent_posts( $args );
-    	foreach( $recent_posts as $recent ){
-	    	setup_postdata($recent['ID']);
-			printf( '<h2>%1$s</h2><div class="text">%2$s</div>', apply_filters( 'the_title', $recent['post_title'], $recent['ID'] ),get_the_excerpt($recent['ID']));
-
-	    }
-	    wp_reset_postdata();
-		?>
+		$the_query = new WP_Query(array(
+		    'post_type'         => 'submission',
+		    'posts_per_page'    => 1
+		));
+		
+		while ( $the_query->have_posts() ) : $the_query->the_post(); 
+		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_the_excerpt());
+        endwhile; wp_reset_postdata(); ?>
+        
 		</div>
 	</div>
 	<div class="col-lg-4">
 		<div class="homepage-links">
-		<div class="homepage-link homepage-link-shop split">
-			<span class="link"><a href="shop"></a></span>
-			<h1>Shop</h1>
-		</div>
-		<div class="homepage-link homepage-link-erwa split">
-			<span class="link"><a href="http://erwa.org.nz"></a></span>
-			<h1>ERWA</h1>
-		</div>
-	</div>
-		<div class="homepage-link homepage-link-aftersocks">
-			<span class="link"><a href="http://aftersocks.org.nz"></a></span>
-			<h1>Aftersocks</h1>
-		</div>
+			
+        		<div class="homepage-link homepage-link-shop split">
+        			<a href="shop"><span class="link"></span></a>
+        			<h1>Shop</h1>
+        		</div>
+        		<div class="homepage-link homepage-link-erwa split">
+        			<span class="link"><a href="http://erwa.org.nz"></a></span>
+        			<h1>ERWA</h1>
+        		</div>
+        	</div>
+        	<div class="homepage-links">
+        		<div class="homepage-link homepage-link-aftersocks split">
+        			<span class="link"><a href="http://aftersocks.org.nz"></a></span>
+        			<h1>Aftersocks</h1>
+        		</div>
+        		<div class="homepage-link homepage-link-memberzone split">
+        			<span class="link"><a href="members"></a></span>
+        			<h1>Member Zone</h1>
+        		</div>
+        		
+        	</div>
 	</div>
 </div>
 
@@ -105,16 +112,16 @@
 <div class="homepage-row homepage-partners">
 	<h1 class="homepage-section">Partners</h1>
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-6">
 		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/1.png"/>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-6">
 		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/2.png"/>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-6">
 		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/3.png"/>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-6">
 		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/4.png"/>
 		</div>
 	</div>
