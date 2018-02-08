@@ -27,7 +27,7 @@
 		<?php 
 		$upcomingEvents = get_next_event();
 		if (empty($upcomingEvents)) {
-			echo '<p>There are no events upcoming.</p>';
+			echo '<div class="text">There are no events upcoming.</div>';
 		} else {
 			$event = $upcomingEvents[0];
 			$name = $event['name'];
@@ -79,11 +79,11 @@
         	</div>
         	<div class="homepage-links">
         		<div class="homepage-link homepage-link-aftersocks split">
-        			<span class="link"><a href="http://aftersocks.org.nz"></a></span>
+        			<a href="http://aftersocks.nz"><span class="link"></span></a>
         			<h1>Aftersocks</h1>
         		</div>
         		<div class="homepage-link homepage-link-memberzone split">
-        			<span class="link"><a href="members"></a></span>
+        			<a href="members"><span class="link"></span></a>
         			<h1>Member Zone</h1>
         		</div>
         		
