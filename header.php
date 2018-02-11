@@ -27,7 +27,7 @@
 
 
 		<!-- wrapper -->
-		<div class="fluid-wrapper">
+		<div class="wrapper">
 		<div class="container" style="max-width: 100% !important">
 			<div class="row header-row" >
 				<div class="col-sm-4 order-2 order-sm-1">

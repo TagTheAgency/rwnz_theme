@@ -6,10 +6,26 @@
 				<div class="container" style="padding-left:30px;">
 					<div class="row">
 						<div class="col-sm">
-							<h3>Blog posts</h3>
+							<h3>News</h3>
 							<ul>
-								<li>Lorem ipsum</li>
-								<li>Lorem ipsum</li>
+							<?php 
+							$next_args = array(
+                        	    'post_type' => 'post',
+                        	    'post_status' => 'publish',
+                        	    'posts_per_page'=>6,
+                        	    'order'=>'DESC',
+                        	    'orderby'=>'date',
+	                         );
+	
+                            	$query = new WP_Query( $next_args );
+                            	while ( $query->have_posts() ) {
+                            	        $query->the_post();
+                            	        ?>
+								<li><a href="<?php the_permalink()?>"><?php the_title()?></a></li>
+							<?php 
+                            	}
+							wp_reset_postdata();
+							?>
 							</ul>
 						</div>
 						<div class="col-sm">
@@ -45,7 +61,24 @@
 						<div class="col-sm">
 							<h3>Submissions</h3>
 							<ul>
-								<li>Lorem ipsum</li>
+								<?php 
+							$next_args = array(
+                        	    'post_type' => 'submission',
+                        	    'post_status' => 'publish',
+                        	    'posts_per_page'=>6,
+                        	    'order'=>'DESC',
+                        	    'orderby'=>'date',
+	                         );
+	
+                            	$query = new WP_Query( $next_args );
+                            	while ( $query->have_posts() ) {
+                            	        $query->the_post();
+                            	        ?>
+								<li><a href="<?php the_permalink()?>"><?php the_title()?></a></li>
+							<?php 
+                            	}
+							wp_reset_postdata();
+							?>
 							</ul>
 						</div>
 						<div class="col-sm">
