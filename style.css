@@ -129,6 +129,18 @@ input:focus {
 
 }
 
+.navbar {
+	font-size: 15px;
+}
+nav.navbar ul.navbar-nav li a.nav-link {
+	color: black;
+	margin-left: 15px;
+}
+
+a.navbar-brand img {
+	margin-top: 30px;
+}
+
 #menu, #login_menu {
 	cursor: pointer;
 	
@@ -196,10 +208,7 @@ body.home div.wrapper {
 .home-page-header-menu .dropdown ul{
 	font-size: 12.6px;
 }
-li.menu-item {
-	font-size: 12.6px;
-}
-.home-page-header-menu i, .main-page-header-menu i {
+ .home-page-header-menu i, .main-page-header-menu i {
 	padding-left: 20px;
 }
 

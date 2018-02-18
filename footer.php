@@ -91,7 +91,7 @@
 
 			</footer>
 			<!-- /footer -->
-
+			<div><strong>Current template:</strong> <?php get_current_template( true ); ?></div>
 		</div>
 		<!-- /wrapper -->
 
