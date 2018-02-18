@@ -131,10 +131,20 @@ input:focus {
 
 .navbar {
 	font-size: 15px;
+	font-weight: bold;
 }
 nav.navbar ul.navbar-nav li a.nav-link {
 	color: black;
 	margin-left: 15px;
+}
+nav.navbar.navbar-dark ul.navbar-nav li a.nav-link {
+	color: white;
+	margin-left: 15px;
+}
+nav.navbar.navbar-dark .navbar-toggler {
+	color: white;
+	border-color: white;
+	font-size: 20px;
 }
 
 a.navbar-brand img {

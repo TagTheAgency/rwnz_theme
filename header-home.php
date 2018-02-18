@@ -29,39 +29,45 @@
 		<!-- wrapper -->
 		<div class="fluid-wrapper">
 		<div style="position: absolute; top: 0px;width: 100%;max-width:100%" class="container"> 
-			<div class="row home-nav-row" >
-				<div class="col-md-6 order-1 order-md-2" style="text-align: right; color: white;">
-					<div class="home-page-header-menu">
-						<div id="menu" style=" position:relative; display: inline-block;padding-right: 5px;">
-							<div id="showmenu">
-							<i class="fa fa-bars" style="padding-right: 10px" aria-hidden="true"></i><b>MENU</b>
-							</div>
-							<div class="dropdown" style="width: 150px; right: 65%;" id="menu_dropdown">
-									<?php wp_nav_menu( array(
-										'theme_location'    => 'header-menu',
-										'container'         => false,
-										'menu_id'           => '',
-										'echo'              => true,
-										'depth'             => 1
-									)); ?>
-							</div>
-						</div>
+		
+		<nav class="navbar navbar-expand-lg navbar-dark" style="width: 95%">
+				<a class="navbar-brand"
+					href="<?php echo get_site_url()?>"> <img
+					src="<?php echo get_theme_file_uri('/img/rural-women-logo-white.png')?>" style="width: 300px"
+					class="page-logo" />
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-
-						<i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i>
-						<i class="fa fa-search" aria-hidden="true" style="padding-right: 5px;;display:inline-block"></i>
-						<i class="fa fa-shopping-cart" aria-hidden="true" style="padding-right: 5px;display:inline-block"></i>
-						<?php include( get_template_directory().'/includes/login.php');?>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
 						
-					</div>
-				</div>
-				<div class="col-md-6 order-2 order-md-1 home-logo-col">
-					<a href="<?php echo get_site_url()?>">
-					<img src="<?php echo get_theme_file_uri('/img/rural-women-logo-white.png')?>" style="width:300px; margin-top: -40px"/>
-					</a>
-				</div>
+					</ul>
 
-			</div>
+                    <?php
+                        $menu = wp_nav_menu( array(
+                          'theme_location' => 'header-menu',
+                          'container'      => false,
+                          'menu_class'     => 'nav navbar-nav',
+                          'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                          'depth'          => 1,
+                          'walker'         => new bootstrap_4_walker_nav_menu(),
+                          'echo'           => true 
+                       ) );
+                    ?>
+                    <ul class="navbar-nav">
+                    	<li class="nav-item">
+                    		<a href="members" class="nav-link">Members <i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i></a>
+                    	</li>
+                    </ul>
+                </div>
+				
+			</nav>
+
 		</div>
 		<script>
 			(function($) {
