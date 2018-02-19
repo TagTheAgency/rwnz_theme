@@ -136,6 +136,7 @@ function html5blank_header_scripts()
 		wp_register_script('bootstrap', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array('jquery'), '4.0.0'); // Custom scripts
 		wp_enqueue_script('bootstrap'); // Enqueue it!
 		
+		wp_register_script( 'slick', get_template_directory_uri() . '/js/slick.min.js', array('jquery'), '1.0.0' );
 		
 		
 	}
@@ -164,6 +165,10 @@ function html5blank_styles()
 	
 	wp_register_style('fa', get_template_directory_uri() . '/css/font-awesome.min.css', '4.2.0', 'all');
 	wp_enqueue_style('fa'); // Enqueue it!
+	
+	wp_register_style( 'slick', get_template_directory_uri() . '/css/slick.css', array(), '1.0.0', 'all' );
+	wp_register_style( 'slick-theme', get_template_directory_uri() . '/css/slick-theme.css', array(), '1.0.0', 'all' );
+	
 }
 
 // Register HTML5 Blank Navigation
@@ -993,6 +998,9 @@ function convert_event_to_display($event) {
 }
 
 function get_events($attr) {
+    wp_enqueue_style('slick');
+    wp_enqueue_style('slick-theme');
+    wp_enqueue_script('slick');
 	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
 	$now = date('Y-m-d');
 	$past = date("Y-m-d", strtotime("-2 months"));
@@ -1023,8 +1031,6 @@ function get_events($attr) {
 	foreach ($events as $event ) {
 	    $date = new DateTime($event['date']);
 	    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
-        error_log(print_r($date, true));
-        error_log(print_r($now, true));
         if ($date > $now) {
 	        array_push($futureEvents, $event);
 	    } else {
@@ -1032,9 +1038,59 @@ function get_events($attr) {
 	    }
 	}
 	
-	$previousThree = array_slice($pastEvents, -3, 3);
+	$slick_content = "<div class=\"slick\">";
+
+    $initial_slide = -1;
+	
+	foreach($events as $idx => $event) {
+	    $date = new DateTime($event['date']);
+	    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
+	    if ($date > $now && $initial_slide < 0) {
+	        $initial_slide = $idx;
+	    }
+	    $slick_content .= convert_event_to_display($event);
+	}
+	
+	if ($initial_slide < 0) {
+	    $initial_slide = 0;
+	}
+	
+    $slick_content .= <<<slickinit
+</div><script>
+$(function() {
+$('.slick').slick({
+  dots: false,
+  infinite: false,
+  speed: 300,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  initialSlide: $initial_slide,
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    },
+    {
+      breakpoint: 765,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+});
+});
+
+</script>
+slickinit;
+	
+/*	$previousThree = array_slice($pastEvents, -3, 3);
 	$currentThree = array_slice($futureEvents, 0, 3);
 	$futureThree = array_slice($futureEvents, 3, 3);
+	
 	
 	$compiled_content = <<<CAROUSEL
 <div id="eventsCarousel" class="carousel slide" data-ride="false" data-interval="false" data-wrap="false">
@@ -1074,8 +1130,8 @@ CAROUSEL;
 	</a>
 	</div>
 CAROUSEL;
-	
-	$html = $compiled_content;
+	*/
+	$html = $slick_content;// . $compiled_content;
 	
 	return $html;
 

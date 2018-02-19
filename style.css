@@ -649,6 +649,9 @@ h1.homepage-section {
 a.carousel-control-dark, a.carousel-control-dark:focus, a.carousel-control-dark:hover {
 	color: black;
 }
+.slick .slick-prev:before, .slick .slick-next:before {
+    color: black;
+}
 
 div.event {
 	text-align: center;
