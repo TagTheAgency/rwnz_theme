@@ -646,6 +646,17 @@ h1.homepage-section {
 	min-height: 200px;
 }
 
+a.carousel-control-dark, a.carousel-control-dark:focus, a.carousel-control-dark:hover {
+	color: black;
+}
+
+div.event {
+	text-align: center;
+}
+div.event p {
+	margin: 20px auto;
+}
+
 /****
 SHOP
 ****/

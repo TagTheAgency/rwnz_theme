@@ -971,10 +971,32 @@ function get_next_event() {
 	return $events;
 }
 
+function convert_event_to_display($event) {
+    error_log(print_r($event, true));
+    
+    if ($event == null) {
+        return '';
+    }
+    
+    $date = new DateTime($event['date']);
+    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
+    
+    
+    $content = "<div class=\"event\"><h3>{$event['name']}</h3>";
+    $content .= '<p class="event_icon"><i class="fa fa-calendar-o fa-3x" aria-hidden="true"></i></p>';
+    $content .= "<h4>{$event['venue']}</h4>";
+    $content .= "<p class=\"event_date\">{$date->format('l, F jS, Y')}</p>";
+    
+    $content .= "</div>";
+    return $content;
+//    return print_r($event, true);
+}
+
 function get_events($attr) {
 	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
 	$now = date('Y-m-d');
-	$future = date("Y-m-d", strtotime("+1 month", strtotime("now")));
+	$past = date("Y-m-d", strtotime("-2 months"));
+	$future = date("Y-m-d", strtotime("+2 month", strtotime("now")));
 	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=' . $now . '&toDate=' . $future;
 	
 	$response = wp_remote_get($url);
@@ -991,40 +1013,70 @@ function get_events($attr) {
 	$events = json_decode($body, true);
 
 	$internal_events = array();
-
+	
+	$pastEvents = array();
+	$futureEvents = array();
+	
+	
+	
+	$now = new DateTime();
 	foreach ($events as $event ) {
-		$date = new DateTime($event['date']);
-		$date->setTimezone(new DateTimeZone('Pacific/Auckland'));
-		
-
-		$compiled_content = '<div class="bursary row">';
-		$compiled_content .= '<div class="col-md-6"><h3> ' . $event['name'] . '</h3>';
-		$compiled_content .= '<div class="date">' . $date->format('l, F jS, Y') . '</div>';
-		$event_content = apply_filters('the_content', esc_html($event['description']));
-		
-		$compiled_content .= '<div class="content">' . $event_content . '</div>';
-		$compiled_content .= '</div>';
-		
-		$address = $event['address'];
-		if ($address != null) {
-		    $map_location = '<iframe
-  width="400"
-  height="300"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=' . $google_api . '
-    &q=' . implode(" ", $address['parts']) . '" allowfullscreen>
-</iframe>';
-		    
-		    $compiled_content .= '<div class="col-md-6 attachment">' . $map_location . '</div>';
-		}
-		
-		$compiled_content .= '</div>';
-
-
-
-		$html .= $compiled_content;
+	    $date = new DateTime($event['date']);
+	    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
+        error_log(print_r($date, true));
+        error_log(print_r($now, true));
+        if ($date > $now) {
+	        array_push($futureEvents, $event);
+	    } else {
+	        array_push($pastEvents, $event);
+	    }
 	}
+	
+	$previousThree = array_slice($pastEvents, -3, 3);
+	$currentThree = array_slice($futureEvents, 0, 3);
+	$futureThree = array_slice($futureEvents, 3, 3);
+	
+	$compiled_content = <<<CAROUSEL
+<div id="eventsCarousel" class="carousel slide" data-ride="false" data-interval="false" data-wrap="false">
+	<div class="carousel-inner">
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+CAROUSEL;
+    $compiled_content .= convert_event_to_display($previousThree[count($previousThree) - 3]);
+	$compiled_content .= '</div><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($previousThree[count($previousThree) - 2]);
+	$compiled_content .= '</div><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($previousThree[count($previousThree) - 1]);
+	$compiled_content .= '</div></div></div></div><div class="carousel-item active"><div class="container"><div class="row"><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($currentThree[0]);
+	$compiled_content .= '</div><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($currentThree[1]);
+	$compiled_content .= '</div><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($currentThree[2]);
+	$compiled_content .= '</div></div></div></div><div class="carousel-item"><div class="container"><div class="row"><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($futureThree[0]);
+	$compiled_content .= '</div><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($futureThree[1]);
+	$compiled_content .= '</div><div class="col-sm">';
+	$compiled_content .= convert_event_to_display($futureThree[2]);
+	$compiled_content .= '</div></div></div></div>';
 
+	$compiled_content .= <<<CAROUSEL
+<a class="carousel-control-prev carousel-control-dark" href="#eventsCarousel" role="button" data-slide="prev">
+	<i class="fa fa-chevron-left"></i>
+	<span class="sr-only">Previous</span>
+	</a>
+	<a class="carousel-control-next carousel-control-dark" href="#eventsCarousel" role="button" data-slide="next">
+	<i class="fa fa-chevron-right"></i>
+	<span class="sr-only">Next</span>
+	</a>
+	</div>
+CAROUSEL;
+	
+	$html = $compiled_content;
+	
 	return $html;
 
 
