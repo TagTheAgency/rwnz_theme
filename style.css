@@ -660,6 +660,14 @@ div.event p {
 	margin: 20px auto;
 }
 
+#eventForm {
+	font-size: 1.6rem;
+}
+
+#eventForm .form-control, #eventForm .btn  {
+	font-size: 1.6rem;
+}
+
 /****
 SHOP
 ****/

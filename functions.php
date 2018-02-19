@@ -138,7 +138,9 @@ function html5blank_header_scripts()
 		
 		wp_register_script( 'slick', get_template_directory_uri() . '/js/slick.min.js', array('jquery'), '1.0.0' );
 		
-		
+		$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
+		wp_register_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $google_api . '&libraries=places', array(), '1.0.0');
+
 	}
 }
 
@@ -168,6 +170,7 @@ function html5blank_styles()
 	
 	wp_register_style( 'slick', get_template_directory_uri() . '/css/slick.css', array(), '1.0.0', 'all' );
 	wp_register_style( 'slick-theme', get_template_directory_uri() . '/css/slick-theme.css', array(), '1.0.0', 'all' );
+	
 	
 }
 
@@ -846,6 +849,8 @@ add_shortcode('board-papers', 'board_papers');
 
 add_shortcode('events', 'get_events');
 
+add_shortcode('events-form', 'events_form');
+
 /*------------------------------------*\
 	Meta boxes
 \*------------------------------------*/
@@ -974,6 +979,15 @@ function get_next_event() {
 	$body = $response['body'];
 	$events = json_decode($body, true);
 	return $events;
+}
+
+function events_form($attr) {
+//    wp_enqueue_style('date-picker');
+    wp_enqueue_script('google-maps');
+    ob_start();
+    include('includes/events-form-template.php');
+    return ob_get_clean();   
+
 }
 
 function convert_event_to_display($event) {
