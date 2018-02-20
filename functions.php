@@ -1215,28 +1215,7 @@ function rwnz_login() {
 	wp_die();
 }
 
-/**
- *	TODO once hello club implement API level keys, replace this call with those!
- */
 
-function hello_club_get_admin_oauth() {
-	$url = get_option('rwnz_hello_club_base_url') . '/auth/token';
-
-	$response = wp_remote_post( $url, array(
-		'body'  => json_encode(array('grantType' => 'password', 'username' => 'colinmatcham', 'password' => 'test123')),
-		'headers' => array(
-			'Content-Type' => 'application/json'
-		)
-	));
-	
-	$body = $response['body'];
-	
-	if ($response['response']['code'] == 401) {
-		return null;
-	}
-	
-	return json_decode($body) -> accessToken;
-}
 
 function login_links() {
     $links = array();
@@ -1264,23 +1243,11 @@ add_action( 'wp_ajax_nopriv_rwnz_create_account', 'rwnz_create_account_ajax' );
 
 function rwnz_forgotten_password() {
 	$username = $_REQUEST['username'];
-	$url = get_option('rwnz_hello_club_base_url') . '/user/forgotPassword';
-	$response = wp_remote_post( $url, array(
-		'body'  => json_encode(array('username' => $username)),
-		'headers' => array(
-			'Content-Type' => 'application/json'
-		)
-	));
-
-	if ( is_wp_error( $response ) ) {
-	    $error_message = $response->get_error_message();
-	    echo json_encode(array('error'=>$error_message));
-	    wp_die();
-	} 
+	$hello = new HelloClub();
 	
-	$body = $response['body'];
-	echo $body;
+	echo $hello -> forgottenPassword($username);
 	wp_die();
+	
 }
 
 add_action('wp_ajax_rwnz_forgotten_password', 'rwnz_forgotten_password');
@@ -1289,6 +1256,8 @@ add_action('wp_ajax_nopriv_rwnz_forgotten_password', 'rwnz_forgotten_password');
 
 
 function rwnz_create_account_ajax() {
+	$hello = new HelloClub();
+	
 	$response = rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
 
 	$created = json_decode($response);
