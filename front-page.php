@@ -25,7 +25,7 @@
 		<div class="homepage-story">
 		<h1>Events</h1>
 		<?php 
-		$upcomingEvents = get_next_event();
+		$upcomingEvents = $rwnzEvents -> get_next_event();
 		if (empty($upcomingEvents)) {
 			echo '<div class="text">There are no events upcoming.</div>';
 		} else {

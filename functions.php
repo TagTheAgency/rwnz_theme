@@ -11,6 +11,10 @@
 
 include_once 'advanced-custom-fields/acf.php';
 include_once 'includes/rwnz_settings.php';
+
+include_once 'includes/HelloClub.php';
+include_once 'includes/Events.php';
+
 // Load any external files you have here
 
 /*------------------------------------*\
@@ -847,9 +851,7 @@ function board_papers($atts) {
 
 add_shortcode('board-papers', 'board_papers');
 
-add_shortcode('events', 'get_events');
 
-add_shortcode('events-form', 'events_form');
 
 /*------------------------------------*\
 	Meta boxes
@@ -965,192 +967,6 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 	error_log( 'Request Response : ' . var_export( $response, true ) );
 }
 
-function get_next_event() {
-	$now = date('Y-m-d');
-	$future = date("Y-m-d", strtotime("+1 month", strtotime("now")));
-	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=' . $now . '&toDate=' . $future;
-
-	$response = wp_remote_get($url);
-
-	if ( is_wp_error( $response ) ) {
-	 	return array();
-	}
-
-	$body = $response['body'];
-	$events = json_decode($body, true);
-	return $events;
-}
-
-function events_form($attr) {
-//    wp_enqueue_style('date-picker');
-    wp_enqueue_script('google-maps');
-    ob_start();
-    include('includes/events-form-template.php');
-    return ob_get_clean();   
-
-}
-
-function convert_event_to_display($event) {
-    error_log(print_r($event, true));
-    
-    if ($event == null) {
-        return '';
-    }
-    
-    $date = new DateTime($event['date']);
-    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
-    
-    
-    $content = "<div class=\"event\"><h3>{$event['name']}</h3>";
-    $content .= '<p class="event_icon"><i class="fa fa-calendar-o fa-3x" aria-hidden="true"></i></p>';
-    $content .= "<h4>{$event['venue']}</h4>";
-    $content .= "<p class=\"event_date\">{$date->format('l, F jS, Y')}</p>";
-    
-    $content .= "</div>";
-    return $content;
-//    return print_r($event, true);
-}
-
-function get_events($attr) {
-    wp_enqueue_style('slick');
-    wp_enqueue_style('slick-theme');
-    wp_enqueue_script('slick');
-	$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
-	$now = date('Y-m-d');
-	$past = date("Y-m-d", strtotime("-2 months"));
-	$future = date("Y-m-d", strtotime("+2 month", strtotime("now")));
-	$url = get_option('rwnz_hello_club_base_url') . '/event?fromDate=' . $now . '&toDate=' . $future;
-	
-	$response = wp_remote_get($url);
-
-	if ( is_wp_error( $response ) ) {
-	 
-		$html = '<div id="post-error">';
-			$html .= __( 'There was a problem retrieving the response from the server.', 'wprp-example' );
-		$html .= '</div><!-- /#post-error -->';
-	 	return $html;
-	}
-	
-	$body = $response['body'];
-	$events = json_decode($body, true);
-
-	$internal_events = array();
-	
-	$pastEvents = array();
-	$futureEvents = array();
-	
-	
-	
-	$now = new DateTime();
-	foreach ($events as $event ) {
-	    $date = new DateTime($event['date']);
-	    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
-        if ($date > $now) {
-	        array_push($futureEvents, $event);
-	    } else {
-	        array_push($pastEvents, $event);
-	    }
-	}
-	
-	$slick_content = "<div class=\"slick\">";
-
-    $initial_slide = -1;
-	
-	foreach($events as $idx => $event) {
-	    $date = new DateTime($event['date']);
-	    $date->setTimezone(new DateTimeZone('Pacific/Auckland'));
-	    if ($date > $now && $initial_slide < 0) {
-	        $initial_slide = $idx;
-	    }
-	    $slick_content .= convert_event_to_display($event);
-	}
-	
-	if ($initial_slide < 0) {
-	    $initial_slide = 0;
-	}
-	
-    $slick_content .= <<<slickinit
-</div><script>
-$(function() {
-$('.slick').slick({
-  dots: false,
-  infinite: false,
-  speed: 300,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  initialSlide: $initial_slide,
-  responsive: [
-    {
-      breakpoint: 900,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1
-      }
-    },
-    {
-      breakpoint: 765,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
-});
-});
-
-</script>
-slickinit;
-	
-/*	$previousThree = array_slice($pastEvents, -3, 3);
-	$currentThree = array_slice($futureEvents, 0, 3);
-	$futureThree = array_slice($futureEvents, 3, 3);
-	
-	
-	$compiled_content = <<<CAROUSEL
-<div id="eventsCarousel" class="carousel slide" data-ride="false" data-interval="false" data-wrap="false">
-	<div class="carousel-inner">
-        <div class="carousel-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-CAROUSEL;
-    $compiled_content .= convert_event_to_display($previousThree[count($previousThree) - 3]);
-	$compiled_content .= '</div><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($previousThree[count($previousThree) - 2]);
-	$compiled_content .= '</div><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($previousThree[count($previousThree) - 1]);
-	$compiled_content .= '</div></div></div></div><div class="carousel-item active"><div class="container"><div class="row"><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($currentThree[0]);
-	$compiled_content .= '</div><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($currentThree[1]);
-	$compiled_content .= '</div><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($currentThree[2]);
-	$compiled_content .= '</div></div></div></div><div class="carousel-item"><div class="container"><div class="row"><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($futureThree[0]);
-	$compiled_content .= '</div><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($futureThree[1]);
-	$compiled_content .= '</div><div class="col-sm">';
-	$compiled_content .= convert_event_to_display($futureThree[2]);
-	$compiled_content .= '</div></div></div></div>';
-
-	$compiled_content .= <<<CAROUSEL
-<a class="carousel-control-prev carousel-control-dark" href="#eventsCarousel" role="button" data-slide="prev">
-	<i class="fa fa-chevron-left"></i>
-	<span class="sr-only">Previous</span>
-	</a>
-	<a class="carousel-control-next carousel-control-dark" href="#eventsCarousel" role="button" data-slide="next">
-	<i class="fa fa-chevron-right"></i>
-	<span class="sr-only">Next</span>
-	</a>
-	</div>
-CAROUSEL;
-	*/
-	$html = $slick_content;// . $compiled_content;
-	
-	return $html;
-
-
-}
 
 function getBoardPapers() {
 	if (!is_board_member() && !is_committee_member()) {
