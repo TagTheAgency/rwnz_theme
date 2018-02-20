@@ -19,7 +19,7 @@ class RWNZEvents {
 	function get_next_event() {
 		$now = date('Y-m-d');
 		$future = date("Y-m-d", strtotime("+1 month", strtotime("now")));
-		$events = $this -> hello -> get_events($past, $future);
+		$events = $this -> hello -> get_events($now, $future);
 		
 		return $events;
 	}
@@ -34,7 +34,7 @@ class RWNZEvents {
 		//    wp_enqueue_style('date-picker');
 		wp_enqueue_script('google-maps');
 		ob_start();
-		include('includes/events-form-template.php');
+		include('events-form-template.php');
 		return ob_get_clean();
 		
 	}
