@@ -448,10 +448,14 @@ ul.archive li a:hover, ul.archive li a {
 	padding-top: 100px;
 }
 
-.row.homepage-row {
+.row.homepage-row.member-row {
 	border-bottom: 1px grey solid;
+	padding-bottom: 20px;
 }
 
+.homepage-link-aftersocks {
+	width: 100%;
+}
  
 .row.homepage-row > div.dynamic {
 	padding:40px;

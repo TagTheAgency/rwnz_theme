@@ -78,17 +78,29 @@
         		</div>
         	</div>
         	<div class="homepage-links">
-        		<div class="homepage-link homepage-link-aftersocks split">
+        		<div class="homepage-link homepage-link-aftersocks">
         			<a href="http://aftersocks.nz"><span class="link"></span></a>
         			<h1>Aftersocks</h1>
         		</div>
-        		<div class="homepage-link homepage-link-memberzone split">
+        	</div>
+	</div>
+</div>
+
+<div class="row homepage-row member-row" >
+	<div class="col-md-6">
+		<div class="homepage-link homepage-link-memberzone" style="height: 200px">
+        			<a href="members"><span class="link"></span></a>
+        			<h1>Become a member</h1>
+        		</div>
+	
+	</div>
+	<div class="col-md-6">
+        		<div class="homepage-link homepage-link-memberzone" style="height: 200px">
         			<a href="members"><span class="link"></span></a>
         			<h1>Member Zone</h1>
         		</div>
         		
         	</div>
-	</div>
 </div>
 
 <div class="homepage-row homepage-services">
