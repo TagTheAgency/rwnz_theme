@@ -1285,9 +1285,9 @@ function rwnz_create_account_ajax() {
 }
 
 function rwnz_create_account_subscription($member_id, $membership_id) {
-
+	$hello = new HelloClub();
 	//get an admin token... TODO this needs to be replaced by an API level token, once HelloClub implements this.
-	$admin = hello_club_get_admin_oauth();
+	$admin = $hello -> admin_oauth();
 
 
 	$url = get_option('rwnz_hello_club_base_url') . '/subscription';
