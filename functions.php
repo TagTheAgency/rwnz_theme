@@ -1419,7 +1419,15 @@ class bootstrap_4_walker_nav_menu extends Walker_Nav_menu {
     
 }
 
-
+//* Changing excerpt more - only works where excerpt IS hand-crafted
+function manual_excerpt_more( $excerpt ) {
+    $excerpt_more = '';
+    if( has_excerpt() ) {
+        $excerpt_more = '&nbsp;<a href="' . get_permalink() . '" rel="nofollow">[Read more]</a>';
+    }
+    return $excerpt . $excerpt_more;
+}
+add_filter( 'get_the_excerpt', 'manual_excerpt_more' );
 
 //debug
 add_filter( 'template_include', 'var_template_include', 1000 );
