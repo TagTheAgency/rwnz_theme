@@ -36,10 +36,10 @@
 							</ul>
 						</div>
 						<div class="col-sm">
-							<h3>Portal</h3>
+							<h3>Members</h3>
 							<ul>
-								<li>Lorem ipsum</li>
-								<li>Lorem ipsum</li>
+								<li>Members area</li>
+								<li>Become a member</li>
 							</ul>
 						</div>
 						<div class="col-sm">

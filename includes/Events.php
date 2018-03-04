@@ -53,7 +53,7 @@ class RWNZEvents {
 		$content = "<div class=\"event\"><h3>{$event['name']}</h3>";
 		$content .= '<p class="event_icon"><i class="fa fa-calendar-o fa-3x" aria-hidden="true"></i></p>';
 		$content .= "<h4>{$event['venue']}</h4>";
-		$content .= "<p class=\"event_date\">{$date->format('l, F jS, Y')}</p>";
+		$content .= "<p class=\"event_date\">{$date->format('l, j F jS, Y')}</p>";
 		
 		$content .= "</div>";
 		return $content;

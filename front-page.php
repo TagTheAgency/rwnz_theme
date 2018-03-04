@@ -74,7 +74,7 @@
         		</div>
         		<div class="homepage-link homepage-link-erwa split">
         			<span class="link"><a href="http://erwa.org.nz"></a></span>
-        			<h1>ERWA</h1>
+        			<h1>Enterprising Rural Women</h1>
         		</div>
         	</div>
         	<div class="homepage-links">
@@ -104,7 +104,6 @@
 </div>
 
 <div class="homepage-row homepage-services">
-	<h1 class="homepage-section">Services</h1>
 	<?php 
 	$menu_name = 'services-menu';
     if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
