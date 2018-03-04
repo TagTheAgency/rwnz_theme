@@ -1266,15 +1266,12 @@ function rwnz_create_account_ajax() {
 	//TODO these are hardcoded from the ids in HelloClub - find some way to enumerate them from there instead.
 	$memberships = array('personal' => array('id' => '555bee3e4527879d33c7b31a', 'amount' => 50), 'corporate' => array('id' => '555bee3e4527879d33c7b31b', 'amount' => 100));
 
-	echo $response;
 
 	if ($created->id) {
 		$subscription  = $_REQUEST['subscription'];
 		if ($subscription == 'none') {
 			//
 		} else {
-			echo 'CSJM got subscription = ' . $subscription;
-			echo $memberships[$subscription];
 			$subscription_response = rwnz_create_account_subscription($created->id, $memberships[$subscription]);
 		}
 	}

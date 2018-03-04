@@ -18,6 +18,7 @@
 		<option value="corporate">RWNZ Corporate Membership - $100 Yearly</option>
 		<option value="none">No membership, just create an account</option>
 	</select>
+	<button type="submit" id="becomeMemberButton" >Join us</button>
 </form>
 <script>
 
