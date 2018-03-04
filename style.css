@@ -664,6 +664,14 @@ div.event p {
 	margin: 20px auto;
 }
 
+article .form-control {
+	font-size: 1.6rem;
+}
+
+article select.form-control:not([size]):not([multiple]) {
+    height: calc(2.25rem + 12px);
+}
+
 #eventForm {
 	font-size: 1.6rem;
 }

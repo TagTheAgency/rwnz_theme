@@ -14,6 +14,7 @@ include_once 'includes/rwnz_settings.php';
 
 include_once 'includes/HelloClub.php';
 include_once 'includes/Events.php';
+include_once 'includes/RWNZLogin.php';
 
 // Load any external files you have here
 
@@ -1343,6 +1344,14 @@ function rwnz_create_account($firstName, $lastName, $email) {
 	$body = $response['body'];
 	return $body;
 
+}
+
+function is_logged_in() {
+    if (is_array($_SESSION["member_name"])) {
+        return $_SESSION["member_name"];
+    } else {
+        return false;
+    }
 }
 
 function is_board_member() {

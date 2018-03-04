@@ -38,8 +38,8 @@
 						<div class="col-sm">
 							<h3>Members</h3>
 							<ul>
-								<li>Members area</li>
-								<li>Become a member</li>
+								<li><a href="<?php echo get_site_url() ?>/members">Members area</a></li>
+								<li><a href="<?php echo get_site_url() ?>/join-us">Become a member</a></li>
 							</ul>
 						</div>
 						<div class="col-sm">

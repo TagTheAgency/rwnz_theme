@@ -89,7 +89,7 @@
 <div class="row homepage-row member-row" >
 	<div class="col-md-6">
 		<div class="homepage-link homepage-link-memberzone" style="height: 200px">
-        			<a href="members"><span class="link"></span></a>
+        			<a href="join-us"><span class="link"></span></a>
         			<h1>Become a member</h1>
         		</div>
 	

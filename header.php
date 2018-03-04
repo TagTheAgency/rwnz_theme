@@ -62,7 +62,11 @@
                     ?>
                     <ul class="navbar-nav">
                     	<li class="nav-item">
-                    		<a href="members" class="nav-link">Members <i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i></a>
+                    		<?php if (is_logged_in()) { ?>
+                    			<a href="members" class="nav-link">Members</a>
+                    		<?php } else { ?>
+                    			<a href="login" class="login-popup nav-link">Login</a>
+                    		<?php } ?>
                     	</li>
                     </ul>
                 </div>
