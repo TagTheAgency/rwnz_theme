@@ -46,7 +46,7 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-						
+
 					</ul>
 
                     <?php
@@ -57,7 +57,7 @@
                           'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                           'depth'          => 1,
                           'walker'         => new bootstrap_4_walker_nav_menu(),
-                          'echo'           => true 
+                          'echo'           => true
                        ) );
                     ?>
                     <ul class="navbar-nav">
@@ -70,15 +70,15 @@
                     	</li>
                     </ul>
                 </div>
-				
+
 			</nav>
 
 		</div>
 
-		
-		
 
-			
+
+
+
 			<!-- /header -->
 	</div>
 	<div class="wrapper">

@@ -28,8 +28,8 @@
 
 		<!-- wrapper -->
 		<div class="fluid-wrapper">
-		<div style="position: absolute; top: 0px;width: 100%;max-width:100%" class="container"> 
-		
+		<div style="position: absolute; top: 0px;width: 100%;max-width:100%" class="container">
+
 		<nav class="navbar navbar-expand-lg navbar-dark" style="width: 95%">
 				<a class="navbar-brand"
 					href="<?php echo get_site_url()?>"> <img
@@ -45,7 +45,7 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-						
+
 					</ul>
 
                     <?php
@@ -56,16 +56,19 @@
                           'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                           'depth'          => 1,
                           'walker'         => new bootstrap_4_walker_nav_menu(),
-                          'echo'           => true 
+                          'echo'           => true
                        ) );
                     ?>
-                    <ul class="navbar-nav">
-                    	<li class="nav-item">
-                    		<a href="members" class="nav-link">Members <i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i></a>
-                    	</li>
-                    </ul>
+					<ul class="navbar-nav">
+					   <li class="nav-item">
+						   <a href="members" class="nav-link">Members <i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i></a>
+					   </li>
+					   <li id="search" class="nav-item">
+							<?php include( locate_template( 'searchform.php', false, false ) );?>
+					   </li>
+				   </ul>
                 </div>
-				
+
 			</nav>
 
 		</div>
@@ -92,10 +95,10 @@
 			});
 			})(jQuery);
 		</script>
-		
-		
 
-			
+
+
+
 			<!-- /header -->
 	<div class="fullscreen-image" style="background-image: url('<?php the_post_thumbnail_url('full'); ?>'); background-size: cover; margin-bottom: 20px; background-position: center">
 
