@@ -1275,8 +1275,12 @@ function rwnz_create_account_ajax() {
 			$subscription_response = rwnz_create_account_subscription($created->id, $memberships[$subscription]);
 		}
 	}
-	echo $response;
-	echo $subscription_response;
+
+	$user = array('id' => $created->id, 'subscription' => json_decode($subscription_response));
+	echo json_encode($user);
+	
+// 	echo $response;
+// 	echo $subscription_response;
 	wp_die();
 
 
@@ -1298,7 +1302,7 @@ function rwnz_create_account_subscription($member_id, $membership_id) {
 		'transaction' => array('amount' => $membership_id['amount'], 'create' => true)
 	));
 
-	echo $data;
+	//echo $data;
 
 
 	$response = wp_remote_post($url, array(
