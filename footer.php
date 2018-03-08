@@ -5,13 +5,13 @@
 
 				<div class="container" style="padding-left:30px;">
 					<div class="row">
-						<div class="col-sm social">
+						<div class="col-sm">
 							<div class="social">
 								<a href="#" id="fbshare"><i class="fa fa-lg fa-facebook"></i></a><a href="#" id="twittershare"><i class="fa fa-lg fa-twitter"></i></a><a href="#" id="lnshare"><i class="fa fa-lg fa-instagram"></i></a>
 							</div>
 						</div>
 						<div class="col-sm btt-button">
-							<p><i class="fa fa-lg fa-arrow-up"></i> Back To Top</p>
+							<span id="to-top"><i class="fa fa-lg fa-arrow-up"></i> Back To Top</span>
 						</div>
 					</div>
 					<div class="row">

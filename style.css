@@ -424,9 +424,8 @@ ul.archive li a:hover, ul.archive li a {
 }
 
 .footer a:hover {
-	color: #ffffff;
+	color: #A2EFE9;
 	text-decoration: none;
-	opacity: 0.5;
 }
 
 .footer h3 {
@@ -438,11 +437,21 @@ ul.archive li a:hover, ul.archive li a {
     margin-right: 20px;
     margin-bottom: 50px;
     color: #A2EFE9;
+	transition-duration: 200ms;
 }
 
 .row-no-padding > [class*="col-"] {
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+
+#to-top, .social .fa{
+	cursor: pointer;
+	transition-duration: 200ms;
+}
+
+#to-top:hover, .social .fa:hover{
+	opacity: 0.4;
 }
 
 .btt-button{
