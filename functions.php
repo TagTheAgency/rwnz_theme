@@ -15,6 +15,7 @@ include_once 'includes/rwnz_settings.php';
 include_once 'includes/HelloClub.php';
 include_once 'includes/Events.php';
 include_once 'includes/RWNZLogin.php';
+include_once 'includes/RWNZMigrate.php';
 
 // Load any external files you have here
 
