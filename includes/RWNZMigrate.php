@@ -22,12 +22,19 @@ class RWNZMigrate {
         
         $arr = simplexml_load_string($import);
         
-        // print_r($arr);
+        //Friday, April 29, 2011
+        $dateFormat = "l, F j, Y";
+        
         
         foreach ($arr as $post) {
             print_r("<br>Processing ".(string) ($post->title));
             
             $title = (string) ($post->title);
+            $datestring = (string) ($post->date);
+            $body = (string) ($post->body);
+            $date = date_create_from_format($dateFormat, $datestring);
+            
+            $postdate = date("Y-m-d H:i:s", $date->getTimestamp());
             
             $page = get_page_by_title($title, OBJECT, 'post');
             if ($page->ID) {
@@ -41,11 +48,23 @@ class RWNZMigrate {
             $userID = 1; 
             $postStatus = 'publish'; 
             
+            $new_post = array(
+                'post_title' => $title,
+                'post_content' => $body,
+                'post_status' => $postStatus,
+                'post_date' => $postdate,
+                'post_author' => $userID,
+                'post_type' => $postType
+            );
             
+            $post_id = wp_insert_post($new_post, true);
+            if (is_wp_error($post_id)) {
+                print_r ("... Errored... " . $post_id -> get_error_message());
+                continue;
+            }
             
-            
-            print_r((string) ($post->title));
-            echo ('<br>');
+            echo "... Created ". $post_id; 
+//            echo ('<br>');
         }
         
         wp_die();
