@@ -1,7 +1,7 @@
 <?php /* Template Name: Business directory page */ get_header(); ?>
 
 
-<?php 
+<?php
 $page_colour = '#00aba0';//get_post_meta(get_the_ID(), 'page-colour-theme', true);
 $header_content = apply_filters('the_content', get_the_excerpt());
 
@@ -17,14 +17,14 @@ $terms = get_terms( 'business_directory', array(
     			<div class="header-image-inner"><img class="img" src="<?php echo wp_get_attachment_image_src( get_option( 'business-directory-featured-image' ), 'page-header' )[0]; ?>" /></div>
 			</div>
 
-		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ --> 
+		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ -->
 		<div id="page-header">
-			<?php include( locate_template( 'searchform.php', false, false ) );?> 
+			<?php include( locate_template( 'searchform.php', false, false ) );?>
         	<div class="excerpt_content">
-				<h1 style="color:white;"><?php the_title()?></h1> 
+				<h1 style="color:white;"><?php the_title()?></h1>
 		    </div>
-        </div>	
-		
+        </div>
+
 		</section>
 	</section>
 
@@ -34,7 +34,7 @@ article.news_archive a, article.news_archive a:hover {
 }
 </style>
 
-<?php 
+<?php
 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
     $count = count( $terms );
     $i = 0;
@@ -63,9 +63,9 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 				<div class="bursary row">
 					<div class="col-md-6"><h3><?php the_title();?></h3>
 						<div class="content"><?php the_content(); // Dynamic Content ?></div>
-					</div>	
+					</div>
 					<div class="col-md-6 ">
-						<?php 
+						<?php
 						$mobile = get_post_meta(get_the_ID(), 'mobile', true);
 						$website = get_post_meta(get_the_ID(), 'website', true);
 						$phone = get_post_meta(get_the_ID(), 'phone', true);
@@ -75,17 +75,17 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 							echo '<img src="'.wp_get_attachment_url($logo).'" style="max-height: 100px"/><br/>';
 						}
 						?>
-						
+
 						Contact: <?php echo get_post_meta(get_the_ID(), 'contact', true);?><br/>
 						Email: <?php echo get_post_meta(get_the_ID(), 'email', true);?><br/>
-						
+
 						<?php
 						if ($mobile) {
 							echo "Mobile: " . $mobile . "<br/>";
 						}
 						if ($website) {
 							if (substr( $website, 0, 4 ) === "http") {
-							
+
 							} else {
 								$website = "http://" . $website;
 							}
@@ -94,21 +94,22 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 						if ($address) {
 							echo "Address: " . $address . "</br>";
 						}
-						
+
 						?>
 					</div>
-
+                </div>
+            </div>
 		</article>
 		<!-- /article -->
 	<?php endwhile; endif; ?>
-	
+
 	</section>
 	<!-- /section -->
 	</main>
 
 <?php get_footer(); ?>
 
-	
+
 
 
 

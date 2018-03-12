@@ -1,4 +1,5 @@
 			<!-- footer -->
+				</div>
 			</div>
 			<div class="fluid-wrapper">
 			<footer class="footer" role="contentinfo">
@@ -6,9 +7,19 @@
 				<div class="container" style="padding-left:30px;">
 					<div class="row">
 						<div class="col-sm">
+							<div class="social">
+								<a href="#" id="fbshare"><i class="fa fa-lg fa-facebook"></i></a><a href="#" id="twittershare"><i class="fa fa-lg fa-twitter"></i></a><a href="#" id="lnshare"><i class="fa fa-lg fa-instagram"></i></a>
+							</div>
+						</div>
+						<div class="col-sm btt-button">
+							<span id="to-top"><i class="fa fa-lg fa-arrow-up"></i> Back To Top</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">
 							<h3>News</h3>
 							<ul>
-							<?php 
+							<?php
 							$next_args = array(
                         	    'post_type' => 'post',
                         	    'post_status' => 'publish',
@@ -16,13 +27,13 @@
                         	    'order'=>'DESC',
                         	    'orderby'=>'date',
 	                         );
-	
+
                             	$query = new WP_Query( $next_args );
                             	while ( $query->have_posts() ) {
                             	        $query->the_post();
                             	        ?>
 								<li><a href="<?php the_permalink()?>"><?php the_title()?></a></li>
-							<?php 
+							<?php
                             	}
 							wp_reset_postdata();
 							?>
@@ -61,7 +72,7 @@
 						<div class="col-sm">
 							<h3>Submissions</h3>
 							<ul>
-								<?php 
+								<?php
 							$next_args = array(
                         	    'post_type' => 'submission',
                         	    'post_status' => 'publish',
@@ -69,22 +80,17 @@
                         	    'order'=>'DESC',
                         	    'orderby'=>'date',
 	                         );
-	
+
                             	$query = new WP_Query( $next_args );
                             	while ( $query->have_posts() ) {
                             	        $query->the_post();
                             	        ?>
 								<li><a href="<?php the_permalink()?>"><?php the_title()?></a></li>
-							<?php 
+							<?php
                             	}
 							wp_reset_postdata();
 							?>
 							</ul>
-						</div>
-						<div class="col-sm">
-							<div class="social">
-								<a href="#" id="fbshare"><i class="fa fa-lg fa-facebook"></i></a><a href="#" id="twittershare"><i class="fa fa-lg fa-twitter"></i></a><a href="#" id="lnshare"><i class="fa fa-lg fa-instagram"></i></a>
-							</div>
 						</div>
 					</div>
 				</div>

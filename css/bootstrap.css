@@ -3601,7 +3601,7 @@ tbody.collapse.show {
       align-items: center;
   -ms-flex-pack: justify;
       justify-content: space-between;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 4rem 0.5rem;
 }
 
 .navbar > .container,
@@ -8372,3 +8372,21 @@ a.text-dark:focus, a.text-dark:hover {
   visibility: hidden !important;
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+/*CUSTOM BOOTSRAP STYLES*/
+
+.btn{
+	padding: 1.2em;
+}
+
+.btn-secondary, .btn-secondary:not([disabled]):not(.disabled):active, .btn:focus{
+    background-color: #00aba0;
+	border-color: #00aba0;
+    box-shadow: none !important;
+    font-size: 0.8em;
+}
+
+.btn-secondary:hover{
+    background-color: #68d2cc;
+    border-color: #68d2cc;
+}

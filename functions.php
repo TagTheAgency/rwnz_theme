@@ -28,14 +28,14 @@ function register_my_session() {
     if( !session_id()) {
         session_start();
     }
-    
+
     if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
         // last request was more than 30 minutes ago
         session_unset();     // unset $_SESSION variable for the run-time
         session_destroy();   // destroy session data in storage
     }
     $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-    
+
     if (!isset($_SESSION['CREATED'])) {
         $_SESSION['CREATED'] = time();
     } else if (time() - $_SESSION['CREATED'] > 1800) {
@@ -43,7 +43,7 @@ function register_my_session() {
         session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
         $_SESSION['CREATED'] = time();  // update creation time
     }
-    
+
 }
 
 add_action('init', 'register_my_session');
@@ -63,11 +63,11 @@ if (function_exists('add_theme_support'))
 	add_theme_support('post-thumbnails');
 	add_image_size('large', 700, '', true); // Large Thumbnail
 	add_image_size('page-header', 1000, 478, true); // Large Thumbnail
-	
+
 	add_image_size('medium', 250, '', true); // Medium Thumbnail
 	add_image_size('small', 120, '', true); // Small Thumbnail
 	add_image_size('custom-size', 700, 200, true); // Custom Thumbnail Size call using the_post_thumbnail('custom-size');
-	add_image_size('sub-nav', 200, 250, true); 
+	add_image_size('sub-nav', 200, 250, true);
 
 	// Add Support for Custom Backgrounds - Uncomment below if you're going to use
 	/*add_theme_support('custom-background', array(
@@ -137,12 +137,12 @@ function html5blank_header_scripts()
 
 		wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
 		wp_enqueue_script('html5blankscripts'); // Enqueue it!
-		
+
 		wp_register_script('bootstrap', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array('jquery'), '4.0.0'); // Custom scripts
 		wp_enqueue_script('bootstrap'); // Enqueue it!
-		
+
 		wp_register_script( 'slick', get_template_directory_uri() . '/js/slick.min.js', array('jquery'), '1.0.0' );
-		
+
 		$google_api = 'AIzaSyBrdzLAJw2Kvrt28jzyGGVw_dSGUsUnq-k';
 		wp_register_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . $google_api . '&libraries=places', array(), '1.0.0');
 
@@ -166,17 +166,17 @@ function html5blank_styles()
 
 	wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
 	wp_enqueue_style('html5blank'); // Enqueue it!
-	
+
 	wp_register_style('bootstrap', get_template_directory_uri() . '/css/bootstrap.css', array(), '4.0.0', 'all');
 	wp_enqueue_style('bootstrap'); // Enqueue it!
-	
+
 	wp_register_style('fa', get_template_directory_uri() . '/css/font-awesome.min.css', '4.2.0', 'all');
 	wp_enqueue_style('fa'); // Enqueue it!
-	
+
 	wp_register_style( 'slick', get_template_directory_uri() . '/css/slick.css', array(), '1.0.0', 'all' );
 	wp_register_style( 'slick-theme', get_template_directory_uri() . '/css/slick-theme.css', array(), '1.0.0', 'all' );
-	
-	
+
+
 }
 
 // Register HTML5 Blank Navigation
@@ -306,6 +306,12 @@ function html5wp_excerpt($length_callback = '', $more_callback = '')
 	echo $output;
 }
 
+// Custom excerpt limit override
+function custom_excerpt_length( $length ) {
+        return 10;
+    }
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
 // Custom View Article link to Post
 function html5_blank_view_article($more)
 {
@@ -404,9 +410,9 @@ add_action('wp_print_scripts', 'html5blank_conditional_scripts'); // Add Conditi
 add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comments
 add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
 add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
-add_action('init', 'create_post_type_submission'); 
-add_action('init', 'create_post_type_bursary'); 
-add_action('init', 'create_post_type_directory'); 
+add_action('init', 'create_post_type_submission');
+add_action('init', 'create_post_type_bursary');
+add_action('init', 'create_post_type_directory');
 add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline Recent Comment Styles from wp_head()
 add_action('init', 'html5wp_pagination'); // Add our HTML5 Pagination
 add_action('init', 'build_taxonomies', 0 );
@@ -546,15 +552,15 @@ function directory_register_ref_page() {
  * Display callback for the submenu page.
  */
 function directory_settings_cb() {
-    
+
     // Save attachment ID
     if ( isset( $_POST['submit_image_selector'] ) && isset( $_POST['image_attachment_id'] ) ) :
     update_option( 'business-directory-featured-image', absint( $_POST['image_attachment_id'] ) );
     endif;
-    
+
     wp_enqueue_media();
-    
-   
+
+
     ?>
     <div class="wrap">
     <h1>Business directory settings</h1>
@@ -567,7 +573,7 @@ function directory_settings_cb() {
 	<input type='hidden' name='image_attachment_id' id='image_attachment_id' value='<?php echo get_option( 'business-directory-featured-image' ); ?>'>
 	<input type="submit" name="submit_image_selector" value="Save" class="button-primary">
 	</form>
-    
+
     </div>
 
     <?php
@@ -578,7 +584,7 @@ add_action( 'admin_footer', 'media_selector_print_scripts' );
 function media_selector_print_scripts() {
     global $pagenow;
     if (( $pagenow == 'edit.php' ) && ($_GET['post_type'] == 'directory') && ($_GET['page'] == 'directory-settings-ref')) {
-        
+
         $my_saved_attachment_post_id = get_option( 'media_selector_attachment_id', 0 );
         ?><script type='text/javascript'>
     		jQuery( document ).ready( function( $ ) {
@@ -633,7 +639,7 @@ function create_post_type_bursary() {
 	register_post_type('bursary', // Register Custom Post Type
 		array(
 			'labels' => array(
-				'name' => __('Bursary', 'bursary'), 
+				'name' => __('Bursary', 'bursary'),
 				'singular_name' => __('Bursary', 'bursary'),
 				'add_new' => __('Add New', 'bursary'),
 				'add_new_item' => __('Add New Bursary', 'bursary'),
@@ -824,24 +830,24 @@ function bursary_shortcode($atts, $content = null) {
 		'order'	=> 'asc'
 	));
 	$compiled_content = '<div class="bursaries">';
-	
+
 	if ( $bursaries->have_posts() ) : while ( $bursaries->have_posts() ) : $bursaries->the_post();
 
 	$compiled_content .= '<div class="bursary row">';
 	$compiled_content .= '<div class="col-md-6"><h3> ' . the_title('','',false) . '</h3>';
 	$bursary_content = apply_filters('the_content',get_the_content());
-	
+
 	$compiled_content .= '<div class="content">' . $bursary_content . '</div>';
 	$compiled_content .= '</div>';
-	
-	$compiled_content .= '<div class="col-md-6 attachment" style="float:right"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
-	
 
-	endwhile; endif;  
-	
+	$compiled_content .= '<div class="col-md-6 attachment" style="float:right"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
+
+
+	endwhile; endif;
+
 	$compiled_content .= "</div>";
 	wp_reset_postdata();
-	return $compiled_content; 
+	return $compiled_content;
 
 }
 add_shortcode('bursaries', 'bursary_shortcode'); // You can place [html5_shortcode_demo] in Pages, Posts now.
@@ -873,7 +879,7 @@ function rwnz_add_meta_boxes( $post ) {
 		'side', // context (where on the screen
 		'low' // priority, where should this go in the context?
 	);
-	
+
 }
 add_action( 'add_meta_boxes_page', 'rwnz_add_meta_boxes' );
 
@@ -894,16 +900,16 @@ function colour_theme_meta_box_cb($post) {
 		<option value="#e6e6e8" style="background-color:#e6e6e8" <?php selected( $selected, '#e6e6e8');�?>>Theme color</option>
 		<option value="#414042" style="background-color:#414042; color: white;" <?php selected( $selected, '#414042');�?>>Theme color</option>
 		<option value="#009fc2" style="background-color:#009fc2" <?php selected( $selected, '#009fc2');�?>>Theme color</option>
-		
+
 	</select>
   </p>
   <script>
 	jQuery( "#page-colour-theme" ).change(function() {
 		jQuery('#page-colour-theme').css( "background-color", jQuery('#page-colour-theme').val() );
-		
+
 	});
   </script>
-<?php 
+<?php
 }
 
 
@@ -913,7 +919,7 @@ function page_colour_theme_save_custom_post_meta($post_id) {
 	if( isset( $_POST[ 'page-colour-theme' ] ) ) {
 		update_post_meta( $post_id, 'page-colour-theme', sanitize_text_field( $_POST[ 'page-colour-theme' ] ) );
 	}
-	
+
 }
 add_action( 'publish_page', 'page_colour_theme_save_custom_post_meta' );
 add_action( 'draft_page', 'page_colour_theme_save_custom_post_meta' );
@@ -925,7 +931,7 @@ function hex2RGB($hex) {
 	if(!isset($match[1])) {
 		return false;
 	}
-	
+
 	if(strlen($match[1]) == 6) {
 		list($r, $g, $b) = array($hex[1].$hex[2],$hex[3].$hex[4],$hex[5].$hex[6]);
 	}
@@ -945,12 +951,12 @@ function hex2RGB($hex) {
 	{
 		return false;
 	}
-	
+
 	$color = array();
 	$color['r'] = hexdec($r);
 	$color['g'] = hexdec($g);
 	$color['b'] = hexdec($b);
-	
+
 	return $color;
 }
 
@@ -960,7 +966,7 @@ function hex2RGB($hex) {
 
 
 add_action( 'http_api_debug', 'viper_http_api_debug', 10, 5 );
- 
+
 function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 	// You can change this from error_log() to var_dump() but it can break AJAX requests
 	error_log( 'Request URL: ' . var_export( $url, true ) );
@@ -989,18 +995,18 @@ function getBoardPapers() {
 	));
 
 	if ( is_wp_error( $response ) ) {
-	 
+
 		$html = '<div id="post-error">';
 			$html .= __( 'There was a problem retrieving the response from the server.', 'wprp-example' );
 		$html .= '</div><!-- /#post-error -->';
-	 
+
 	}
 	else {
-		
+
 		$body = $response['body'];
 		$decoded = json_decode($body);
 		$entries = $decoded -> entries;
-        
+
 		$html .= "<table><tr><th>File</th><th>Download</th><th>Edit</th></tr>";
 		foreach ($entries as $entry) {
 			$cast = (array)$entry;
@@ -1010,7 +1016,7 @@ function getBoardPapers() {
 		}
 		$html .= "</table>";
 //        print_r($entries);
-	 
+
 	}
 
 	return $html;
@@ -1053,7 +1059,7 @@ function download_board_paper() {
 	$body = $response['body'];
 	$decoded = json_decode($body);
 	wp_redirect( $decoded -> link );
-	
+
 	exit;
 
 }
@@ -1062,9 +1068,9 @@ function edit_board_paper() {
     $api_key = get_option('rwnz_dropbox_api_token');
     $path = get_option('rwnz_dropbox_board_papers_location');
     $file = get_query_var('boardpaper');
-    
+
     $id = get_query_var('id');
-    
+
     $url = 'https://api.dropboxapi.com/2/sharing/list_shared_links';
     $body = json_encode(array('path' => $id, 'direct_only' => true));
     $data = array(
@@ -1074,10 +1080,10 @@ function edit_board_paper() {
             'Content-Type' => 'application/json'
         )
     );
-    
+
     $response = wp_remote_post( $url, $data);
     $body = $response['body'];
-    
+
     $links = json_decode($body)->links;
     if (!empty($links)) {
         error_log('CSJM found a link redirecting to ' . $links[0] -> url);
@@ -1087,7 +1093,7 @@ function edit_board_paper() {
 
     //don't already have a sharing link, generate one.
     error_log('CSJM creating a shared link');
-    
+
     $url = 'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings';
     $body = json_encode(array('path' => $path . '/' . $file));
     $data = array(
@@ -1117,13 +1123,13 @@ function get_share_link($path) {
 			'Content-Type' => 'application/json'
 		)
 	);
-	
+
 /*	curl -X POST https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings \
 	--header "Authorization: Bearer <get access token>" \
 	--header "Content-Type: application/json" \
 	--data "{\"path\": \"/Prime_Numbers.txt\",\"settings\": {\"requested_visibility\": \"public\"}}"
-	
-*/	
+
+*/
 
 
 }
@@ -1169,7 +1175,7 @@ add_action( 'wp_ajax_nopriv_rwnz_logout', 'rwnz_logout' );
 function rwnz_login() {
 	$username = $_REQUEST['u'];
 	$password = $_REQUEST['p'];
-	
+
 	$url = get_option('rwnz_hello_club_base_url') . '/auth/token';
 
 	$response = wp_remote_post( $url, array(
@@ -1183,18 +1189,18 @@ function rwnz_login() {
 	    $error_message = $response->get_error_message();
 	    echo json_encode(array('error'=>$error_message));
 	    wp_die();
-	} 
-	
+	}
+
 	$body = $response['body'];
-	
+
 	if ($response['response']['code'] == 401) {
 	    echo json_encode(array('error' => 'invalid'));
 	    wp_die();
 	}
-	
+
 	$token = json_decode($body) -> accessToken;
-	
-	
+
+
 	$url = get_option('rwnz_hello_club_base_url') . '/user/me';
 	$response = wp_remote_get($url, array(
 		'headers' => array (
@@ -1202,17 +1208,17 @@ function rwnz_login() {
             'Authorization' => 'Bearer '. $token
         )
     ));
-	
+
 	$body = $response['body'];
-	
+
 	$_SESSION["token"]=$token;
 	$_SESSION["member_name"] = json_decode($body) -> firstName . " " . json_decode($body) -> lastName;
 	$_SESSION["member_roles"] = json_decode($body) -> roles;
 
 	$body = json_decode($body);
-	
+
 	echo json_encode(array('body' => $body, 'links' => login_links()));
-	
+
 	wp_die();
 }
 
@@ -1228,7 +1234,7 @@ function login_links() {
         if (is_committee_member()) {
             array_push($links, array('href' => 'committee', 'link' => 'Committee members'));
         }
-        
+
     }
     return $links;
 }
@@ -1245,10 +1251,10 @@ add_action( 'wp_ajax_nopriv_rwnz_create_account', 'rwnz_create_account_ajax' );
 function rwnz_forgotten_password() {
 	$username = $_REQUEST['username'];
 	$hello = new HelloClub();
-	
+
 	echo $hello -> forgottenPassword($username);
 	wp_die();
-	
+
 }
 
 add_action('wp_ajax_rwnz_forgotten_password', 'rwnz_forgotten_password');
@@ -1258,7 +1264,7 @@ add_action('wp_ajax_nopriv_rwnz_forgotten_password', 'rwnz_forgotten_password');
 
 function rwnz_create_account_ajax() {
 	$hello = new HelloClub();
-	
+
 	$response = rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
 
 	$created = json_decode($response);
@@ -1316,7 +1322,7 @@ function rwnz_create_account_subscription($member_id, $membership_id) {
 	    $error_message = $response->get_error_message();
 	    echo json_encode(array('error'=>$error_message));
 	    wp_die();
-	} 
+	}
 
 	$body = $response['body'];
 	return $body;
@@ -1340,8 +1346,8 @@ function rwnz_create_account($firstName, $lastName, $email) {
 	    $error_message = $response->get_error_message();
 	    echo json_encode(array('error'=>$error_message));
 	    wp_die();
-	} 
-	
+	}
+
 	$body = $response['body'];
 	return $body;
 
@@ -1376,24 +1382,24 @@ function is_committee_member() {
  =================================================
  */
 class bootstrap_4_walker_nav_menu extends Walker_Nav_menu {
-    
+
     function start_lvl( &$output, $depth = 0, $args = array()){ // ul
         error_log("starting level");
         $indent = str_repeat("\t",$depth); // indents the outputted HTML
         $submenu = ($depth > 0) ? ' sub-menu' : '';
         $output .= "\n$indent<ul class=\"dropdown-menu$submenu depth_$depth\">\n";
     }
-    
+
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ){ // li a span
         error_log("starting el");
-        
+
         $indent = ( $depth ) ? str_repeat("\t",$depth) : '';
-        
+
         $li_attributes = '';
         $class_names = $value = '';
-        
+
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
-        
+
         $classes[] = ($args->walker->has_children) ? 'dropdown' : '';
         $classes[] = ($item->current || $item->current_item_anchestor) ? 'active' : '';
         $classes[] = 'nav-item';
@@ -1401,32 +1407,32 @@ class bootstrap_4_walker_nav_menu extends Walker_Nav_menu {
         if( $depth && $args->walker->has_children ){
             $classes[] = 'dropdown-menu';
         }
-        
+
         $class_names =  join(' ', apply_filters('nav_menu_css_class', array_filter( $classes ), $item, $args ) );
         $class_names = ' class="' . esc_attr($class_names) . '"';
-        
+
         $id = apply_filters('nav_menu_item_id', 'menu-item-'.$item->ID, $item, $args);
         $id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
-        
+
         $output .= $indent . '<li ' . $id . $value . $class_names . $li_attributes . '>';
-        
+
         $attributes = ! empty( $item->attr_title ) ? ' title="' . esc_attr($item->attr_title) . '"' : '';
         $attributes .= ! empty( $item->target ) ? ' target="' . esc_attr($item->target) . '"' : '';
         $attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr($item->xfn) . '"' : '';
         $attributes .= ! empty( $item->url ) ? ' href="' . esc_attr($item->url) . '"' : '';
-        
+
         $attributes .= ( $args->walker->has_children ) ? ' class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ' class="nav-link"';
-        
+
         $item_output = $args->before;
         $item_output .= ( $depth > 0 ) ? '<a class="dropdown-item"' . $attributes . '>' : '<a' . $attributes . '>';
         $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
         $item_output .= '</a>';
         $item_output .= $args->after;
-        
+
         $output .= apply_filters ( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-        
+
     }
-    
+
 }
 
 //* Changing excerpt more - only works where excerpt IS hand-crafted
@@ -1454,4 +1460,3 @@ function get_current_template( $echo = false ) {
             else
                 return $GLOBALS['current_theme_template'];
 }
-
