@@ -1,4 +1,5 @@
 			<!-- footer -->
+				</div>
 			</div>
 			<div class="fluid-wrapper">
 			<footer class="footer" role="contentinfo">

@@ -12,21 +12,14 @@ if ($thumbnail === $fullsize) {
 }
 ?>
 	<section role="header" class="header">
-		<!-- section -->
-		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
+		<section class="mainStory header-content-wrapper">
 			<div class="header-image-wrapper">
-    			<div class="header-image-inner"><img class="img" src="<?php the_post_thumbnail_url('page-header'); ?>" /></div>
+				<div class="header-image-inner"><img class="img" src="<?php the_post_thumbnail_url('page-header'); ?>" /></div>
 			</div>
-		<div id="page-header">
-			<?php include( locate_template( 'searchform.php', false, false ) );?>
-        	<div class="excerpt_content">
-				<h1 style="color:white;"><?php the_title()?></h1>
-		        <?php echo $header_content; ?>
-		    </div>
-        </div>
-
+			<div class="page-title-container">
+				<h1><?php the_title()?></h1>
+			</div>
 		</section>
-		<!-- /section -->
 	</section>
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 

@@ -305,9 +305,7 @@ dt {
 	float: left;
 	padding-right: 3px;
 }
-.excerpt_content {
-	font-size: 1.3em;
-}
+
 #search {
 	position: relative;
 	color: white;
@@ -415,6 +413,7 @@ ul.archive li a:hover, ul.archive li a {
 .footer li {
 	border-bottom: 1px #ffffff2b solid;
 	padding: 8px 0px;
+	font-size: 1.1em;
 }
 .footer a {
 	color: white;
@@ -832,7 +831,6 @@ SHOP
 		overflow: hidden;
 		margin-left: 5%;
 		margin-top: 2%;
-		margin-bottom: 2%;
 		display: block;
 	}
 
@@ -902,31 +900,47 @@ SHOP
 	#page-header {
 		padding-left: 70%;
 	}
+	.page-title-container {
+		color: #00425A;
+		background-color: #A2EFE9;
+		width: 30%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 70px;
+		text-align: center;
+	}
+	.page-title-container h1{
+		font-size: 3.7em;
+		font-weight: 700;
+		border-bottom: 5px solid #00425A;
+		padding-bottom: 20px;
+		word-wrap: break-word;
+	}
+	.header-content-wrapper {
+		display: flex;
+	}
 	.header-image-wrapper {
 		padding-top:inherit;
 		height:inherit;
 		position:relative;
-		width:60%;
-		overflow: visible;
+		overflow: hidden;
 		margin-top: 0%;
-	    width: 60%;
+	    width: 70%;
 	    margin-left: 0%;
+		height: 400px;
 	}
 
 	.header-image-inner img {
 	    position: relative;
 	    margin: auto;
 	    max-height: none;
-	    max-width: 100%;
+	    width: 100%;
 	    display:inline;
-
 	    left: inherit;
 	    right: inherit;
 	    top: inherit;
 	    bottom: inherit;
-
-	    margin-left: 5%;
-	    margin-top: 2%;
 	    margin-bottom: -2%;
 
 	}

@@ -27,7 +27,7 @@
 
 
 		<!-- wrapper -->
-		<div class="wrapper">
+		<div class="fluid-wrapper">
 		<div class="container" style="max-width: 100% !important">
 		<div id="app" class="container-fluid">
 
@@ -81,4 +81,4 @@
 
 			<!-- /header -->
 	</div>
-	<div class="wrapper">
+	<div class="fluid-wrapper">

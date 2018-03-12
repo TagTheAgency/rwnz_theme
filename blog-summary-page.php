@@ -1,23 +1,16 @@
 <?php /* Template Name: Summary page for blog posts */ get_header(); ?>
-<?php 
+<?php
 $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
 $header_content = apply_filters('the_content', get_the_excerpt());
 ?>
 	<section role="header" class="header">
-		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
+		<section class="mainStory header-content-wrapper">
 			<div class="header-image-wrapper">
     			<div class="header-image-inner"><img class="img" src="<?php the_post_thumbnail_url('page-header'); ?>" /></div>
 			</div>
-
-		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ --> 
-		<div id="page-header">
-			<?php include( locate_template( 'searchform.php', false, false ) );?> 
-        	<div class="excerpt_content">
-				<h1 style="color:white;"><?php the_title()?></h1>
-		        <?php echo $header_content; ?>
-		    </div>
-        </div>	
-		
+			<div class="page-title-container">
+				<h1><?php the_title()?></h1>
+			</div>
 		</section>
 	</section>
 
@@ -29,7 +22,7 @@ article.news_archive a, article.news_archive a:hover {
 </style>
 <?php
 
-	
+
 	$next_args = array(
 	    'post_type' => 'post',
 	    'post_status' => 'publish',
@@ -37,7 +30,7 @@ article.news_archive a, article.news_archive a:hover {
 	    'order'=>'DESC',
 	    'orderby'=>'date',
 	);
-	
+
 	$query = new WP_Query( $next_args );
 	if ( $query->have_posts() ) {
 	        $query->the_post();
@@ -83,14 +76,14 @@ article.news_archive a, article.news_archive a:hover {
 		</ul>
 	        	</div>
 	        </div>
-	<?php 
+	<?php
 	    wp_reset_postdata();
 	} else {
 	    // none were found
 	}
 ?>
 
-	
+
 
 
 
