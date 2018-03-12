@@ -5,14 +5,14 @@
 	Version: 1.0.0
 	Author: Colin Matcham
 	Author URI: http://tagtheagency.com
-	
+
 */
 
 /* Debug page overflow issues - uncomment below!
 
-Add some margin to the body to add space and 
-see where your offending elements cross the line 
-body { margin: 30px; }  
+Add some margin to the body to add space and
+see where your offending elements cross the line
+body { margin: 30px; }
 
 add a border to all other elements on the page
 body * { border: 1px solid red; }
@@ -62,9 +62,7 @@ a {
 	color:#444;
 	text-decoration:none;
 }
-a:hover {
-	color:#444;
-}
+
 a:focus {
 	outline:0;
 }
@@ -86,8 +84,9 @@ input:focus {
 }
 #page-header h1 {
 	text-transform: uppercase;
-	font-size: 1.5em;
+	font-size: 1.8em;
 	padding: 10px;
+	letter-spacing: 0.1em;
 }
 .mainStory {
 	/* height: 400px; */
@@ -102,6 +101,7 @@ input:focus {
 	padding-top: 50px;
 	margin-bottom: -50px;
 }
+
 /*------------------------------------*\
     STRUCTURE
 \*------------------------------------*/
@@ -133,6 +133,32 @@ input:focus {
 	font-size: 15px;
 	font-weight: bold;
 }
+
+.navbar-nav #search {
+	margin-left: 10px;
+}
+
+.navbar-nav #search-input {
+	font-size: 15px;
+}
+
+.navbar-nav #search .fa {
+	color: #bdbcbc;
+	font-size: 15px;
+}
+
+.navbar-nav #search label {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
 nav.navbar ul.navbar-nav li a.nav-link {
 	color: black;
 	margin-left: 15px;
@@ -153,7 +179,7 @@ a.navbar-brand img {
 
 #menu, #login_menu {
 	cursor: pointer;
-	
+
 }
 #menu_dropdown, #login_dropdown {
 	position: absolute;
@@ -279,9 +305,7 @@ dt {
 	float: left;
 	padding-right: 3px;
 }
-.excerpt_content {
-	font-size: 1.3em;
-}
+
 #search {
 	position: relative;
 	color: white;
@@ -375,24 +399,44 @@ ul.archive li a:hover, ul.archive li a {
 
 /* footer */
 .footer {
-	background-color: #414141;
+	background-color: #00425A;
 	color: white;
-	padding-top: 20px;
+	padding-top: 60px;
+	padding-bottom: 40px;
 }
 
 .footer ul {
 	list-style: none;
 	padding: 0px;
-	border-top: 1px white solid;
+	border-top: 1px #ffffff2b solid;
 }
 .footer li {
-	border-bottom: 1px white solid;
-	padding: 5px 0px;
+	border-bottom: 1px #ffffff2b solid;
+	padding: 8px 0px;
+	font-size: 1.1em;
 }
 .footer a {
 	color: white;
 	display: inline-block;
 	padding-right: 10px;
+	transition-duration: 300;
+}
+
+.footer a:hover {
+	color: #A2EFE9;
+	text-decoration: none;
+}
+
+.footer h3 {
+	padding-bottom: 10px;
+}
+
+.footer .fa{
+	font-size: 2.5em;
+    margin-right: 20px;
+    margin-bottom: 50px;
+    color: #A2EFE9;
+	transition-duration: 200ms;
 }
 
 .row-no-padding > [class*="col-"] {
@@ -400,11 +444,90 @@ ul.archive li a:hover, ul.archive li a {
     padding-right: 0 !important;
 }
 
+#to-top, .social .fa{
+	cursor: pointer;
+	transition-duration: 200ms;
+}
+
+#to-top:hover, .social .fa:hover{
+	opacity: 0.4;
+}
+
+.btt-button{
+	text-align: right;
+	font-size: 1.4em;
+}
+
+.btt-button .fa{
+	font-size: 1.2em;
+	margin-right: 5px;
+}
+
+
 /*------------------------------------*\
     PAGES
 \*------------------------------------*/
 
+.page-header-wrapper{
+	text-align: left;
+	margin-bottom: 50px;
+	color: #111111;
+}
 
+.page-header-wrapper h1{
+	font-size: 3em;
+	color: #00425A;
+	font-weight: 700;
+
+}
+
+.post-content-wrapper{
+	background-color: #97D7EA;
+	margin-bottom: 40px;
+	display: flex;
+	height: 200px;
+	border-radius: 10px;
+	overflow: hidden;
+	cursor: pointer;
+	transition-duration: 400ms;
+}
+
+.post-image-thumb{
+	width: 30%;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+
+.post-image-thumb img{
+	flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
+.post-list-info{
+	width: 70%;
+	padding: 20px 40px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	text-align: left;
+}
+
+.post-list-info *{
+	width: 100%;
+	color: white !important;
+}
+
+.post-list-info h2{
+	font-size: 2em;
+	font-weight: 700;
+}
+
+.post-hover{
+	opacity: 0.3;
+}
 
 /*------------------------------------*\
     IMAGES
@@ -456,7 +579,7 @@ ul.archive li a:hover, ul.archive li a {
 .homepage-link-aftersocks {
 	width: 100%;
 }
- 
+
 .row.homepage-row > div.dynamic {
 	padding:40px;
 }
@@ -473,7 +596,7 @@ ul.archive li a:hover, ul.archive li a {
 	font-size: 20px;
 }
 .homepage-link {
-	height: 300px;	
+	height: 300px;
 	-webkit-filter: grayscale(100%);
     filter: grayscale(100%);
     -webkit-transition: all .5s ease-in-out;
@@ -523,7 +646,7 @@ a span.link {
 
 .homepage-story {
 	padding: 20px 0px;
-	
+
 }
 .image-box {
 	height: 200px;
@@ -574,7 +697,7 @@ h1.homepage-section {
 	flex: 0 0 50%;
 	max-width: 50%;
 }
-	
+
 }
 
 
@@ -603,7 +726,7 @@ h1.homepage-section {
 }
 .homepage_grid.bg{
     background-repeat:no-repeat;
-    background-size:cover; 
+    background-size:cover;
     color:#fff;
 }
 .homepage_grid .content {
@@ -639,7 +762,7 @@ h1.homepage-section {
 	display: none;
 }
 .page-logo {
-	width:250px; 
+	width:250px;
 	margin-top: 10px;
 }
 .header-row {
@@ -715,7 +838,7 @@ SHOP
 	.fullscreen-image {
 		height: 600px;
 	}
-	
+
 	.homepage_grid_row {
 		width: 85%;
 		margin: auto;
@@ -741,16 +864,14 @@ SHOP
 }
 @media only screen and (min-width:576px) {
 	article {
-		border: 1px solid #cfcfcf;
-		border-top-style:  none;
-		padding: 40px;
+		padding: 20px 40px;
 		margin: 50px 5%;
 		font-size: 1.4em;
 	}
-		
+
 	#page-header {
-		position: absolute; 
-		padding-left: 60%;  
+		position: absolute;
+		padding-left: 60%;
 		top:8%;
 		width: 90%;
 		padding-top: 0%;
@@ -767,17 +888,16 @@ SHOP
 		overflow: hidden;
 		margin-left: 5%;
 		margin-top: 2%;
-		margin-bottom: 2%;
 		display: block;
 	}
-	
+
 	.header-image-inner img {
 	    position: absolute;
-	    margin: auto; 
+	    margin: auto;
 	    max-height: 100%;
 	    max-width: none;
 	    display:block;
-	
+
 	    left: -100%;
 	    right: -100%;
 	    top: -100%;
@@ -837,38 +957,54 @@ SHOP
 	#page-header {
 		padding-left: 70%;
 	}
+	.page-title-container {
+		color: #00425A;
+		background-color: #A2EFE9;
+		width: 30%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 70px;
+		text-align: center;
+	}
+	.page-title-container h1{
+		font-size: 3.7em;
+		font-weight: 700;
+		border-bottom: 5px solid #00425A;
+		padding-bottom: 20px;
+		word-wrap: break-word;
+	}
+	.header-content-wrapper {
+		display: flex;
+	}
 	.header-image-wrapper {
 		padding-top:inherit;
 		height:inherit;
 		position:relative;
-		width:60%;
-		overflow: visible;
+		overflow: hidden;
 		margin-top: 0%;
-	    width: 60%;
+	    width: 70%;
 	    margin-left: 0%;
+		height: 400px;
 	}
-	
+
 	.header-image-inner img {
 	    position: relative;
-	    margin: auto; 
+	    margin: auto;
 	    max-height: none;
-	    max-width: 100%;
+	    width: 100%;
 	    display:inline;
-	
 	    left: inherit;
 	    right: inherit;
 	    top: inherit;
 	    bottom: inherit;
-	    
-	    margin-left: 5%;
-	    margin-top: 2%;
 	    margin-bottom: -2%;
-	    
+
 	}
 	section.mainStory {
 		overflow: visible;
 	}
-	
+
 }
 @media only screen and (min-width:1024px) {
 	.homepage_nav {
