@@ -16,6 +16,12 @@ class RWNZMigrate {
 	function parseImport() {
 	    require_once("../wp-load.php");
 	    
+	    require_once(ABSPATH . 'wp-admin/includes/file.php');
+	    require_once(ABSPATH . 'wp-admin/includes/media.php');
+	    require_once(ABSPATH . 'wp-admin/includes/image.php');
+	    
+
+	    
         $import = file_get_contents(get_template_directory() . '/migrate/import.xml');
         
         // print_r($import);
@@ -48,7 +54,21 @@ class RWNZMigrate {
             $userID = 1; 
             $postStatus = 'publish'; 
             
-            $new_post = array(
+            $pattern = '/<span class="CSJM-image-replacement" data-src="(.*)"><\/span>/';
+            
+            preg_match_all($pattern, $body, $matches, PREG_SET_ORDER, 0);
+            
+//            error_log(print_r($matches, true));
+            
+            foreach ($matches as $val) {
+                error_log(print_r($val[1], true));
+                
+                $this->addImageToMedia($val[1]);
+            }
+            
+            $body = preg_replace($pattern, '[migrated-image src="${1}"]', $body);
+            
+           $new_post = array(
                 'post_title' => $title,
                 'post_content' => $body,
                 'post_status' => $postStatus,
@@ -62,6 +82,12 @@ class RWNZMigrate {
                 print_r ("... Errored... " . $post_id -> get_error_message());
                 continue;
             }
+
+            $featured_image = (string)($post->img);
+            if ($featured_image) {
+                $img_ref = $this->setFeaturedImage($post_id, $featured_image);
+                
+            }
             
             echo "... Created ". $post_id; 
 //            echo ('<br>');
@@ -71,24 +97,55 @@ class RWNZMigrate {
         // wp_redirect( $_SERVER['HTTP_REFERER'] );
     }
 	
-	function processImage($post_id, $image_url) {
+    function addImageToMedia($image_url) {
+        error_log("Processing image ".$image_url);
+        error_log("Looking up option rwnz-migrate-image-".mb_strtolower($image_url));
+        //check if we've already processed it.
+        $exists = get_option("rwnz-migrate-image-".mb_strtolower($image_url));
+        
+        if (is_wp_error($exists)) {
+            print_r ("... Errored... " . $exists -> get_error_message());
+            return -1;
+        }
+        
+        if ($exists) {
+            return $exists;
+        }
+        
+        $result = media_sideload_image($image_url, -1, '', 'id');
+        
+        add_option("rwnz-migrate-image-".mb_strtolower($image_url), $result);
+        
+        return $result;
+        
+    }
+    
+	function setFeaturedImage($post_id, $image_url) {
+	   
+	    
 	    // required libraries for media_sideload_image
-	    require_once(ABSPATH . 'wp-admin/includes/file.php');
-	    require_once(ABSPATH . 'wp-admin/includes/media.php');
-	    require_once(ABSPATH . 'wp-admin/includes/image.php');
+
 	    
 	    // load the image
 	    $description = "";
-	    $result = media_sideload_image($image_url, $description);
+	    $result = $this->addImageToMedia($image_url);
+	    if ($result < 0) {
+	        error_log("Image didn't upload properly");
+	        return;
+	    }
 	    
-	    // then find the last image added to the post attachments
-	    $attachments = get_posts(array('numberposts' => '1', 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC'));
+	    error_log("Setting post thumbnail for $post_id");
+	    
+	    set_post_thumbnail($post_id, $result);
+	    
+// 	    // then find the last image added to the post attachments
+// 	    $attachments = get_posts(array('numberposts' => '1', 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC'));
 	    
 	    
-	    if(sizeof($attachments) > 0){
-	        // set image as the post thumbnail
-	        set_post_thumbnail($post_id, $attachments[0]->ID);
-	    }  
+// 	    if(sizeof($attachments) > 0){
+// 	        // set image as the post thumbnail
+// 	        set_post_thumbnail($post_id, $attachments[0]->ID);
+// 	    }  
 	}
 	    
 	

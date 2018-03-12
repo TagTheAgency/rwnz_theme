@@ -1,4 +1,4 @@
-<?php /* Template Name: Summary page for blog posts */ get_header(); ?>
+<?php /* Template Name: Summary page for services posts */ get_header(); ?>
 <?php 
 $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
 $header_content = get_the_excerpt();

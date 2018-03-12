@@ -853,6 +853,17 @@ function board_papers($atts) {
 
 add_shortcode('board-papers', 'board_papers');
 
+function migrated_image($atts) {
+    
+    error_log(print_r($atts, true));
+    error_log("getting a migrated image " . $atts['src']);
+    $image =  get_option("rwnz-migrate-image-".mb_strtolower($atts['src']));
+    
+    return wp_get_attachment_image($image, 'full');
+
+}
+
+add_shortcode('migrated-image', 'migrated_image');
 
 
 /*------------------------------------*\
