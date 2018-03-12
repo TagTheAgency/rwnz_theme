@@ -468,7 +468,61 @@ ul.archive li a:hover, ul.archive li a {
     PAGES
 \*------------------------------------*/
 
+.page-header-wrapper{
+	text-align: left;
+	margin-bottom: 50px;
+	color: #111111;
+}
 
+.page-header-wrapper h1{
+	font-size: 3em;
+	color: #00425A;
+	font-weight: 700;
+
+}
+
+.post-content-wrapper{
+	background-color: #97D7EA;
+	margin-bottom: 40px;
+	display: flex;
+	height: 200px;
+	border-radius: 10px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.post-image-thumb{
+	width: 30%;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+
+.post-image-thumb img{
+	flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
+.post-list-info{
+	width: 70%;
+	padding: 20px 40px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	text-align: left;
+}
+
+.post-list-info *{
+	width: 100%;
+	color: white !important;
+}
+
+.post-list-info h2{
+	font-size: 2em;
+	font-weight: 700;
+}
 
 /*------------------------------------*\
     IMAGES
@@ -805,9 +859,7 @@ SHOP
 }
 @media only screen and (min-width:576px) {
 	article {
-		border: 1px solid #cfcfcf;
-		border-top-style:  none;
-		padding: 40px;
+		padding: 20px 40px;
 		margin: 50px 5%;
 		font-size: 1.4em;
 	}

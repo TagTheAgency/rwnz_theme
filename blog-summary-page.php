@@ -33,42 +33,35 @@ article.news_archive a, article.news_archive a:hover {
 
 	$query = new WP_Query( $next_args );
 	if ( $query->have_posts() ) {
-	        $query->the_post();
-	        ?>
+		?>
 	        <div class="row blog_summary">
-	        	<div class="col-sm-8">
+	        	<div class="col-sm-9">
 	        		<article class="news_archive">
-	        					<h1><a href="<?php the_permalink()?>"><?php the_title()?></a></h1>
-	        					<h3><?php the_date()?></h3>
-	        					<?php the_excerpt();?>
-	        					<div style="border-top: 4px solid <?php echo $page_colour;?>; margin-top: 20px;"></div>
-								<?php $query->the_post(); ?>
-								<div class="left">
-	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
-	        					<h3><?php the_date()?></h3>
-	        					<?php the_excerpt() ?>
-	        					</div>
-
-								<?php $query->the_post(); ?>
-								<div class="right">
-	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
-	        					<h3><?php the_date()?></h3>
-	        					<?php the_excerpt() ?>
-	        					</div>
-
-								<?php $query->the_post(); ?>
-								<div class="left">
-	        					<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
-	        					<h2><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
-	        					<h3><?php the_date()?></h3>
-	        					<?php the_excerpt() ?>
-	        					</div>
-
+						<div class="page-header-wrapper">
+							<h1><?php the_title() ?></h1>
+							<h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit placeat soluta dolor error dolorem? Aliquid dolorem eligendi, iste ipsam assumenda a.</h4>
+						</div>
+						<?php while($query->have_posts()): $query->the_post(); ?>
+							<div class="post-content-wrapper">
+								<div class="post-image-thumb">
+									<?php if (has_post_thumbnail() ): ?>
+									<img src="<?php the_post_thumbnail_url('thumbnail') ?>"/>
+									<?php else: ?>
+									<img src="<?php echo get_theme_file_uri('/img/placeholderthumbnail.png')?>" alt="">
+									<?php endif; ?>
+								</div>
+								<div class="post-list-info">
+									<div>
+										<h2 class="post-list-title"><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
+										<h3><?php the_date()?></h3>
+										<p><?php the_excerpt() ?></p>
+									</div>
+								</div>
+        					</div>
+						<?php endwhile;?>
 	        		</article>
 	        	</div>
-	        	<div class="col-sm-4" style="padding: 40px;margin-top: 50px;">
+	        	<div class="col-sm-3" style="padding: 40px;margin-top: 50px;">
 	        		<div style="border-top: 4px solid <?php echo $page_colour;?>; padding-bottom: 20px;"></div>
 	        		<h2>ARCHIVE:</h2>
 		<ul class="archive">
@@ -82,9 +75,5 @@ article.news_archive a, article.news_archive a:hover {
 	    // none were found
 	}
 ?>
-
-
-
-
 
 <?php get_footer(); ?>

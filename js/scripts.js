@@ -12,7 +12,7 @@
 				scrollTop: 0
 			}, 700);
 		});
-
+		
 	});
 
 })(jQuery, this);
