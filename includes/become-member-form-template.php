@@ -18,6 +18,7 @@
 		<option value="corporate">RWNZ Corporate Membership - $100 Yearly</option>
 		<option value="none">No membership, just create an account</option>
 	</select>
+	<button type="submit" id="becomeMemberButton" >Join us</button>
 </form>
 <script>
 
@@ -40,9 +41,19 @@ function becomeMember(evt) {
 			"subscription" : document.getElementById('signupSubscription').value
 		},
 		success: function(data, status, xhr) {
+			var response = JSON.parse(data);
+			if (response.id) {
+				console.log('got an id');
+					$('#becomeMemberForm').html('<p>An account has been created.  You should receive an email, please follow the link in this email to set your password so you can login.</p>');
+				if (response.subscription) {
+					$('#becomeMemberForm').append('<p>Once you have entered your password you will be able to pay your membership fee by credit card.</p>');
+				}
+			} else {
+				console.log('no id');
+			}
 			console.log(data);
 			console.log(JSON.parse(data));
-		}
+		} 
 	});
 
 }

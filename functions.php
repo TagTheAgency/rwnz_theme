@@ -1272,20 +1272,21 @@ function rwnz_create_account_ajax() {
 	//TODO these are hardcoded from the ids in HelloClub - find some way to enumerate them from there instead.
 	$memberships = array('personal' => array('id' => '555bee3e4527879d33c7b31a', 'amount' => 50), 'corporate' => array('id' => '555bee3e4527879d33c7b31b', 'amount' => 100));
 
-	echo $response;
 
 	if ($created->id) {
 		$subscription  = $_REQUEST['subscription'];
 		if ($subscription == 'none') {
 			//
 		} else {
-			echo 'CSJM got subscription = ' . $subscription;
-			echo $memberships[$subscription];
 			$subscription_response = rwnz_create_account_subscription($created->id, $memberships[$subscription]);
 		}
 	}
-	echo $response;
-	echo $subscription_response;
+
+	$user = array('id' => $created->id, 'subscription' => json_decode($subscription_response));
+	echo json_encode($user);
+	
+// 	echo $response;
+// 	echo $subscription_response;
 	wp_die();
 
 
@@ -1307,7 +1308,7 @@ function rwnz_create_account_subscription($member_id, $membership_id) {
 		'transaction' => array('amount' => $membership_id['amount'], 'create' => true)
 	));
 
-	echo $data;
+	//echo $data;
 
 
 	$response = wp_remote_post($url, array(
