@@ -12,7 +12,17 @@
 				scrollTop: 0
 			}, 700);
 		});
-		
+
+		$('.post-content-wrapper').hover(
+			function(){
+			$('.post-content-wrapper').addClass('post-hover');
+			$(this).removeClass('post-hover');
+		},
+		function(){
+			$('.post-content-wrapper').removeClass('post-hover');
+		}
+	);
+
 	});
 
 })(jQuery, this);

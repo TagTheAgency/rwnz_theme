@@ -489,6 +489,7 @@ ul.archive li a:hover, ul.archive li a {
 	border-radius: 10px;
 	overflow: hidden;
 	cursor: pointer;
+	transition-duration: 400ms;
 }
 
 .post-image-thumb{
@@ -522,6 +523,10 @@ ul.archive li a:hover, ul.archive li a {
 .post-list-info h2{
 	font-size: 2em;
 	font-weight: 700;
+}
+
+.post-hover{
+	opacity: 0.3;
 }
 
 /*------------------------------------*\
