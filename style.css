@@ -113,6 +113,11 @@ input:focus {
 	margin:0 auto;
 	position:relative;
 }
+
+#main-content-wrapper{
+	max-width: 1600px;
+	margin: 0 auto;
+}
 /* header */
 .header {
 
@@ -125,13 +130,18 @@ input:focus {
 
 }
 /* nav */
-.nav {
-
+nav {
+	margin-bottom: 40px;
+	/*position: fixed !important;
+	background-color: white;
+	z-index: 1;
+	width: 100%;*/
 }
 
 .navbar {
 	font-size: 15px;
 	font-weight: bold;
+	padding: 0 40px !important;
 }
 
 .navbar-nav #search {
@@ -160,8 +170,11 @@ input:focus {
 }
 
 nav.navbar ul.navbar-nav li a.nav-link {
-	color: black;
+	color: #00425A;
 	margin-left: 15px;
+}
+nav.navbar ul.navbar-nav li a.nav-link:hover {
+	color: #97D7EA;
 }
 nav.navbar.navbar-dark ul.navbar-nav li a.nav-link {
 	color: white;
@@ -175,6 +188,10 @@ nav.navbar.navbar-dark .navbar-toggler {
 
 a.navbar-brand img {
 	margin-top: 30px;
+}
+
+li.current-menu-item a{
+	color: #97D7EA !important;
 }
 
 #menu, #login_menu {
@@ -273,24 +290,22 @@ article h1, article h2, article h3, article dt {
 	color: #20c4f4;
 }
 
-
 .bursary {
 	position: relative;
 	padding-top:25px;
 	margin-bottom: 40px;
-}
-div.bursary:before {
-  content : "";
-  position: absolute;
-  right    : 0;
-  top  : 0;
-  height  : 1px;
-  width   : 50%;  /* or 100px */
-  border-top:8px solid #00ABA0;
+	width: 75%;
 }
 .bursary h3 {
-	color: black;
+	font-size: 35px;
+	font-weight: 700;
+	color: #00425A;
 }
+
+.bursaries .attachment{
+	margin-top: 20px;
+}
+
 /*.bursary .attachment a {
 	display: block;
 	width: 30%;
@@ -363,7 +378,8 @@ dt {
 }
 
 .blog_summary h1, .blog_summary h2, .blog_summary h3 {
-	color: black;
+	color: #00425A;
+	font-weight: 700;
 }
 .blog_summary h3 {
 	font-size: 1.2em;
@@ -382,19 +398,40 @@ dt {
 .sidebar {
 
 }
+
+.archive-wrapper{
+	padding: 30px;
+	text-align: -webkit-center;
+}
+
+.archive-wrapper h2{
+	padding-bottom: 10px;
+	border-bottom: 4px solid #A2EFE9;
+	width: 70%;
+	transition-duration: 200ms;
+}
 ul.archive {
 	list-style: none;
 	padding: 0px;
+	color: #00425A !important;
+	border-radius: 7px;
+	margin-top: 10px;
 }
 ul.archive li {
-	color: black;
+	transition-duration: 200ms;
 	text-transform: uppercase;
-	border-bottom: 2px black solid;
-	padding-bottom: 20px;
-	padding-top: 10px;
+	padding: 20px 0;
+	border-bottom: 2px solid #e7f3f6;
+	width: 70%;
 }
-ul.archive li a:hover, ul.archive li a {
-	color: black;
+ul.archive li a {
+	color: #00425A;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+ul.archive li a:hover {
+	color: #97D7EA;
 }
 
 /* footer */
@@ -414,6 +451,7 @@ ul.archive li a:hover, ul.archive li a {
 	border-bottom: 1px #ffffff2b solid;
 	padding: 8px 0px;
 	font-size: 1.1em;
+	transition-duration: 300ms;
 }
 .footer a {
 	color: white;
@@ -425,6 +463,10 @@ ul.archive li a:hover, ul.archive li a {
 .footer a:hover {
 	color: #A2EFE9;
 	text-decoration: none;
+}
+
+.footer li a{
+	width: 100%;
 }
 
 .footer h3 {
@@ -463,6 +505,16 @@ ul.archive li a:hover, ul.archive li a {
 	margin-right: 5px;
 }
 
+.btn-secondary{
+	background-color: #97D7EA !important;
+	border: none !important;
+	font-weight: 700 !important;
+}
+
+.btn-secondary:hover{
+	background-color: #00425A !important;
+}
+
 
 /*------------------------------------*\
     PAGES
@@ -483,13 +535,20 @@ ul.archive li a:hover, ul.archive li a {
 
 .post-content-wrapper{
 	background-color: #97D7EA;
+	position: relative;
 	margin-bottom: 40px;
 	display: flex;
 	height: 200px;
 	border-radius: 10px;
 	overflow: hidden;
 	cursor: pointer;
-	transition-duration: 400ms;
+	transition-duration: 300ms;
+}
+
+.post-content-wrapper:hover{
+	box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
+	margin-left: 10px;
+	margin-right: -10px;
 }
 
 .post-image-thumb{
@@ -527,6 +586,41 @@ ul.archive li a:hover, ul.archive li a {
 
 .post-hover{
 	opacity: 0.3;
+}
+
+.single-post-container{
+	display: flex;
+	flex-wrap: none;
+}
+
+.single-post-content{
+	width: 65%;
+	padding-right: 80px;
+}
+
+.single-post-thumbnail{
+	width: 35%;
+}
+
+.single-post-thumbnail img{
+	min-width: 100%;
+}
+
+.single-post-title a{
+	font-size: 2em;
+	font-weight: 700;
+	color: #00425A !important;
+}
+
+.post .date{
+	font-size: 1.4em;
+	font-weight: 700;
+	color: #97D7EA;
+}
+
+.post-content{
+	margin-top: 20px;
+	font-size: 16px;
 }
 
 /*------------------------------------*\
@@ -762,7 +856,7 @@ h1.homepage-section {
 	display: none;
 }
 .page-logo {
-	width:250px;
+	width:210px;
 	margin-top: 10px;
 }
 .header-row {
