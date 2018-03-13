@@ -20,8 +20,24 @@
 		},
 		function(){
 			$('.post-content-wrapper').removeClass('post-hover');
-		}
-	);
+		});
+
+		$('.footer li').hover(
+			function(){
+			$('.footer li').css('opacity','0.2');
+			$(this).css('opacity','1');
+		},
+			function(){
+			$('.footer li').css('opacity','1');
+		});
+
+		$('.archive-wrapper h2, .archive').hover(
+			function(){
+			$('.archive-wrapper h2').css('width','90%');
+		},
+			function(){
+			$('.archive-wrapper h2').css('width','70%');
+		});
 
 	});
 

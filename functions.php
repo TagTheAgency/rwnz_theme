@@ -833,14 +833,16 @@ function bursary_shortcode($atts, $content = null) {
 
 	if ( $bursaries->have_posts() ) : while ( $bursaries->have_posts() ) : $bursaries->the_post();
 
-	$compiled_content .= '<div class="bursary row">';
-	$compiled_content .= '<div class="col-md-6"><h3> ' . the_title('','',false) . '</h3>';
+	$compiled_content .= '<div class="bursary">';
+	$compiled_content .= '<div class="bursary-content"><h3> ' . the_title('','',false) . '</h3>';
 	$bursary_content = apply_filters('the_content',get_the_content());
 
 	$compiled_content .= '<div class="content">' . $bursary_content . '</div>';
 	$compiled_content .= '</div>';
 
-	$compiled_content .= '<div class="col-md-6 attachment" style="float:right"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
+	$compiled_content .= '<div class="attachment"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
+
+    $compiled_content .= '<hr></hr>';
 
 
 	endwhile; endif;
@@ -1284,7 +1286,7 @@ function rwnz_create_account_ajax() {
 
 	$user = array('id' => $created->id, 'subscription' => json_decode($subscription_response));
 	echo json_encode($user);
-	
+
 // 	echo $response;
 // 	echo $subscription_response;
 	wp_die();
