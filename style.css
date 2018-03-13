@@ -113,6 +113,11 @@ input:focus {
 	margin:0 auto;
 	position:relative;
 }
+
+#main-content-wrapper{
+	max-width: 1600px;
+	margin: 0 auto;
+}
 /* header */
 .header {
 
