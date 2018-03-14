@@ -104,6 +104,7 @@
 		<!-- modals -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
   <form id="loginForm" action="<?php echo admin_url( "admin-ajax.php" )?>">
+  <input type="hidden" name="action" value="rwnz_login"/>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -115,13 +116,13 @@
       <div class="modal-body" style="text-align: left;" id="loginBody">
       <div class="form-group">
 	      <label for="loginUsername">Username</label>
-	      <input id="loginUsername" type="text" style="width: 100%;" name="loginUsername" class="form-control"/>
+	      <input id="loginUsername" type="text" style="width: 100%;" name="u" class="form-control"/>
 	      <small id="emailHelp" class="form-text text-muted">Not a member? <a id="createAccountLink" href="<?php echo get_site_url() ?>/join-us">Join today</a>.</small>
 	      
 	  </div>
 	  <div class="form-group">
 	      <label for="loginPassword">Password</label>
-	      <input id="loginPassword" type="password" style="width: 100%;" name="loginPassword" class="form-control"/>
+	      <input id="loginPassword" type="password" style="width: 100%;" name="p" class="form-control"/>
 		  <small id="passwordHelp" class="form-text text-muted"><a id="forgottenPasswordLink" href="#forgottenPasswordModal" data-toggle="modal" data-target="#forgottenPasswordModal">Forgotten password?</a>.</small>
 	  </div>
 

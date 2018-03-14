@@ -806,6 +806,39 @@ if(function_exists("register_field_group")) {
 		'menu_order' => 0,
 	));
 
+    register_field_group(array (
+        'id' => 'acf_members-only',
+        'title' => 'Members only',
+        'fields' => array (
+            array (
+                'key' => 'field_5aa99cf0111f9',
+                'label' => 'Members only',
+                'name' => 'members_only',
+                'type' => 'true_false',
+                'instructions' => 'Select this if the page should be visible only to logged in users',
+                'message' => '',
+                'default_value' => 0,
+            ),
+        ),
+        'location' => array (
+            array (
+                array (
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page',
+                    'order_no' => 0,
+                    'group_no' => 0,
+                ),
+            ),
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'no_box',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
 }
 
 /*------------------------------------*\
@@ -873,6 +906,12 @@ function migrated_image($atts) {
 
 add_shortcode('migrated-image', 'migrated_image');
 
+function member_name($atts) {
+    return is_logged_in();
+}
+
+add_shortcode('member-name', 'member_name');
+
 
 /*------------------------------------*\
 	Meta boxes
@@ -907,13 +946,13 @@ function colour_theme_meta_box_cb($post) {
 	<br />
 
 	<select name="page-colour-theme" id="page-colour-theme" style="background-color: <?php echo $selected?>">
-		<option value="#c0d72f" style="background-color:#c0d72f" <?php selected( $selected, '#c0d72f');�?>>Theme color</option>
-		<option value="#74b64a" style="background-color:#74b64a" <?php selected( $selected, '#74b64a');�?>>Theme color</option>
-		<option value="#00aba0" style="background-color:#00aba0" <?php selected( $selected, '#00aba0');�?>>Theme color</option>
-		<option value="#5fccf5" style="background-color:#5fccf5" <?php selected( $selected, '#5fccf5');�?>>Theme color</option>
-		<option value="#e6e6e8" style="background-color:#e6e6e8" <?php selected( $selected, '#e6e6e8');�?>>Theme color</option>
-		<option value="#414042" style="background-color:#414042; color: white;" <?php selected( $selected, '#414042');�?>>Theme color</option>
-		<option value="#009fc2" style="background-color:#009fc2" <?php selected( $selected, '#009fc2');�?>>Theme color</option>
+		<option value="#c0d72f" style="background-color:#c0d72f" <?php selected( $selected, '#c0d72f');?>>Theme color</option>
+		<option value="#74b64a" style="background-color:#74b64a" <?php selected( $selected, '#74b64a');?>>Theme color</option>
+		<option value="#00aba0" style="background-color:#00aba0" <?php selected( $selected, '#00aba0');?>>Theme color</option>
+		<option value="#5fccf5" style="background-color:#5fccf5" <?php selected( $selected, '#5fccf5');?>>Theme color</option>
+		<option value="#e6e6e8" style="background-color:#e6e6e8" <?php selected( $selected, '#e6e6e8');?>>Theme color</option>
+		<option value="#414042" style="background-color:#414042; color: white;" <?php selected( $selected, '#414042');?>>Theme color</option>
+		<option value="#009fc2" style="background-color:#009fc2" <?php selected( $selected, '#009fc2');?>>Theme color</option>
 
 	</select>
   </p>
@@ -1368,7 +1407,8 @@ function rwnz_create_account($firstName, $lastName, $email) {
 }
 
 function is_logged_in() {
-    if (is_array($_SESSION["member_name"])) {
+    error_log($_SESSION["member_name"]);
+    if ($_SESSION["member_name"]) {
         return $_SESSION["member_name"];
     } else {
         return false;
@@ -1389,6 +1429,19 @@ function is_committee_member() {
 	} else {
 		return false;
 	}
+}
+
+function check_members_only() {
+//     echo ('CSJM: is logged in ' . is_logged_in());
+//     echo ('CSJM members only  ' . get_post_meta(get_the_ID(), 'members_only', true) . ' value');
+    if (is_logged_in() || !get_post_meta(get_the_ID(), 'members_only', true)) {
+        return;
+    }
+    
+    echo '<h1>Members only</h1><p>You must be logged in to view this page</p>';
+    get_footer();
+    wp_die();
+    
 }
 
 /*

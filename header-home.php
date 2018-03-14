@@ -60,9 +60,7 @@
                        ) );
                     ?>
 					<ul class="navbar-nav">
-					   <li class="nav-item">
-					       <?php include( locate_template( 'loginform.php', false, false ) ); ?>
-					   </li>
+				       <?php include( locate_template( 'loginform.php', false, false ) ); ?>
 					   <li id="search" class="nav-item">
 							<?php include( locate_template( 'searchform.php', false, false ) );?>
 					   </li>

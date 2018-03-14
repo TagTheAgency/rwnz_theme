@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<?php check_members_only(); ?>
 <?php
 $page_colour = get_post_meta(get_the_ID(), 'page-colour-theme', true);
 $header_content = get_the_excerpt();

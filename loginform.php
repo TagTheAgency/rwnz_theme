@@ -1,7 +1,36 @@
 <!-- login -->
 <?php if (is_logged_in()) { ?>
-	<a href="members" class="nav-link">Members</a>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#" id="membersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Members
+</a>
+	    <div class="dropdown-menu" aria-labelledby="membersDropdown">
+          <a class="dropdown-item" href="<?php echo get_site_url() ?>/members">Members zone</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" id="logoutLink">Logout</a>
+        </div>
+       
+	<script>
+
+	$(function() {
+		$('#logoutLink').click(logout);
+	});
+	
+	function logout() {
+		jQuery.ajax({
+			type: "POST",
+			url: '<?php echo admin_url( "admin-ajax.php" )?>',
+			data: {"action":"rwnz_logout"},
+			success: function() {
+				window.location.reload(false); 
+			}
+		});
+	}
+	
+	</script>
+</li>
 <?php } else { ?>
+<li class="nav-item">
 	<a href="login" class="login-popup nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
 	
 	<script>
@@ -9,7 +38,37 @@
 	$(function() {
 		console.log($("#loginForm"));
 		$('#loginForm').submit(handleLogin);
+
+		$("#forgottenPasswordLink").click(function(evt) {
+			evt.preventDefault();
+			$('#loginModal').modal('hide');
+			$('#forgottenPasswordModal').modal();
+
+		});
+
+		jQuery('#resetPasswordForm').on('submit', submitPasswordReset);
+		jQuery('#resetPasswordButton').click(submitPasswordReset);
+
 	});
+
+	function submitPasswordReset(evt) {
+		evt.preventDefault();
+		jQuery.ajax({
+			type: "POST",
+			url: '<?php echo admin_url( "admin-ajax.php" )?>',
+			data: {"action":"rwnz_forgotten_password", "username" : document.getElementById('forgottenPasswordUsername').value},
+			success: function(data, status, xhr) {
+				if (data.length > 0) {
+					var response = JSON.parse(data);
+					if (response.code === 'NOT_FOUND') {
+						$('#forgottenPasswordUsername').addClass('is-invalid');
+					}
+				} else {
+					$('#forgottenPasswordBody').html("<p>We've sent you a link to reset your password</p>");
+				}
+			}
+		});
+	}
 
 	function handleLogin(e) {
 		console.log('submitting');
@@ -73,6 +132,6 @@
 	}
 
 	</script>
-	
+</li>
 <?php } ?>
 <!-- /login -->

@@ -180,6 +180,7 @@ nav.navbar.navbar-dark ul.navbar-nav li a.nav-link {
 	color: white;
 	margin-left: 15px;
 }
+
 nav.navbar.navbar-dark .navbar-toggler {
 	color: white;
 	border-color: white;
@@ -218,10 +219,12 @@ li.current-menu-item a{
 	width: 80%;
 }
 .dropdown a {
-	color: white;
+	color: black;
+	font-size: 15px
 }
 .dropdown a:hover {
-	color: white;
+	color: black;
+	font-size: 15px
 }
 #login_dropdown a, #login_dropdown a:hover {
 	color: #30C5F2;
@@ -562,7 +565,8 @@ ul.archive li a:hover {
 .post-image-thumb img{
 	flex-shrink: 0;
     min-width: 100%;
-    min-height: 100%
+    min-height: 100%;
+    max-width: initial;
 }
 
 .post-list-info{
