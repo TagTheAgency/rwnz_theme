@@ -585,7 +585,7 @@ ul.archive li a:hover {
 }
 
 .post-hover{
-	opacity: 0.3;
+	opacity: 0.7;
 }
 
 .single-post-container{
@@ -889,6 +889,11 @@ article select.form-control:not([size]):not([multiple]) {
     height: calc(2.25rem + 12px);
 }
 
+article img {
+	width: auto;
+	height: auto;
+}
+
 #eventForm {
 	font-size: 1.6rem;
 }
@@ -903,6 +908,14 @@ article select.form-control:not([size]):not([multiple]) {
 // puts the google places autocomplete dropdown results above the bootstrap modal 1050 zindex.
 .pac-container {
     z-index: 1051 !important;
+}
+
+.modal, .modal input, .modal button {
+	font-size: 18px;
+}
+.modal button {
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 /****

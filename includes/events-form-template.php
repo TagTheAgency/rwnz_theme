@@ -3,7 +3,7 @@
 		<label for="eventOrganiser" class="col-sm-2 col-form-label">Company /
 			Organisation</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="eventName"
+			<input type="text" class="form-control" id="eventOrganiser"
 				placeholder="Company/Organisation" required>
 		</div>
 	</div>
@@ -17,9 +17,9 @@
 	</div>
 	<div class="form-group row nativeDatePicker">
 			
-			<label for="date" class="col-sm-2 col-form-label">Event date:</label> 
+			<label for="eventDateNative" class="col-sm-2 col-form-label">Event date:</label> 
 			<div class="col-sm-10">
-			<input type="date" class="form-control"	id="eventDate" name="eventDate"> 
+			<input type="date" class="form-control"	id="eventDateNative" name="eventDateNative"> 
 			<span class="validity"></span>
 			</div>
 	</div>
@@ -58,10 +58,10 @@
 		</div>
 
 
-	<label for="eventName" class="col-md-2 col-sm-2 col-form-label">Contact
+	<label for="eventContact" class="col-md-2 col-sm-2 col-form-label">Contact
 		number</label>
 	<div class="col-md-4 col-sm-10">
-		<input type="text" class="form-control" id="eventName"
+		<input type="text" class="form-control" id="eventContact"
 			placeholder="Enter a contact number">
 	</div>
 
@@ -71,13 +71,7 @@
 			placeholder="Event date" required>
 	</div>
 
-	<div class="form-group row">
-		<label for="eventDate" class="col-sm-2 col-form-label">Event date</label>
-		<div class="col-sm-10">
-			<input type="date" class="form-control" id="eventDate"
-				placeholder="Event date" required>
-		</div>
-	</div>
+
 	<div class="form-group row">
 		<label for="eventLocation" class="col-sm-2 col-form-label">Event
 			location</label>
@@ -89,16 +83,16 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		<label for="eventName" class="col-sm-2 col-md-2 col-form-label">Your
+		<label for="eventSubmitterName" class="col-sm-2 col-md-2 col-form-label">Your
 			name</label>
 		<div class="col-sm-10 col-md-4">
-			<input type="text" class="form-control" id="eventName"
+			<input type="text" class="form-control" id="eventSubmitterName"
 				placeholder="Enter your name">
 		</div>
-		<label for="eventName" class="col-md-2 col-sm-2 col-form-label">Contact
+		<label for="eventContactNumber" class="col-md-2 col-sm-2 col-form-label">Contact
 			number</label>
 		<div class="col-md-4 col-sm-10">
-			<input type="text" class="form-control" id="eventName"
+			<input type="text" class="form-control" id="eventContactNumber"
 				placeholder="Enter a contact number">
 		</div>
 	</div>

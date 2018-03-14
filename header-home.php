@@ -61,7 +61,7 @@
                     ?>
 					<ul class="navbar-nav">
 					   <li class="nav-item">
-						   <a href="members" class="nav-link">Members <i class="fa fa-user" aria-hidden="true" style="padding-right: 5px;display:inline-block" id="login_menu"></i></a>
+					       <?php include( locate_template( 'loginform.php', false, false ) ); ?>
 					   </li>
 					   <li id="search" class="nav-item">
 							<?php include( locate_template( 'searchform.php', false, false ) );?>
@@ -72,31 +72,6 @@
 			</nav>
 
 		</div>
-		<script>
-			(function($) {
-			$(document).ready(function() {
-				$('#showmenu').click(function(e) {
-					$('#login_dropdown').slideUp("fast");
-					e.stopPropagation();
-					$('#menu_dropdown').slideToggle("fast");
-				});
-				$('#login_menu').click(function(e) {
-					$('#menu_dropdown').slideUp("fast");
-					e.stopPropagation();
-					$('#login_dropdown').slideToggle("fast");
-				});
-				$('.dropdown').click(function(e) {
-					e.stopPropagation();
-				});
-				$(document).click(function(e) {
-					if(!$(e.target).hasClass('solid') )
-					$('.dropdown').slideUp("fast");
-				});
-			});
-			})(jQuery);
-		</script>
-
-
 
 
 			<!-- /header -->

@@ -60,15 +60,14 @@
                           'echo'           => true
                        ) );
                     ?>
-                    <ul class="navbar-nav">
-                    	<li class="nav-item">
-                    		<?php if (is_logged_in()) { ?>
-                    			<a href="members" class="nav-link">Members</a>
-                    		<?php } else { ?>
-                    			<a href="login" class="login-popup nav-link">Login</a>
-                    		<?php } ?>
-                    	</li>
-                    </ul>
+					<ul class="navbar-nav">
+					   <li class="nav-item">
+					       <?php include( locate_template( 'loginform.php', false, false ) ); ?>
+					   </li>
+					   <li id="search" class="nav-item">
+							<?php include( locate_template( 'searchform.php', false, false ) );?>
+					   </li>
+				   </ul>
                 </div>
 
 			</nav>

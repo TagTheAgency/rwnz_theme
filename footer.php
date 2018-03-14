@@ -101,6 +101,67 @@
 		</div>
 		<!-- /wrapper -->
 
+		<!-- modals -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <form id="loginForm" action="<?php echo admin_url( "admin-ajax.php" )?>">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: left;" id="loginBody">
+      <div class="form-group">
+	      <label for="loginUsername">Username</label>
+	      <input id="loginUsername" type="text" style="width: 100%;" name="loginUsername" class="form-control"/>
+	      <small id="emailHelp" class="form-text text-muted">Not a member? <a id="createAccountLink" href="<?php echo get_site_url() ?>/join-us">Join today</a>.</small>
+	      
+	  </div>
+	  <div class="form-group">
+	      <label for="loginPassword">Password</label>
+	      <input id="loginPassword" type="password" style="width: 100%;" name="loginPassword" class="form-control"/>
+		  <small id="passwordHelp" class="form-text text-muted"><a id="forgottenPasswordLink" href="#forgottenPasswordModal" data-toggle="modal" data-target="#forgottenPasswordModal">Forgotten password?</a>.</small>
+	  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+
+<div class="modal fade" id="forgottenPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgottenPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgottenPasswordModalLabel">Forgotten your password?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: left;" id="forgottenPasswordBody">
+        <form id="resetPasswordForm">
+	      <label for="forgottenPasswordUsername">Enter your username below and we'll send you a reset link</label>
+	      <input id="forgottenPasswordUsername" type="text" style="width: 100%;" name="forgottenPassword" class="form-control"/>
+	      <div class="invalid-feedback">
+    	    That isn't a valid username.
+	      </div>
+	    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="resetPasswordButton">Send reset link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+		<!-- /modals -->
 		<?php wp_footer(); ?>
 
 		<!-- analytics -->
