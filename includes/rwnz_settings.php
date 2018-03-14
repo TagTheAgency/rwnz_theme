@@ -48,7 +48,7 @@ function rwnz_settings_init() {
     /* 
 	 * http://codex.wordpress.org/Function_Reference/register_setting
 	 * register_setting( $option_group, $option_name, $sanitize_callback );
-	 * The second argument ($option_name) is the option name. It’s the one we use with functions like get_option() and update_option()
+	 * The second argument ($option_name) is the option name. Itï¿½s the one we use with functions like get_option() and update_option()
 	 * */
   	# With input validation:
   	# register_setting( 'my-settings-group', 'rwnz-settings', 'my_settings_validate_and_sanitize' );    
@@ -82,6 +82,7 @@ function rwnz_options_page() {
 function rwnz_settings_section_cb()
 {
     echo '<p>To fully activate the RWNZ theme, you need to complete this section with your API keys etc.</p>';
+    echo '<p><a href="admin-ajax.php?action=run_migration">Run migration</a></p>';
 }
 
 // field content cb

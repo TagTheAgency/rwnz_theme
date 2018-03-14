@@ -15,6 +15,7 @@ include_once 'includes/rwnz_settings.php';
 include_once 'includes/HelloClub.php';
 include_once 'includes/Events.php';
 include_once 'includes/RWNZLogin.php';
+include_once 'includes/RWNZMigrate.php';
 
 // Load any external files you have here
 
@@ -860,6 +861,17 @@ function board_papers($atts) {
 
 add_shortcode('board-papers', 'board_papers');
 
+function migrated_image($atts) {
+    
+    error_log(print_r($atts, true));
+    error_log("getting a migrated image " . $atts['src']);
+    $image =  get_option("rwnz-migrate-image-".mb_strtolower($atts['src']));
+    
+    return wp_get_attachment_image($image, 'full');
+
+}
+
+add_shortcode('migrated-image', 'migrated_image');
 
 
 /*------------------------------------*\
