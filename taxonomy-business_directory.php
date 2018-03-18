@@ -11,105 +11,65 @@ $terms = get_terms( 'business_directory', array(
 
 
 ?>
-	<section role="header" class="header">
-		<section class="mainStory" style="background-color: <?php echo $page_colour;?>; position: relative;">
-			<div class="header-image-wrapper">
-    			<div class="header-image-inner"><img class="img" src="<?php echo wp_get_attachment_image_src( get_option( 'business-directory-featured-image' ), 'page-header' )[0]; ?>" /></div>
-			</div>
+<?php rwnz_page_header('Business Directory'/*get_the_archive_title()*/, wp_get_attachment_image_src( get_option( 'business-directory-featured-image' ), 'page-header' )[0]); ?>
 
-		<!-- img src="<?php the_post_thumbnail_url('page-header'); ?>" class="feature-image" style="width: 60%; margin-left: 5%; margin-top:2%; margin-bottom: -2%"/ --> 
-		<div id="page-header">
-			<?php include( locate_template( 'searchform.php', false, false ) );?> 
-        	<div class="excerpt_content">
-        		<?php echo the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
-				<!-- h1 style="color:white;"><?php the_title()?></h1 --> 
-		    </div>
-        </div>	
-		
-		</section>
-	</section>
 
-<style>
-article.news_archive a, article.news_archive a:hover {
-	color: <?php echo $page_colour?>;
-}
-</style>
-
-<?php 
-$term_id = get_queried_object_id();
-if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-    $count = count( $terms );
-    $i = 0;
-    $term_list = '<ul class="nav nav-tabs">';//<p class="my_term-archive">';
-    foreach ( $terms as $term ) {
-        $i++;
-        $term_list .= '<li class="nav-item"><a class="nav-link' . ($term->term_id == $term_id ? ' active' : '') . '" href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
-        if ( $count == $i ) {
-            $term_list .= '</ul>';
-        }
-    }
-    echo $term_list;
-}
-?>
-<main role="main">
-<!-- section -->
-<section>
-<!-- article -->
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-		
-			<div class="bursaries">
-				<div class="bursary row">
-					<div class="col-md-6"><h3><?php the_title();?></h3>
-						<div class="content"><?php the_content(); // Dynamic Content ?></div>
-					</div>	
-					<div class="col-md-6 ">
-						<?php 
+<div class="container-fluid">
+	<div class="row blog_summary">
+		<div class="col-sm-9">
+			<article class="news_archive">
+				<div class="page-header-wrapper">
+					<h1><?php the_archive_title() ?></h1>
+				</div>
+				<?php while(have_posts()): the_post(); ?>
+					<?php 
 						$mobile = get_post_meta(get_the_ID(), 'mobile', true);
 						$website = get_post_meta(get_the_ID(), 'website', true);
 						$phone = get_post_meta(get_the_ID(), 'phone', true);
 						$address = get_post_meta(get_the_ID(), 'address', true);
 						$logo = get_post_meta(get_the_ID(), 'logo', true);
-						if ($logo) {
-							echo '<img src="'.wp_get_attachment_url($logo).'" style="max-height: 100px"/><br/>';
-						}
-						?>
-						
-						Contact: <?php echo get_post_meta(get_the_ID(), 'contact', true);?><br/>
-						Email: <?php echo get_post_meta(get_the_ID(), 'email', true);?><br/>
-						
-						<?php
-						if ($mobile) {
-							echo "Mobile: " . $mobile . "<br/>";
-						}
-						if ($website) {
-							if (substr( $website, 0, 4 ) === "http") {
-							
-							} else {
-								$website = "http://" . $website;
-							}
-							echo 'Website: <a href="' . $website . '">' . $website . '</a><br/>';
-						}
-						if ($address) {
-							echo "Address: " . $address . "</br>";
-						}
-						
-						?>
+					?>
+					<div class="post-content-wrapper">
+						<a href="<?php the_permalink()?>"><span class="link"></span></a>
+						<div class="post-image-thumb">
+							<?php if ($logo ): ?>
+							<img src="<?php echo wp_get_attachment_url($logo) ?>"/>
+							<?php else: ?>
+							<img src="<?php echo get_theme_file_uri('/img/placeholderthumbnail.png')?>" alt="">
+							<?php endif; ?>
+						</div>
+						<div class="post-list-info">
+							<div>
+								<h2 class="post-list-title"><a href="<?php the_permalink()?>"><?php the_title() ?></a></h2>
+								<p><?php the_excerpt() ?></p>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		
-	<?php endwhile; endif; ?>
-	</article>
-		<!-- /article -->
-	</section>
-	<!-- /section -->
-	</main>
-
-<?php get_footer(); ?>
-
-	
+				<?php endwhile;?>
+			</article>
+		</div>
+		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
+			<h2>Categories</h2>
+			<?php 
+            $term_id = get_queried_object_id();
+            if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+                $count = count( $terms );
+                $i = 0;
+                $term_list = '<ul class="archive">';
+                foreach ( $terms as $term ) {
+                    $i++;
+                    $term_list .= '<li><a ' . ($term->term_id == $term_id ? ' class="active"' : '') . '" href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
+                    if ( $count == $i ) {
+                        $term_list .= '</ul>';
+                    }
+                }
+                echo $term_list;
+            }
+            ?>
+			
+		</div>
+	</div>
+</div>
 
 
 

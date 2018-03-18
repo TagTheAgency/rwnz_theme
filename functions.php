@@ -1502,6 +1502,21 @@ class bootstrap_4_walker_nav_menu extends Walker_Nav_menu {
 
 }
 
+function rwnz_page_header($title, $image_source) {
+    ?>
+    <section role="header" class="header">
+        <section class="mainStory header-content-wrapper">
+			<div class="header-image-wrapper">
+				<div class="header-image-inner"><img class="img" src="<?php echo $image_source; ?>" /></div>
+            </div>
+            <div class="page-title-container">
+				<h1><?php echo $title; ?></h1>
+			</div>
+		</section>
+	</section>
+	<?php 
+}
+
 //* Changing excerpt more - only works where excerpt IS hand-crafted
 function manual_excerpt_more( $excerpt ) {
     $excerpt_more = '';

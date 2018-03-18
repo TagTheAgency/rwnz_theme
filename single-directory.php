@@ -1,19 +1,21 @@
 <?php get_header(); ?>
-	
-	<main role="main">
-	<!-- section -->
-	<section>
-	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-		<!-- article -->
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-			<div class="bursaries">
-				<div class="bursary row">
-					<div class="col-md-6"><h3><?php the_title();?></h3>
-						<div class="content"><?php the_content(); // Dynamic Content ?></div>
-					</div>	
-					<div class="col-md-6 ">
-						<?php 
+<?php 
+$terms = get_terms( 'business_directory', array(
+    'hide_empty' => false,
+) );
+?>	
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-9">
+			<article class="news_archive">
+				<div class="page-header-wrapper">
+					<h1><?php the_title();?></h1>
+				</div>
+				<?php while(have_posts()): the_post(); ?>
+				<?php the_content(); ?>
+					<?php 
 						$mobile = get_post_meta(get_the_ID(), 'mobile', true);
 						$website = get_post_meta(get_the_ID(), 'website', true);
 						$phone = get_post_meta(get_the_ID(), 'phone', true);
@@ -44,14 +46,30 @@
 						}
 						
 						?>
-					</div>
-
-		</article>
-		<!-- /article -->
-	<?php endwhile; endif; ?>
-	
-	</section>
-	<!-- /section -->
-	</main>
+				<?php endwhile;?>
+			</article>
+		</div>
+		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
+			<h2>Categories</h2>
+			<?php 
+            $term_id = get_queried_object_id();
+            if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+                $count = count( $terms );
+                $i = 0;
+                $term_list = '<ul class="archive">';
+                foreach ( $terms as $term ) {
+                    $i++;
+                    $term_list .= '<li><a ' . ($term->term_id == $term_id ? ' class="active"' : '') . '" href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
+                    if ( $count == $i ) {
+                        $term_list .= '</ul>';
+                    }
+                }
+                echo $term_list;
+            }
+            ?>
+			
+		</div>
+	</div>
+</div>	
 
 <?php get_footer(); ?>
