@@ -464,6 +464,11 @@ add_shortcode('html5_shortcode_demo_2', 'html5_shortcode_demo_2'); // Place [htm
 	Custom Post Types
 \*------------------------------------*/
 
+// Simply remove anything that looks like an archive title prefix ("Archive:", "Foo:", "Bar:").
+add_filter('get_the_archive_title', function ($title) {
+    return preg_replace('/^.*: /', '', $title);
+});
+
 function build_taxonomies() {
     register_taxonomy( 'business_directory', 'directory', array( 'hierarchical' => true, 'label' => 'Business Directory Categories', 'query_var' => true, 'rewrite' => true, 'show_in_nav_menus' => true ) );
 }
