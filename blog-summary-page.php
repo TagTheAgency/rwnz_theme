@@ -63,7 +63,7 @@ article.news_archive a, article.news_archive a:hover {
 						<?php endwhile;?>
 					</article>
 				</div>
-				<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
+				<div class="col-sm-3 archive-wrapper">
 					<h2>Archive</h2>
 					<ul class="archive">
 						<?php wp_get_archives('type=monthly'); ?>

@@ -387,6 +387,25 @@ dt {
 .blog_summary h3 {
 	font-size: 1.2em;
 }
+
+.page-title-container {
+	color: #00425A;
+	background-color: #A2EFE9;
+	width: 30%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 70px;
+	text-align: center;
+}
+.page-title-container h1{
+	font-size: 3.7em;
+	font-weight: 700;
+	border-bottom: 5px solid #00425A;
+	padding-bottom: 20px;
+	word-wrap: break-word;
+}
+
 .overlay {
     position: absolute;
     width: 100%;
@@ -399,11 +418,11 @@ dt {
 
 /* sidebar */
 .sidebar {
-
 }
 
 .archive-wrapper{
-	padding: 30px;
+	padding-right: 40px;
+	margin-top: 50px;
 	text-align: -webkit-center;
 }
 
@@ -941,8 +960,51 @@ SHOP
 }
 
 
-@media only screen and (min-width:320px) {
+@media only screen and (min-width:320px) and (max-width:768px) {
 
+	.post-content-wrapper {
+		height: 150px;
+		margin-bottom: 20px;
+	}
+	.post-list-info p {
+		display: none;
+	}
+	.post-list-info h2 {
+		font-size: 2em;
+	}
+	.page-title-container {
+	    width: 100%;
+		margin-bottom: 40px;
+	}
+	.page-title-container h1 {
+	    font-size: 3.7em;
+	}
+	.page-header-wrapper{
+		display: none;
+	}
+	.archive-wrapper{
+		padding-right: 0;
+	}
+
+	.single-post-container{
+		flex-wrap: wrap;
+		flex-direction: column-reverse;
+		padding: 10px 50px;
+	}
+
+	.single-post-title{
+		font-size: 2em;
+	}
+
+	.single-post-content{
+		width: 100%;
+		padding: 0;
+	}
+
+	.single-post-thumbnail{
+		width: 100%;
+		margin-bottom: 30px;
+	}
 
 }
 @media only screen and (min-width:480px) {
@@ -1005,7 +1067,7 @@ SHOP
 	.header-image-inner img {
 	    position: absolute;
 	    margin: auto;
-	    max-height: 100%;
+	    min-height: 100%;
 	    max-width: none;
 	    display:block;
 
@@ -1068,23 +1130,6 @@ SHOP
 	#page-header {
 		padding-left: 70%;
 	}
-	.page-title-container {
-		color: #00425A;
-		background-color: #A2EFE9;
-		width: 30%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 70px;
-		text-align: center;
-	}
-	.page-title-container h1{
-		font-size: 3.7em;
-		font-weight: 700;
-		border-bottom: 5px solid #00425A;
-		padding-bottom: 20px;
-		word-wrap: break-word;
-	}
 	.header-content-wrapper {
 		display: flex;
 	}
@@ -1103,7 +1148,7 @@ SHOP
 	    position: relative;
 	    margin: auto;
 	    max-height: none;
-	    width: 100%;
+	    min-width: 100%;
 	    display:inline;
 	    left: inherit;
 	    right: inherit;
