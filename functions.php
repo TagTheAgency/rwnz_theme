@@ -1522,6 +1522,20 @@ function rwnz_page_header($title, $image_source) {
 	<?php 
 }
 
+function rwnz_archive_image($img_id) {
+    $image = wp_get_attachment_image_src($img_id, '');
+    $image_w = $image[1];
+    $image_h = $image[2];
+    if ($image_w >= $image_h) {
+        echo '<div class="landscape">';
+    } else {
+        echo '<div class="portrait">';
+    }
+    the_post_thumbnail('');
+	echo '</div>';
+    
+}
+
 //* Changing excerpt more - only works where excerpt IS hand-crafted
 function manual_excerpt_more( $excerpt ) {
     $excerpt_more = '';

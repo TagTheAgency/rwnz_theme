@@ -577,16 +577,25 @@ ul.archive li a:hover {
 	width: 30%;
 	display: flex;
 	justify-content: center;
-    align-items: center;
+/*    align-items: center; */
     overflow: hidden
 }
 
 .post-image-thumb img{
 	flex-shrink: 0;
-    min-width: 100%;
-    min-height: 100%;
+    min-width: 300px;
+    min-height: 225px;
     max-width: initial;
 }
+
+.post-image-thumb .landscape img{
+    max-height: 210px;
+}
+.post-image-thumb .portrait img{
+    max-width: 300px;
+}
+
+
 
 .post-list-info{
 	width: 70%;

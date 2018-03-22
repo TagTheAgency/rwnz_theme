@@ -44,7 +44,7 @@ article.news_archive a, article.news_archive a:hover {
 						<a href="<?php the_permalink()?>"><span class="link"></span></a>
 						<div class="post-image-thumb">
 							<?php if (has_post_thumbnail('') ): ?>
-							<?php the_post_thumbnail('') ?>
+							<?php rwnz_archive_image(get_post_thumbnail_id($post->ID)); ?>
 							<?php else: ?>
 							<img src="<?php echo get_theme_file_uri('/img/placeholderthumbnail.png')?>" alt="">
 							<?php endif; ?>
