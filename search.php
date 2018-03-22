@@ -5,8 +5,12 @@
 		<div class="col-sm-9">
 			<article class="news_archive">
 				<div class="page-header-wrapper">
-					<h1><?php echo $archive_sub_title ?></h1>
+					<h1><?php echo sprintf( __( '%s Search Results for ', 'html5blank' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
+					<?php if ($wp_query->found_posts > 8) {
+					   get_template_part('pagination'); 
+					} ?>
 				</div>
+				<?php if (have_posts()): ?>
 				<?php while (have_posts()): the_post(); ?>
 					<div class="post-content-wrapper">
 						<a href="<?php the_permalink()?>"><span class="link"></span></a>
@@ -26,6 +30,12 @@
 						</div>
 					</div>
 				<?php endwhile;?>
+				<?php if ($wp_query->found_posts > 10) {
+            		   get_template_part('pagination'); 
+            		} ?>
+            		<?php else: ?>
+            		<p>No results were found for that search.</p>
+            		<?php endif; ?>
 			</article>
 		</div>
 		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
@@ -40,24 +50,9 @@
 		    ?>
 			</ul>
 		</div>
+		
 	</div>
 </div>
 
-
-	<main role="main">
-		<!-- section -->
-		<section>
-
-			<h1><?php echo sprintf( __( '%s Search Results for ', 'html5blank' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
-
-			<?php get_template_part('loop'); ?>
-
-			<?php get_template_part('pagination'); ?>
-
-		</section>
-		<!-- /section -->
-	</main>
-
-<?php get_sidebar(); ?>
 
 <?php get_footer(); ?>

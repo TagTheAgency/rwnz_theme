@@ -1,5 +1,5 @@
 <!-- pagination -->
-<div class="pagination">
-	<?php html5wp_pagination(); ?>
-</div>
+<nav aria-label="Page navigation">
+  	<?php echo get_bootstrap_paginate_links(); ?>
+</nav>
 <!-- /pagination -->
