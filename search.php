@@ -2,7 +2,7 @@
 
 <div class="container-fluid">
 	<div class="row blog_summary">
-		<div class="col-sm-9">
+		<div class="col-md-9">
 			<article class="news_archive">
 				<div class="page-header-wrapper">
 					<h1><?php echo sprintf( __( '%s Search Results for ', 'html5blank' ), $wp_query->found_posts ); echo get_search_query(); ?></h1>
@@ -38,7 +38,7 @@
             		<?php endif; ?>
 			</article>
 		</div>
-		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
+		<div class="col-md-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
 			<h2><?php echo $archive_title ?></h2>
 			<ul class="archive">
 			<?php 
