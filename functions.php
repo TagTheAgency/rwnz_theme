@@ -908,7 +908,7 @@ function bursary_shortcode($atts, $content = null) {
 	$compiled_content .= '</div>';
 
 	$compiled_content .= '<div class="attachment"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
-
+	
     $compiled_content .= '<hr></hr>';
 
 

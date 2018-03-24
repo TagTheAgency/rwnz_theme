@@ -136,9 +136,10 @@ var monthSelect = document.querySelector('#month');
 var daySelect = document.querySelector('#day');
 
 // hide fallback initially
-fallbackPicker.style.display = 'none';
-fallbackLabel.style.display = 'none';
-
+if (fallbackLabel) {
+	fallbackPicker.style.display = 'none';
+	fallbackLabel.style.display = 'none';
+}
 // test whether a new date input falls back to a text input or not
 var test = document.createElement('input');
 test.type = 'date';
@@ -148,8 +149,9 @@ if(test.type === 'text') {
   // hide the native picker and show the fallback
   nativePicker.style.display = 'none';
   fallbackPicker.style.display = 'block';
+  if (fallbackLabel) {
   fallbackLabel.style.display = 'block';
-
+  }
   // populate the days and years dynamically
   // (the months are always the same, therefore hardcoded)
   populateDays(monthSelect.value);
