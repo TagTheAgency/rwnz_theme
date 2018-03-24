@@ -872,6 +872,40 @@ if(function_exists("register_field_group")) {
         ),
         'menu_order' => 0,
     ));
+   
+   	register_field_group(array (
+   		'id' => 'acf_shop-members-only',
+   		'title' => 'Shop Members Only',
+   		'fields' => array (
+   			array (
+   				'key' => 'field_5ab5fcc14dab2',
+   				'label' => 'Members Only',
+   				'name' => 'members_only',
+   				'type' => 'true_false',
+   				'message' => 'This product only available to members',
+   				'default_value' => 0,
+   			),
+   		),
+   		'location' => array (
+   			array (
+   				array (
+   					'param' => 'post_type',
+   					'operator' => '==',
+   					'value' => 'product',
+   					'order_no' => 0,
+   					'group_no' => 0,
+   				),
+   			),
+   		),
+   		'options' => array (
+   			'position' => 'acf_after_title',
+   			'layout' => 'no_box',
+   			'hide_on_screen' => array (
+   			),
+   		),
+   		'menu_order' => 0,
+   	));
+    
 }
 
 /*------------------------------------*\
@@ -1468,12 +1502,12 @@ function check_members_only() {
 //     echo ('CSJM: is logged in ' . is_logged_in());
 //     echo ('CSJM members only  ' . get_post_meta(get_the_ID(), 'members_only', true) . ' value');
     if (is_logged_in() || !get_post_meta(get_the_ID(), 'members_only', true)) {
-        return;
+        return true;
     }
     
     echo '<h1>Members only</h1><p>You must be logged in to view this page</p>';
     get_footer();
-    wp_die();
+    return false;
     
 }
 
