@@ -336,7 +336,7 @@ dt {
     border-color: white;
     width: 100px;
 }
-@media (min-width: 1078px) {
+@media (min-width: 1078px), (max-width: 991px) {
 	#search #search-input, #search .hint {
 	    padding-right: 30px;
 	    width: initial;
@@ -977,7 +977,7 @@ SHOP
 }
 
 
-@media only screen and (min-width:320px) and (max-width:768px) {
+@media only screen and (min-width:320px) and (max-width:767px) {
 
 	.post-content-wrapper {
 		height: 150px;
@@ -1158,7 +1158,7 @@ SHOP
 		margin-top: 0%;
 	    width: 70%;
 	    margin-left: 0%;
-		height: 400px;
+		max-height: 400px;
 	}
 
 	.header-image-inner img {

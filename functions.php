@@ -1505,7 +1505,7 @@ function check_members_only() {
         return true;
     }
     
-    echo '<article><h1>Members only</h1><p>You must be logged in to view this page</p></article>';
+    echo '<article class="single-post-container"><h1>Members only</h1><p>You must be logged in to view this page</p></article>';
     get_footer();
     return false;
     

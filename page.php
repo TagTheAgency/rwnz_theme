@@ -6,11 +6,7 @@ $header_content = get_the_excerpt();
 
 $thumbnail = get_the_post_thumbnail_url(null, 'page-header');
 $fullsize = get_the_post_thumbnail_url(null, 'large');
-if ($thumbnail === $fullsize) {
-//	echo '<p>CSJM Doesn\'t have a thumbnail</p>';
-} else {
-//	echo '<p>CSJM has a thumbnail';
-}
+
 ?>
 	<section role="header" class="header">
 		<section class="mainStory header-content-wrapper">
