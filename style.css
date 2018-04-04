@@ -330,10 +330,17 @@ dt {
 }
 #search #search-input, #search .hint {
     padding-left: 25px;
-    padding-right: 43px;
+    padding-right: 0px;
     border-radius: 5px;
     border-width: 2px;
     border-color: white;
+    width: 100px;
+}
+@media (min-width: 1078px) {
+	#search #search-input, #search .hint {
+	    padding-right: 30px;
+	    width: initial;
+	}
 }
 #search label {
     position: absolute;
@@ -841,6 +848,7 @@ h1.homepage-section {
 	.homepage-partners img {
 		height: 80px;
 	}
+
 }
 
 
@@ -1044,7 +1052,7 @@ SHOP
 	}
 
 }
-@media only screen and (min-width:576px) {
+@media only screen and (min-width:768px) {
 	article {
 		padding: 20px 40px;
 		margin: 50px 5%;
