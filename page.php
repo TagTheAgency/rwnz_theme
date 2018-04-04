@@ -21,7 +21,8 @@ $fullsize = get_the_post_thumbnail_url(null, 'large');
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
             			<!-- article -->
-            			<article id="post-<?php the_ID(); ?>"  ><!-- ?php post_class('two-column'); ? -->
+            			<article class="single-post-container" id="post-<?php the_ID(); ?>"  ><!-- ?php post_class('two-column'); ? -->
+							<div class="post-content">
             				<?php the_content(); ?>
 
             				<?php comments_template( '', true ); // Remove if you don't want comments ?>
@@ -29,7 +30,7 @@ $fullsize = get_the_post_thumbnail_url(null, 'large');
             				<br class="clear">
 
             				<?php edit_post_link(); ?>
-
+							</div>
             			</article>
             			<!-- /article -->
 
