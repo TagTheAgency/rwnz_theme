@@ -54,7 +54,8 @@ get_header( 'shop' ); ?>
     </header>
 
 		<?php if ( have_posts() ) : ?>
-
+			<article class="single-post-container">
+				<div class="single-post-content">
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook.
@@ -99,7 +100,8 @@ get_header( 'shop' ); ?>
 				 */
 				do_action( 'woocommerce_after_shop_loop' );
 			?>
-
+			</div>
+		</article>
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
 			<?php
