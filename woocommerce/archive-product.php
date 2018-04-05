@@ -32,6 +32,8 @@ get_header( 'shop' ); ?>
 		 */
 		//do_action( 'woocommerce_before_main_content' );
 	?>
+			<article class="single-post-container">
+				<div class="single-post-content">
 
     <header class="woocommerce-products-header">
 
@@ -54,8 +56,6 @@ get_header( 'shop' ); ?>
     </header>
 
 		<?php if ( have_posts() ) : ?>
-			<article class="single-post-container">
-				<div class="single-post-content">
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook.
