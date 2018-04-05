@@ -131,8 +131,8 @@ input:focus {
 }
 /* nav */
 nav {
-	margin-bottom: 40px;
-	/*position: fixed !important;
+	/*margin-bottom: 40px;
+	position: fixed !important;
 	background-color: white;
 	z-index: 1;
 	width: 100%;*/
@@ -141,7 +141,6 @@ nav {
 .navbar {
 	font-size: 15px;
 	font-weight: bold;
-	padding: 0 40px !important;
 }
 
 .navbar-nav #search {
@@ -185,10 +184,6 @@ nav.navbar.navbar-dark .navbar-toggler {
 	color: white;
 	border-color: white;
 	font-size: 20px;
-}
-
-a.navbar-brand img {
-	margin-top: 30px;
 }
 
 li.current-menu-item a{
@@ -833,6 +828,10 @@ h1.homepage-section {
 
 }
 
+body.home #navbarSupportedContent {
+	background-color: grey;
+	padding: 10px;
+}
 
 @media (min-width: 992px) {
 	.homepage-story {
@@ -841,6 +840,10 @@ h1.homepage-section {
 	}
 	.homepage-row.homepage-services, .homepage-row.homepage-partners, .homepage-row.homepage-social {
 		padding: 22px;
+	}
+	body.home #navbarSupportedContent {
+		background-color: initial;
+		padding: inherit;
 	}
 
 }
@@ -897,8 +900,16 @@ h1.homepage-section {
 }
 .page-logo {
 	width:210px;
-	margin-top: 10px;
 }
+.page-logo.home {
+	width:300px;
+}
+@media only screen and (max-width:400px) {
+	.page-logo.home {
+		width: 200px;
+	}
+}
+
 .header-row {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -1097,9 +1108,6 @@ SHOP
 		position: relative;
 		top: inherit;
 		right: inherit;
-	}
-	.page-logo {
-		margin-top: -30px;
 	}
 	.header-row {
 		padding-top: 60px;

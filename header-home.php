@@ -33,8 +33,8 @@
 		<nav class="navbar navbar-expand-lg navbar-dark" style="width: 95%">
 				<a class="navbar-brand"
 					href="<?php echo get_site_url()?>"> <img
-					src="<?php echo get_theme_file_uri('/img/rural-women-logo-white.png')?>" style="width: 300px"
-					class="page-logo" />
+					src="<?php echo get_theme_file_uri('/img/rwnz-logo-white-300.png')?>" 
+					class="page-logo home" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent"

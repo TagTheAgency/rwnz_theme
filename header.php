@@ -34,7 +34,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<a class="navbar-brand"
 					href="<?php echo get_site_url()?>"> <img
-					src="<?php echo get_theme_file_uri('/img/rural-women-logo.png')?>"
+					src="<?php echo get_theme_file_uri('/img/rwnz-logo-250.png')?>"
 					class="page-logo" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
