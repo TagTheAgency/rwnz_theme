@@ -1628,6 +1628,19 @@ function manual_excerpt_more( $excerpt ) {
 }
 add_filter( 'get_the_excerpt', 'manual_excerpt_more' );
 
+function get_custom_excerpt($limit, $source = null){
+	
+	if($source == "content" ? ($excerpt = get_the_content()) : ($excerpt = get_the_excerpt()));
+	$excerpt = preg_replace(" (\[.*?\])",'',$excerpt);
+	$excerpt = strip_shortcodes($excerpt);
+	$excerpt = strip_tags($excerpt);
+	$excerpt = substr($excerpt, 0, $limit);
+	$excerpt = substr($excerpt, 0, strripos($excerpt, " "));
+	$excerpt = trim(preg_replace( '/\s+/', ' ', $excerpt));
+	$excerpt = $excerpt.'... <a href="'.get_permalink($post->ID).'">more</a>';
+	return $excerpt;
+}
+
 //debug
 add_filter( 'template_include', 'var_template_include', 1000 );
 function var_template_include( $t ){

@@ -47,7 +47,7 @@
 		));
 		
 		while ( $the_query->have_posts() ) : $the_query->the_post(); 
-		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_the_excerpt());
+		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_custom_excerpt(300, 'content'));
         endwhile; wp_reset_postdata(); ?>
 		
 		</div>
@@ -60,7 +60,7 @@
 		));
 		
 		while ( $the_query->have_posts() ) : $the_query->the_post(); 
-		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_the_excerpt());
+		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_custom_excerpt(300, 'content'));
         endwhile; wp_reset_postdata(); ?>
         
 		</div>
