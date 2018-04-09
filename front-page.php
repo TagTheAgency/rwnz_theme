@@ -31,8 +31,12 @@
 		} else {
 			$event = $upcomingEvents[0];
 			$name = $event['name'];
+			$date = $event['date'];
+			$datetime = DateTime::createFromFormat('Y-m-d\TH:i:s+', $date);
+			$datetime->setTimezone(new DateTimeZone('Pacific/Auckland'));
+			$formatted_date = $datetime->format("l dS F");//date("l ddS F", $datetime);
 			$description = $event['description'];
-			echo "<h2>$name</h2>";
+			echo "<h2>$name - $formatted_date</h2>";
 			echo "<div class=\"text\">$description</div>";
 		}
 
