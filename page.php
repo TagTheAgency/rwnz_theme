@@ -19,7 +19,6 @@ $fullsize = get_the_post_thumbnail_url(null, 'large');
 		</section>
 	</section>
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
-
             			<!-- article -->
             			<article class="single-post-container" id="post-<?php the_ID(); ?>"  ><!-- ?php post_class('two-column'); ? -->
 							<div class="post-content">
@@ -33,7 +32,6 @@ $fullsize = get_the_post_thumbnail_url(null, 'large');
 							</div>
             			</article>
             			<!-- /article -->
-
 	<?php endwhile; endif; ?>
 
 

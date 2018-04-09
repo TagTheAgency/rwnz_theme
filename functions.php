@@ -1094,6 +1094,26 @@ function viper_http_api_debug( $response, $type, $class, $args, $url ) {
 	error_log( 'Request Response : ' . var_export( $response, true ) );
 }
 
+function filter_logged_in_products( $q ) {
+    if (!is_logged_in()) {
+        $meta_query = array(
+            'relation' => 'OR',
+            array(
+                'key' => 'members_only',
+                'value' => false,
+                'type' => 'BOOLEAN'
+            ),
+            array(
+                'key' => 'members_only',
+                'compare' => 'NOT EXISTS'
+            )
+            
+        );
+        $q->set('meta_query',$meta_query);
+    }
+}
+add_action( 'woocommerce_product_query', 'filter_logged_in_products' ); 
+
 
 function getBoardPapers() {
 	if (!is_board_member() && !is_committee_member()) {
