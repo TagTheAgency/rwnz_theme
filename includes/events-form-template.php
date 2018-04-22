@@ -21,56 +21,9 @@
 			<div class="col-sm-10">
 			<input type="date" class="form-control"	id="eventDateNative" name="eventDateNative"> 
 			<span class="validity"></span>
+			<small id="dateHelp" class="form-text text-muted">Type, or click/tap to use the drop down calendar to select a date</small>
 			</div>
 	</div>
-		<div class="form-group row fallbackDatePicker">
-			<label for="day" class="col-sm-2 col-md-2 col-form-label">Day of week</label>
-			<div class="col-sm-2 col-md-2">
-				<select id="day" name="day" class="form-control">
-				</select>
-			</div>
-
-			<label for="month" class="col-sm-4 col-md-4 col-form-label">Event
-				month</label>
-			<div class="col-sm-4 col-md-4">
-				<select id="month" name="month" class="form-control">
-					<option selected>January</option>
-					<option>February</option>
-					<option>March</option>
-					<option>April</option>
-					<option>May</option>
-					<option>June</option>
-					<option>July</option>
-					<option>August</option>
-					<option>September</option>
-					<option>October</option>
-					<option>November</option>
-					<option>December</option>
-				</select>
-			</div>
-
-			<label for="year" class="col-sm-4 col-md-4 col-form-label">Event
-				month</label>
-			<div class="col-sm-4 col-md-4" >
-				<select id="year" name="year" class="form-control">
-				</select>
-			</div>
-		</div>
-
-
-	<label for="eventContact" class="col-md-2 col-sm-2 col-form-label">Contact
-		number</label>
-	<div class="col-md-4 col-sm-10">
-		<input type="text" class="form-control" id="eventContact"
-			placeholder="Enter a contact number">
-	</div>
-
-	<label for="eventDate" class="col-sm-2 col-form-label">Event date</label>
-	<div class="col-sm-10">
-		<input type="date" class="form-control" id="eventDate"
-			placeholder="Event date" required>
-	</div>
-
 
 	<div class="form-group row">
 		<label for="eventLocation" class="col-sm-2 col-form-label">Event
