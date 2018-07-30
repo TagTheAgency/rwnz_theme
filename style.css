@@ -744,17 +744,17 @@ ul.archive li a:hover {
 }
 
 .homepage-link-shop {
-	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/AdobeStock_139181938-700x467.jpeg);
+	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url(img/homepage_shop_link.jpeg);
 }
 
 .homepage-link-erwa {
-	background-image:linear-gradient(rgba(192,215,47,0.4),rgba(192,215,47,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/chickens-e1509270800613-700x467.jpeg);
+	background-image:linear-gradient(rgba(192,215,47,0.4),rgba(192,215,47,0.4)),url(img/homepage_erwa_link.jpeg);
 }
 .homepage-link-aftersocks {
-	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/cows-e1509270646469-700x424.jpeg);
+	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(img/homepage_aftersocks_link.jpeg);
 }
 .homepage-link-memberzone {
-	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/AdobeStock_139181938-700x467.jpeg);
+	background-image:linear-gradient(rgba(0,171,160,0.4),rgba(0,171,160,0.4)),url(img/homepage_members_link.jpeg);
 }
 a span.link {
 	display:block;
@@ -795,13 +795,13 @@ h1.homepage-section {
 }
 
 .homepage-services-bursaries {
-	background-image: url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/bursaries-e1509270635842-700x467.jpeg);
+	background-image: url(img/homepage_services_bursaries.jpeg);
 }
 .homepage-services-directory {
-	background-image: url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/10/directory-e1510090992991-700x510.jpg);
+	background-image: url(img/homepage_services_directory.jpeg);
 }
 .homepage-services-womeninfarming {
-	background-image: url(https://rwnz.tagtheagency.com/wp-content/uploads/2017/11/quad_bike-700x467.jpeg);
+	background-image: url(img/homepage_services_womeninfarming.jpeg);
 }
 
 .fb-column iframe {
