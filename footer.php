@@ -41,7 +41,7 @@
 						</div>
 						<div class="col-sm">
 							<h3><a href="<?php echo get_site_url() ?>/events/">Events</a></h3>
-							
+
 						</div>
 						<div class="col-sm">
 							<h3>Members</h3>
@@ -90,7 +90,6 @@
 
 			</footer>
 			<!-- /footer -->
-			<div><strong>Current template:</strong> <?php get_current_template( true ); ?></div>
 		</div>
 		<!-- /wrapper -->
 

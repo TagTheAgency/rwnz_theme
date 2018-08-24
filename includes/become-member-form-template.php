@@ -34,8 +34,8 @@ function becomeMember(evt) {
 		type: "POST",
 		url: '<?php echo admin_url( "admin-ajax.php" )?>',
 		data: {
-			"action":"rwnz_create_account", 
-			"email" : document.getElementById('signupEmail').value, 
+			"action":"rwnz_create_account",
+			"email" : document.getElementById('signupEmail').value,
 			"firstName" : document.getElementById('signupFirstName').value,
 			"lastName" : document.getElementById('signupLastName').value,
 			"subscription" : document.getElementById('signupSubscription').value
@@ -43,7 +43,7 @@ function becomeMember(evt) {
 		success: function(data, status, xhr) {
 			var response = JSON.parse(data);
 			if (response.id) {
-				console.log('got an id');
+					console.log('got an id');
 					$('#becomeMemberForm').html('<p>An account has been created.  You should receive an email, please follow the link in this email to set your password so you can login.</p>');
 				if (response.subscription) {
 					$('#becomeMemberForm').append('<p>Once you have entered your password you will be able to pay your membership fee by credit card.</p>');
@@ -53,7 +53,10 @@ function becomeMember(evt) {
 			}
 			console.log(data);
 			console.log(JSON.parse(data));
-		} 
+		},
+		fail: function(xhr, textStatus, errorThrown){
+       alert('Sorry, something went wrong!');
+    }
 	});
 
 }
