@@ -872,7 +872,7 @@ if(function_exists("register_field_group")) {
         ),
         'menu_order' => 0,
     ));
-   
+
    	register_field_group(array (
    		'id' => 'acf_shop-members-only',
    		'title' => 'Shop Members Only',
@@ -905,7 +905,7 @@ if(function_exists("register_field_group")) {
    		),
    		'menu_order' => 0,
    	));
-    
+
 }
 
 /*------------------------------------*\
@@ -942,7 +942,7 @@ function bursary_shortcode($atts, $content = null) {
 	$compiled_content .= '</div>';
 
 	$compiled_content .= '<div class="attachment"><a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Apply Online</a> &nbsp; <a class="btn btn-secondary" href="' . wp_get_attachment_url(get_post_meta(get_the_ID(), 'application_form', true)) . '">Download application form</a></div></div>';
-	
+
     $compiled_content .= '<hr></hr>';
 
 
@@ -962,11 +962,11 @@ function board_papers($atts) {
 add_shortcode('board-papers', 'board_papers');
 
 function migrated_image($atts) {
-    
+
     error_log(print_r($atts, true));
     error_log("getting a migrated image " . $atts['src']);
     $image =  get_option("rwnz-migrate-image-".mb_strtolower($atts['src']));
-    
+
     return wp_get_attachment_image($image, 'full');
 
 }
@@ -1107,12 +1107,12 @@ function filter_logged_in_products( $q ) {
                 'key' => 'members_only',
                 'compare' => 'NOT EXISTS'
             )
-            
+
         );
         $q->set('meta_query',$meta_query);
     }
 }
-add_action( 'woocommerce_product_query', 'filter_logged_in_products' ); 
+add_action( 'woocommerce_product_query', 'filter_logged_in_products' );
 
 
 function getBoardPapers() {
@@ -1410,7 +1410,7 @@ function rwnz_create_account_ajax() {
 	$created = json_decode($response);
 
 	//TODO these are hardcoded from the ids in HelloClub - find some way to enumerate them from there instead.
-	$memberships = array('personal' => array('id' => '555bee3e4527879d33c7b31a', 'amount' => 50), 'corporate' => array('id' => '555bee3e4527879d33c7b31b', 'amount' => 100));
+	$memberships = array('personal' => array('id' => '5ac1f2d34a6adf000492ae5b', 'amount' => 50), 'corporate' => array('id' => '555bee3e4527879d33c7b31b', 'amount' => 100));
 
 
 	if ($created->id) {
@@ -1420,7 +1420,11 @@ function rwnz_create_account_ajax() {
 		} else {
 			$subscription_response = rwnz_create_account_subscription($created->id, $memberships[$subscription]);
 		}
-	}
+	} else {
+
+  }
+
+
 
 	$user = array('id' => $created->id, 'subscription' => json_decode($subscription_response));
 	echo json_encode($user);
@@ -1470,13 +1474,17 @@ function rwnz_create_account_subscription($member_id, $membership_id) {
 }
 
 function rwnz_create_account($firstName, $lastName, $email) {
+  $hello = new HelloClub();
+	//get an admin token... TODO this needs to be replaced by an API level token, once HelloClub implements this.
+	$admin = $hello -> admin_oauth();
 
-	$url = get_option('rwnz_hello_club_base_url') . '/user';
+	$url = get_option('rwnz_hello_club_base_url') . '/member';
 
 	$response = wp_remote_post( $url, array(
 		'body'  => json_encode(array('email' => $email, 'firstName' => $firstName, 'lastName' => $lastName)),
 		'headers' => array(
-			'Content-Type' => 'application/json'
+			'Content-Type' => 'application/json',
+      'Authorization' => 'Bearer '. $admin
 		)
 	));
 
@@ -1524,11 +1532,11 @@ function check_members_only() {
     if (is_logged_in() || !get_post_meta(get_the_ID(), 'members_only', true)) {
         return true;
     }
-    
+
     echo '<article class="single-post-container"><h1>Members only</h1><p>You must be logged in to view this page</p></article>';
     get_footer();
     return false;
-    
+
 }
 
 /*
@@ -1601,7 +1609,7 @@ function rwnz_page_header($title, $image_source) {
 			</div>
 		</section>
 	</section>
-	<?php 
+	<?php
 }
 
 function rwnz_archive_image($img_id) {
@@ -1615,7 +1623,7 @@ function rwnz_archive_image($img_id) {
     }
     the_post_thumbnail('');
 	echo '</div>';
-    
+
 }
 
 //* Changing excerpt more - only works where excerpt IS hand-crafted
@@ -1629,7 +1637,7 @@ function manual_excerpt_more( $excerpt ) {
 add_filter( 'get_the_excerpt', 'manual_excerpt_more' );
 
 function get_custom_excerpt($limit, $source = null){
-	
+
 	if($source == "content" ? ($excerpt = get_the_content()) : ($excerpt = get_the_excerpt()));
 	$excerpt = preg_replace(" (\[.*?\])",'',$excerpt);
 	$excerpt = strip_shortcodes($excerpt);
