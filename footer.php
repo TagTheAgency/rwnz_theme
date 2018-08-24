@@ -8,7 +8,7 @@
 					<div class="row">
 						<div class="col-sm">
 							<div class="social">
-								<a href="#" id="fbshare"><i class="fa fa-lg fa-facebook"></i></a><a href="#" id="twittershare"><i class="fa fa-lg fa-twitter"></i></a><a href="#" id="lnshare"><i class="fa fa-lg fa-instagram"></i></a>
+								<a href="http://www.facebook.com/ruralwomennz" id="fbshare"><i class="fa fa-lg fa-facebook"></i></a><a href="http://twitter.com/ruralwomennz" id="twittershare"><i class="fa fa-lg fa-twitter"></i></a>
 							</div>
 						</div>
 						<div class="col-sm btt-button">
@@ -40,11 +40,8 @@
 							</ul>
 						</div>
 						<div class="col-sm">
-							<h3>Events</h3>
-							<ul>
-								<li>Lorem ipsum</li>
-								<li>Lorem ipsum</li>
-							</ul>
+							<h3><a href="<?php echo get_site_url() ?>/events/">Events</a></h3>
+							
 						</div>
 						<div class="col-sm">
 							<h3>Members</h3>
@@ -55,18 +52,14 @@
 						</div>
 						<div class="col-sm">
 							<h3>Shop</h3>
-							<ul>
-								<li>Lorem ipsum</li>
-								<li>Lorem ipsum</li>
-							</ul>
+
 						</div>
 						<div class="col-sm">
-							<h3>Services</h3>
+							<h3><a href="<?php echo get_site_url() ?>/scholarships-and-bursaries/">Services</a></h3>
 							<ul>
-								<li>Directory</li>
-								<li>Business</li>
-								<li>Women in farming</li>
-								<li>Home care</li>
+								<li><a href="<?php echo get_site_url() ?>/scholarships-and-bursaries/business-directory/">Directory</a></li>
+								<li><a href="<?php echo get_site_url() ?>/scholarships-and-bursaries/bursaries/">Bursaries</a></li>
+								<li><a href="<?php echo get_site_url() ?>/scholarships-and-bursaries/women-in-farming/">Women in farming</a></li>
 							</ul>
 						</div>
 						<div class="col-sm">
@@ -118,7 +111,7 @@
 	      <label for="loginUsername">Username</label>
 	      <input id="loginUsername" type="text" style="width: 100%;" name="u" class="form-control"/>
 	      <small id="emailHelp" class="form-text text-muted">Not a member? <a id="createAccountLink" href="<?php echo get_site_url() ?>/join-us">Join today</a>.</small>
-	      
+
 	  </div>
 	  <div class="form-group">
 	      <label for="loginPassword">Password</label>
