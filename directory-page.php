@@ -13,7 +13,7 @@ $terms = get_terms( 'business_directory', array(
 ?>
 
 <?php rwnz_page_header(get_the_title(), get_the_post_thumbnail_url($post, 'page-header')); ?>
-<?php 
+<?php
 	$next_args = array(
 	    'post_type' => 'directory',
 	    'post_status' => 'publish',
@@ -21,7 +21,7 @@ $terms = get_terms( 'business_directory', array(
 	    'order'=>'DESC',
 	    'orderby'=>'date',
 	);
-	
+
 	$query = new WP_Query( $next_args );
 ?>
 
@@ -33,12 +33,12 @@ $terms = get_terms( 'business_directory', array(
 				<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 				<?php the_content(); ?>
 				<?php endwhile; endif; ?>
-				</div>				
+				</div>
 				<div class="page-header-wrapper">
-					<h1>Latest affiliated businesses</h1>
+					<h1>Partners</h1>
 				</div>
 				<?php while($query->have_posts()): $query->the_post(); ?>
-					<?php 
+					<?php
 						$mobile = get_post_meta(get_the_ID(), 'mobile', true);
 						$website = get_post_meta(get_the_ID(), 'website', true);
 						$phone = get_post_meta(get_the_ID(), 'phone', true);
@@ -66,7 +66,7 @@ $terms = get_terms( 'business_directory', array(
 		</div>
 		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
 			<h2>Categories</h2>
-			<?php 
+			<?php
             $term_id = get_queried_object_id();
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 $count = count( $terms );
@@ -82,12 +82,10 @@ $terms = get_terms( 'business_directory', array(
                 echo $term_list;
             }
             ?>
-			
+
 		</div>
 	</div>
 </div>
 
 
 <?php get_footer(); ?>
-
-
