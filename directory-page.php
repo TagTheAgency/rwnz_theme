@@ -66,13 +66,13 @@ $terms = get_terms( 'business_directory', array(
 		</div>
 		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
       <h2>Search the directory</h2>
-      <form class="search" method="get" action="https://ruralwomennz.nz" role="search">
-	    		<section id="search" style="position: relative;">
-                <label for="search-input"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></label>
-                <input type="hidden" name="post_type" value="directory" />
-                <input name="s" id="search-input" class="form-control input-lg" placeholder="Search" autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1" style="background-color: ;">
-    		</section>
-      </form>
+            <form class="search" method="get" action="https://ruralwomennz.nz" role="search" id="directory-search">
+      	    		<section id="search" style="position: relative;">
+                      <label for="search-input-directory"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></label>
+                      <input type="hidden" name="post_type" value="directory" />
+                      <input name="s" id="search-input-directory" class="form-control input-lg" placeholder="Search" autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1" style="background-color: ;">
+          		</section>
+            </form>
 			<h2>Categories</h2>
 			<?php
             $term_id = get_queried_object_id();

@@ -331,6 +331,17 @@ dt {
     border-color: white;
     width: 100px;
 }
+#search-input-directory {
+	width: 80%;
+	padding-left: 25px;
+	padding-right: 0px;
+	border-radius: 5px;
+	border-width: 2px;
+}
+#directory-search {
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
 @media (min-width: 1078px), (max-width: 991px) {
 	#search #search-input, #search .hint {
 	    padding-right: 30px;
@@ -346,6 +357,7 @@ dt {
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 1.4em;
+		color: grey;
 }
 
 .services.subbox {
