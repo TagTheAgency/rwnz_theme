@@ -1,10 +1,10 @@
 <?php get_header(); ?>
 
-<?php 
+<?php
 $terms = get_terms( 'business_directory', array(
     'hide_empty' => false,
 ) );
-?>	
+?>
 
 <div class="container-fluid">
 	<div class="row">
@@ -15,7 +15,7 @@ $terms = get_terms( 'business_directory', array(
 				</div>
 				<?php while(have_posts()): the_post(); ?>
 				<?php the_content(); ?>
-					<?php 
+					<?php
 						$mobile = get_post_meta(get_the_ID(), 'mobile', true);
 						$website = get_post_meta(get_the_ID(), 'website', true);
 						$phone = get_post_meta(get_the_ID(), 'phone', true);
@@ -25,17 +25,17 @@ $terms = get_terms( 'business_directory', array(
 							echo '<img src="'.wp_get_attachment_url($logo).'" style="max-height: 100px"/><br/>';
 						}
 						?>
-						
+
 						Contact: <?php echo get_post_meta(get_the_ID(), 'contact', true);?><br/>
 						Email: <?php echo get_post_meta(get_the_ID(), 'email', true);?><br/>
-						
+
 						<?php
 						if ($mobile) {
 							echo "Mobile: " . $mobile . "<br/>";
 						}
 						if ($website) {
 							if (substr( $website, 0, 4 ) === "http") {
-							
+
 							} else {
 								$website = "http://" . $website;
 							}
@@ -44,14 +44,22 @@ $terms = get_terms( 'business_directory', array(
 						if ($address) {
 							echo "Address: " . $address . "</br>";
 						}
-						
+
 						?>
 				<?php endwhile;?>
 			</article>
 		</div>
 		<div class="col-sm-3 archive-wrapper" style="padding-right: 40px; margin-top: 50px;">
-			<h2>Categories</h2>
-			<?php 
+      <h2>Search the directory</h2>
+            <form class="search" method="get" action="https://ruralwomennz.nz" role="search" id="directory-search">
+      	    		<section id="directory-search-section" style="position: relative;width:200px;">
+                      <label for="search-input-directory"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></label>
+                      <input type="hidden" name="post_type" value="directory" />
+                      <input name="s" id="search-input-directory" class="form-control input-lg" placeholder="Search" autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1" style="background-color: ;">
+          		</section>
+            </form>
+  			<h2>Categories</h2>
+			<?php
             $term_id = get_queried_object_id();
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 $count = count( $terms );
@@ -67,9 +75,9 @@ $terms = get_terms( 'business_directory', array(
                 echo $term_list;
             }
             ?>
-			
+
 		</div>
 	</div>
-</div>	
+</div>
 
 <?php get_footer(); ?>
