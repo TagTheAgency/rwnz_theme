@@ -35,7 +35,7 @@ $terms = get_terms( 'business_directory', array(
 				<?php endwhile; endif; ?>
 				</div>
 				<div class="page-header-wrapper">
-					<h1>Latest affiliated businesses</h1>
+					<h1>Partners</h1>
 				</div>
 				<?php while($query->have_posts()): $query->the_post(); ?>
 					<?php

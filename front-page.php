@@ -24,7 +24,7 @@
 	<div class="col-lg-8 dynamic">
 		<div class="homepage-story">
 		<h1>Events</h1>
-		<?php 
+		<?php
 		$upcomingEvents = $rwnzEvents -> get_next_event();
 		if (empty($upcomingEvents)) {
 			echo '<div class="text">There are no events upcoming.</div>';
@@ -49,11 +49,11 @@
 		    'post_type'         => 'post',
 		    'posts_per_page'    => 1
 		));
-		
-		while ( $the_query->have_posts() ) : $the_query->the_post(); 
+
+		while ( $the_query->have_posts() ) : $the_query->the_post();
 		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_custom_excerpt(300, 'content'));
         endwhile; wp_reset_postdata(); ?>
-		
+
 		</div>
 		<div class="homepage-story">
 		<h1>Submissions</h1>
@@ -62,23 +62,23 @@
 		    'post_type'         => 'submission',
 		    'posts_per_page'    => 1
 		));
-		
-		while ( $the_query->have_posts() ) : $the_query->the_post(); 
+
+		while ( $the_query->have_posts() ) : $the_query->the_post();
 		printf('<h2>%1$s</h2><div class="text">%2$s</div>', get_the_title(), get_custom_excerpt(300, 'content'));
         endwhile; wp_reset_postdata(); ?>
-        
+
 		</div>
 	</div>
 	<div class="col-lg-4">
 		<div class="homepage-links">
-			
+
         		<div class="homepage-link homepage-link-shop split">
         			<a href="shop"><span class="link"></span></a>
         			<h1>Shop</h1>
         		</div>
         		<div class="homepage-link homepage-link-erwa split">
         			<span class="link"><a href="http://erwa.org.nz"></a></span>
-        			<h1>Enterprising Rural Women</h1>
+        			<h1>NZI Rural Women New Zealand Business Awards</h1>
         		</div>
         	</div>
         	<div class="homepage-links">
@@ -96,24 +96,24 @@
         			<a href="join-us"><span class="link"></span></a>
         			<h1>Become a member</h1>
         		</div>
-	
+
 	</div>
 	<div class="col-md-6">
         		<div class="homepage-link homepage-link-memberzone" style="height: 200px">
         			<a href="members"><span class="link"></span></a>
         			<h1>Member Zone</h1>
         		</div>
-        		
+
         	</div>
 </div>
 
 <div class="homepage-row homepage-services">
-	<?php 
+	<?php
 	$menu_name = 'services-menu';
     if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
         $menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
         $menu_items = wp_get_nav_menu_items($menu->term_id);
-        
+
         $services = '<div class="row">';
         $idx = 0;
         foreach ( (array) $menu_items as $key => $menu_item ) {
@@ -126,14 +126,14 @@
             }
             $idx++;
         }
-        
+
         $services .= '</div>';
         echo $services;
     } else {
         echo '<p>Please populate the services menu to list services here.</p>';
     }
     ?>
-	
+
 </div>
 
 <div class="homepage-row homepage-partners">
@@ -159,14 +159,14 @@
 	<h1 class="homepage-section">Social Media</h1>
 	<div class="row">
 		<div class="col-md-6 fb-column">
-<div class="fb-page" data-href="https://www.facebook.com/ruralwomennz" data-tabs="timeline" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/ruralwomennz" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ruralwomennz">Rural Women New Zealand</a></blockquote></div>		
+<div class="fb-page" data-href="https://www.facebook.com/ruralwomennz" data-tabs="timeline" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/ruralwomennz" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ruralwomennz">Rural Women New Zealand</a></blockquote></div>
 </div>
 		<div class="col-md-6">
 <div id="twitter-feed"> <a class="twitter-timeline" href="https://twitter.com/ruralwomennz" data-widget-id="408213811233976320">Tweets by @RuralWomenNZ</a>
 
 </div>
 		</div>
-		
+
 
 	</div>
 </div>
@@ -175,10 +175,10 @@
 
 <div class="row homepage-row">
 	<div class="col-md-8 dynamic">
-		
+
 	</div>
 	<div class="col-md-4">
-	
+
 	</div>
 </div>
 </div>
