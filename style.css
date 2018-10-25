@@ -332,7 +332,6 @@ dt {
     width: 100px;
 }
 #search-input-directory {
-	width: 80%;
 	padding-left: 25px;
 	padding-right: 0px;
 	border-radius: 5px;
@@ -348,7 +347,7 @@ dt {
 	    width: initial;
 	}
 }
-#search label {
+#search label, #directory-search label {
     position: absolute;
     left: 10px;
     top: 1px;
