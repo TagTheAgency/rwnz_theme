@@ -754,8 +754,15 @@ ul.archive li a:hover {
 	filter: grayscale(100%);
 }
 
-.homepage-link-shop {
-	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url(img/homepage_shop_link.jpeg);
+.homepage-link-national-conference {
+	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url(img/homepage_nationalconference_link.png);
+	height: 150px;
+	margin-bottom: 30px;
+}
+
+.homepage-link-annual-summit {
+	background-image:linear-gradient(rgba(95,204,245,0.4),rgba(95,204,245,0.4)),url(img/homepage_annualsummit_link.png);
+	height: 150px;
 }
 
 .homepage-link-erwa {
@@ -967,7 +974,7 @@ article img {
 .pum-theme-lightbox {
 	z-index: 100 !important;
 }
-// puts the google places autocomplete dropdown results above the bootstrap modal 1050 zindex.
+ /* puts the google places autocomplete dropdown results above the bootstrap modal 1050 zindex. */
 .pac-container {
     z-index: 1051 !important;
 }

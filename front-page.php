@@ -21,8 +21,12 @@
 
 <div class="container-fluid">
 <div class="row homepage-row">
+
+<!-- Mission statement goes here -->
+
 	<div class="col-lg-8 dynamic">
 		<div class="homepage-story">
+		
 		<h1>Events</h1>
 		<?php
 		$upcomingEvents = $rwnzEvents -> get_next_event();
@@ -43,7 +47,7 @@
 		?>
 		</div>
 		<div class="homepage-story">
-		<h1>News</h1>
+		<h1>Hello I'm the news</h1>
 		<?php
 		$the_query = new WP_Query(array(
 		    'post_type'         => 'post',
@@ -72,10 +76,18 @@
 	<div class="col-lg-4">
 		<div class="homepage-links">
 
-        		<div class="homepage-link homepage-link-shop split">
-        			<a href="shop"><span class="link"></span></a>
-        			<h1>Shop</h1>
-        		</div>
+				<div>
+					<div class="homepage-link homepage-link-national-conference split">
+						<a href="national-conference"><span class="link"></span></a>
+						<h1>National Conference</h1>
+					</div>
+					
+					<div class="homepage-link homepage-link-annual-summit split">
+						<a href="annual-summit"><span class="link"></span></a>
+						<h1>Annual Summit</h1>
+					</div>
+				</div>
+
         		<div class="homepage-link homepage-link-erwa split">
         			<span class="link"><a href="http://erwa.org.nz"></a></span>
         			<h1>NZI Rural Women New Zealand Business Awards</h1>
