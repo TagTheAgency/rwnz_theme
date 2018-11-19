@@ -47,7 +47,7 @@
 		?>
 		</div>
 		<div class="homepage-story">
-		<h1>Hello I'm the news</h1>
+		<h1>News</h1>
 		<?php
 		$the_query = new WP_Query(array(
 		    'post_type'         => 'post',
@@ -152,13 +152,13 @@
 	<h1 class="homepage-section">Partners</h1>
 	<div class="row">
 		<div class="col-md-3 col-sm-6">
-		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/1.png"/>
+		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/Federated-Farmers-logo.jpg"/>
 		</div>
 		<div class="col-md-3 col-sm-6">
-		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/2.png"/>
+		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/vocus-communications-logo.jpg"/>
 		</div>
 		<div class="col-md-3 col-sm-6">
-		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/3.png"/>
+		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/NZI-logo.png"/>
 		</div>
 		<div class="col-md-3 col-sm-6">
 		<img src="<?php echo get_template_directory_uri(); ?>/img/partners/4.png"/>
@@ -171,11 +171,11 @@
 	<h1 class="homepage-section">Social Media</h1>
 	<div class="row">
 		<div class="col-md-6 fb-column">
-<div class="fb-page" data-href="https://www.facebook.com/ruralwomennz" data-tabs="timeline" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/ruralwomennz" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ruralwomennz">Rural Women New Zealand</a></blockquote></div>
+<div class="fb-page" data-href="https://www.facebook.com/ruralwomennz" data-tabs="timeline" data-width="500" data-height="750" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/ruralwomennz" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ruralwomennz">Rural Women New Zealand</a></blockquote></div>
 </div>
-		<div class="col-md-6">
-<div id="twitter-feed"> <a class="twitter-timeline" href="https://twitter.com/ruralwomennz" data-widget-id="408213811233976320">Tweets by @RuralWomenNZ</a>
-
+<div class="col-md-6">
+		<?php echo do_shortcode('[instagram-feed]'); ?>
+		<div id="twitter-feed" style="margin-top: 30px;"> <a class="twitter-timeline" href="https://twitter.com/ruralwomennz" data-height="300" data-widget-id="408213811233976320">Tweets by @RuralWomenNZ</a>
 </div>
 		</div>
 
