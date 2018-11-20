@@ -77,12 +77,12 @@
 		<div class="homepage-links">
 
 				<div>
-					<div class="homepage-link homepage-link-national-conference split">
+					<div class="homepage-link homepage-link-national-conference">
 						<a href="national-conference-2"><span class="link"></span></a>
 						<h1>National Conference</h1>
 					</div>
 					
-					<div class="homepage-link homepage-link-annual-summit split">
+					<div class="homepage-link homepage-link-annual-summit">
 						<a href="annual-summit"><span class="link"></span></a>
 						<h1>Annual Summit</h1>
 					</div>
