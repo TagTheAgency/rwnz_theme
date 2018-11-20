@@ -78,7 +78,7 @@
 
 				<div>
 					<div class="homepage-link homepage-link-national-conference split">
-						<a href="national-conference"><span class="link"></span></a>
+						<a href="national-conference-2"><span class="link"></span></a>
 						<h1>National Conference</h1>
 					</div>
 					
