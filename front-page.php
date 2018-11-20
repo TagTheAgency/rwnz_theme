@@ -90,7 +90,6 @@
 
         		<div class="homepage-link homepage-link-erwa split">
         			<span class="link"><a href="http://erwa.org.nz"></a></span>
-        			<h1>NZI Rural Women New Zealand Business Awards</h1>
         		</div>
         	</div>
         	<div class="homepage-links">
