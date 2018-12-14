@@ -26,14 +26,17 @@
 
 	<div class="col-lg-8 dynamic">
 		<div class="homepage-story">
-		
+
 		<h1>Events</h1>
 		<?php
 		$upcomingEvents = $rwnzEvents -> get_next_event();
-		if (empty($upcomingEvents)) {
+		if (empty($upcomingEvents->events)) {
 			echo '<div class="text">There are no events upcoming.</div>';
+      echo '<div class="text">For more on our events and to register yours, <a href="events">please click here</a></div>';
+
 		} else {
-			$event = $upcomingEvents[0];
+      error_log($upcomingEvents->events[0]);
+			$event = $upcomingEvents->events[0];
 			$name = $event['name'];
 			$date = $event['date'];
 			$datetime = DateTime::createFromFormat('Y-m-d\TH:i:s+', $date);
@@ -81,7 +84,7 @@
 						<a href="national-conference-2"><span class="link"></span></a>
 						<h1>National Conference</h1>
 					</div>
-					
+
 					<div class="homepage-link homepage-link-annual-summit">
 						<a href="annual-summit"><span class="link"></span></a>
 						<h1>Annual Summit</h1>
