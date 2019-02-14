@@ -979,6 +979,61 @@ function member_name($atts) {
 
 add_shortcode('member-name', 'member_name');
 
+function rwnz_latest_event($atts) {
+  $rwnzEvents = new RWNZEvents();
+  $content = '';
+  $upcomingEvents = $rwnzEvents -> get_next_event();
+  if (empty($upcomingEvents->events)) {
+    $content .= '<div class="text">There are no events upcoming.</div>';
+    $content .= '<div class="text">For more on our events and to register yours, <a href="events">please click here</a></div>';
+
+  } else {
+    error_log($upcomingEvents->events[0]);
+    $event = $upcomingEvents->events[0];
+    $name = $event['name'];
+    $date = $event['date'];
+    $datetime = DateTime::createFromFormat('Y-m-d\TH:i:s+', $date);
+    $datetime->setTimezone(new DateTimeZone('Pacific/Auckland'));
+    $formatted_date = $datetime->format("l dS F");//date("l ddS F", $datetime);
+    $description = $event['description'];
+    $content .= "<h2>$name - $formatted_date</h2>";
+    $content .= "<div class=\"text\">$description</div>";
+  }
+
+  return $content;
+}
+
+add_shortcode('rwnz-latest-event', 'rwnz_latest_event');
+
+function rwnz_latest_news($atts) {
+  $content = '';
+  $the_query = new WP_Query(array(
+      'post_type'         => 'post',
+      'posts_per_page'    => 1
+  ));
+
+  while ( $the_query->have_posts() ) : $the_query->the_post();
+    $content .= '<h2>'.get_the_title().'</h2><div class="text">'.get_custom_excerpt(300, 'content');
+  endwhile;
+  wp_reset_postdata();
+  return $content;
+}
+
+add_shortcode('rwnz-latest-news', 'rwnz_latest_news');
+
+function rwnz_latest_submission($atts) {
+  $content = '';
+  $the_query = new WP_Query(array(
+      'post_type'         => 'submission',
+      'posts_per_page'    => 1
+  ));
+
+  while ( $the_query->have_posts() ) : $the_query->the_post();
+    $content .= '<h2>' . get_the_title() . '</h2><div class="text">' . get_custom_excerpt(300, 'content');
+  endwhile;
+  wp_reset_postdata();
+}
+add_shortcode('rwnz-latest-submission', 'rwnz_latest_submission');
 
 /*------------------------------------*\
 	Meta boxes
@@ -1116,9 +1171,9 @@ add_action( 'woocommerce_product_query', 'filter_logged_in_products' );
 
 
 function getBoardPapers() {
-	if (!is_board_member() && !is_committee_member()) {
-		return "<p>Sorry, you need to be logged in as a board member to access this area.</p>";
-	}
+	//if (!is_board_member() && !is_committee_member()) {
+	//	return "<p>Sorry, you need to be logged in as a board member to access this area.</p>";
+	//}
 
 	$api_key = get_option('rwnz_dropbox_api_token');
 	$url = 'https://api.dropboxapi.com/2/files/list_folder';
@@ -1133,6 +1188,7 @@ function getBoardPapers() {
 			'Content-Type' => 'application/json'
 		)
 	));
+  error_log(json_encode(array('path' => $path)));
 
 	if ( is_wp_error( $response ) ) {
 
@@ -1146,6 +1202,7 @@ function getBoardPapers() {
 		$body = $response['body'];
 		$decoded = json_decode($body);
 		$entries = $decoded -> entries;
+    error_log($body);
 
 		$html .= "<table><tr><th>File</th><th>Download</th><th>Edit</th></tr>";
 		foreach ($entries as $entry) {

@@ -33,7 +33,7 @@
 		<nav class="navbar navbar-expand-lg navbar-dark" style="width: 95%">
 				<a class="navbar-brand"
 					href="<?php echo get_site_url()?>"> <img
-					src="<?php echo get_theme_file_uri('/img/rwnz-logo-white-300.png')?>" 
+					src="<?php echo get_theme_file_uri('/img/rwnz-logo-white-300.png')?>"
 					class="page-logo home" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -54,7 +54,7 @@
                           'container'      => false,
                           'menu_class'     => 'nav navbar-nav',
                           'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                          'depth'          => 1,
+                          'depth'          => 2,
                           'walker'         => new bootstrap_4_walker_nav_menu(),
                           'echo'           => true
                        ) );
