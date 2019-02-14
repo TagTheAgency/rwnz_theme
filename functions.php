@@ -1032,6 +1032,7 @@ function rwnz_latest_submission($atts) {
     $content .= '<h2>' . get_the_title() . '</h2><div class="text">' . get_custom_excerpt(300, 'content').'</div>';
   endwhile;
   wp_reset_postdata();
+  return $content;
 }
 add_shortcode('rwnz-latest-submission', 'rwnz_latest_submission');
 
