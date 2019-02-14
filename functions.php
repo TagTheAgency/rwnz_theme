@@ -1013,7 +1013,7 @@ function rwnz_latest_news($atts) {
   ));
 
   while ( $the_query->have_posts() ) : $the_query->the_post();
-    $content .= '<h2>'.get_the_title().'</h2><div class="text">'.get_custom_excerpt(300, 'content');
+    $content .= '<h2>'.get_the_title().'</h2><div class="text">'.get_custom_excerpt(300, 'content').'</div>';
   endwhile;
   wp_reset_postdata();
   return $content;
@@ -1029,7 +1029,7 @@ function rwnz_latest_submission($atts) {
   ));
 
   while ( $the_query->have_posts() ) : $the_query->the_post();
-    $content .= '<h2>' . get_the_title() . '</h2><div class="text">' . get_custom_excerpt(300, 'content');
+    $content .= '<h2>' . get_the_title() . '</h2><div class="text">' . get_custom_excerpt(300, 'content').'</div>';
   endwhile;
   wp_reset_postdata();
 }
