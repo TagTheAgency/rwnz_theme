@@ -16,7 +16,6 @@ class HelloClub {
 	 * @param $to the to date in Y-m-d format
 	 */
 	function get_events($from, $to) {
-		error_log("Getting events from $from to $to");
 		$url = $this -> baseUrl . '/event?fromDate=' . $from . '&toDate=' . $to;
 
 		$response = wp_remote_get ( $url );
@@ -51,7 +50,7 @@ class HelloClub {
 			return null;
 		}
 
-		return json_decode($body) -> accessToken;
+		return json_decode($body) -> access_token;
 	}
 
 	function forgottenPassword($username) {

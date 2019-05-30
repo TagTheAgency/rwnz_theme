@@ -928,7 +928,8 @@ function bursary_shortcode($atts, $content = null) {
    $bursaries = new WP_Query( array(
 		'orderby'	=> 'menu_order',
 		'post_type'      => 'bursary', // set the post type to page
-		'order'	=> 'asc'
+		'order'	=> 'asc',
+    'posts_per_page' => 100
 	));
 	$compiled_content = '<div class="bursaries">';
 
@@ -1464,14 +1465,12 @@ function rwnz_create_account_ajax() {
 	$hello = new HelloClub();
 
 	$response = rwnz_create_account($_REQUEST['firstName'], $_REQUEST['lastName'], $_REQUEST['email']);
-
-	$created = json_decode($response);
+  $created = json_decode($response);
 
 	//TODO these are hardcoded from the ids in HelloClub - find some way to enumerate them from there instead.
 	$memberships = array('personal' => array('id' => '5ac1f2d34a6adf000492ae5b', 'amount' => 50), 'corporate' => array('id' => '555bee3e4527879d33c7b31b', 'amount' => 100));
 
-
-	if ($created->id) {
+  if ($created->id) {
 		$subscription  = $_REQUEST['subscription'];
 		if ($subscription == 'none') {
 			//
@@ -1536,6 +1535,8 @@ function rwnz_create_account($firstName, $lastName, $email) {
 	//get an admin token... TODO this needs to be replaced by an API level token, once HelloClub implements this.
 	$admin = $hello -> admin_oauth();
 
+//  error_log("Response from admin oauth:");
+//  error_log($admin);
 	$url = get_option('rwnz_hello_club_base_url') . '/member';
 
 	$response = wp_remote_post( $url, array(
@@ -1546,6 +1547,8 @@ function rwnz_create_account($firstName, $lastName, $email) {
 		)
 	));
 
+
+//  error_log($response);
 //	echo (json_encode($response));
 
 	if ( is_wp_error( $response ) ) {
